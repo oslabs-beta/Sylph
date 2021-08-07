@@ -1,6 +1,7 @@
 <script>
 	import { flip } from 'svelte/animate';
-	import { dndzone } from 'svelte-dnd-action';
+	import { dndzone, TRIGGERS } from 'svelte-dnd-action';
+import { element } from 'svelte/internal';
     export let items;
     const flipDurationMs = 300;
   
@@ -8,8 +9,16 @@
 		items = e.detail.items;
 	}
 	function handleDndFinalize(e) {
-		items = e.detail.items;
-	}
+    if (e.detail.info.trigger === TRIGGERS.DROPPED_OUTSIDE_OF_ANY) {
+      const deleteIdx = items.indexOf(e.detail.info);
+      console.log(items);
+      console.log(e.detail.info);
+      console.log(deleteIdx);
+      items = e.detail.items.filter((_, idx) => idx !== deleteIdx);
+    } else {
+      items = e.detail.items;
+    }
+  }
 </script>
 
 <style>
@@ -33,7 +42,11 @@
 </style>
 
 <h2>Sandbox</h2>
-<section use:dndzone={{items, flipDurationMs}} on:consider={handleDndConsider} on:finalize={handleDndFinalize}>
+<section 
+  use:dndzone={{items, flipDurationMs}} 
+  on:consider={handleDndConsider} 
+  on:finalize={handleDndFinalize}
+>
   {#each items as item(item.id)}
 		<div animate:flip="{{duration: flipDurationMs}}">
 			{item.name}	
