@@ -1,18 +1,21 @@
 <script lang="ts">
 	export let name: string;
-	import Editor from './Editor.svelte'
-	import Editor2 from './Editor2.svelte'
-	import Editor3 from './Editor3.svelte'
+  import Sandbox from './Sandbox.svelte';
+  import ComponentMenu from './ComponentMenu.svelte';
+
+  let sandboxItems = [];
+
+  let components = [
+    { id: 1, name: 'div'},
+    { id: 2, name: 'h1'},
+    { id: 3, name: 'section'}
+  ];
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-	<Editor lang='html'/>
-	<Editor2 lang='javascript'/>
-	<Editor3 lang='javascript'/>
-	
-
+	<h1>Sylph</h1>
+	<Sandbox items={sandboxItems} />
+  <ComponentMenu items={components} />
 </main>
 
 <style>
