@@ -10,10 +10,12 @@ import { element } from 'svelte/internal';
 	}
 	function handleDndFinalize(e) {
     if (e.detail.info.trigger === TRIGGERS.DROPPED_OUTSIDE_OF_ANY) {
-      const deleteIdx = items.indexOf(e.detail.info);
-      console.log(items);
-      console.log(e.detail.info);
-      console.log(deleteIdx);
+      let deleteIdx = -1;
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].id === e.detail.info.id) {
+          deleteIdx = i;
+        }
+      }
       items = e.detail.items.filter((_, idx) => idx !== deleteIdx);
     } else {
       items = e.detail.items;
