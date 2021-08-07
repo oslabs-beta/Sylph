@@ -13,5 +13,5 @@
 </style>
 
 <section>
-  Preview Goes Here
+  Component Customizer Goes Here
 </section>
