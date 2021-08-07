@@ -1,5 +1,8 @@
 <script lang="ts">
 	export let name: string;
+
+  import { HSplitPane } from 'svelte-split-pane';
+
   import Sandbox from './Sandbox.svelte';
   import ComponentMenu from './ComponentMenu.svelte';
 
@@ -14,8 +17,22 @@
 
 <main>
 	<h1>Sylph</h1>
-	<Sandbox items={sandboxItems} />
-  <ComponentMenu items={components} />
+  <div class="wrapper">
+    <HSplitPane updateCallback={() => {
+        console.log('HSplitPane Updated!');
+    }}>
+      <left slot="left">
+        <Sandbox 
+          items={sandboxItems} 
+        />
+      </left>
+      <right slot="right">
+        <ComponentMenu 
+          items={components} 
+        />
+      </right>
+    </HSplitPane>
+  </div>
 </main>
 
 <style>
@@ -38,4 +55,17 @@
 			max-width: none;
 		}
 	}
+
+  div.wrapper {
+    width: 95%;
+    height: 400px;
+    margin: auto;
+  }
+
+  left, right, top, down {
+      width: 100%;
+      height: 100%;
+      display: block;
+      text-align: center;
+  }
 </style>

@@ -13,19 +13,21 @@
 
 <style>
 	section {
-		width: 50%;
+		width: 100%;
 		padding: 0.3em;
 		border: 1px solid black;
 		overflow: scroll;
-		height: 120px;
+    text-align: center;
 	}
+
 	div {
-		width: 50%;
+		width: 80%;
 		padding: 0.2em;
 		border: 1px solid blue;
 		margin: 0.15em 0;
 	}
 </style>
+
 <section use:dndzone={{items, flipDurationMs}} on:consider={handleDndConsider} on:finalize={handleDndFinalize}>
 	{#each items as item(item.id)}
 		<div animate:flip="{{duration: flipDurationMs}}">
