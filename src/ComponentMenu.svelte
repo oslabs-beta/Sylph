@@ -19,8 +19,7 @@
 		width: 100%;
     height: 100%;
 		padding: 0.3em;
-		border: 1px solid black;
-		overflow: scroll;
+	  overflow: auto;
 	}
   
 	div {
