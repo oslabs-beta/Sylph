@@ -1,10 +1,18 @@
 <script lang="ts">
 	export let name: string;
+	import Editor from './Editor.svelte'
+	import Editor2 from './Editor2.svelte'
+	import Editor3 from './Editor3.svelte'
 </script>
 
 <main>
-	<h1>Bye {name}!</h1>
+	<h1>Hello {name}!</h1>
 	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+	<Editor lang='html'/>
+	<Editor2 lang='javascript'/>
+	<Editor3 lang='javascript'/>
+	
+
 </main>
 
 <style>
