@@ -57,6 +57,7 @@
 	}
 </style>
 
+<h2>Component Menu</h2>
 <section use:dndzone={{items, flipDurationMs}} on:consider={handleDndConsider} on:finalize={handleDndFinalize}>
   {#each items as item(item.id)}
 		<div animate:flip="{{duration: flipDurationMs}}">
