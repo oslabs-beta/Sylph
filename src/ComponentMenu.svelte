@@ -4,6 +4,7 @@
   export let items;
   const flipDurationMs = 300;
   let shouldIgnoreDndEvents = false;
+  let dropFromOthersDisabled = true;
   
   //code from https://svelte.dev/repl/924b4cc920524065a637fa910fe10193?version=3.24.1
   function handleDndConsider(e) {
@@ -58,7 +59,11 @@
 </style>
 
 <h2>Component Menu</h2>
-<section use:dndzone={{items, flipDurationMs}} on:consider={handleDndConsider} on:finalize={handleDndFinalize}>
+<section 
+  use:dndzone={{items, flipDurationMs, dropFromOthersDisabled }} 
+  on:consider={handleDndConsider} 
+  on:finalize={handleDndFinalize}
+>
   {#each items as item(item.id)}
 		<div animate:flip="{{duration: flipDurationMs}}">
 			{item.name}	
