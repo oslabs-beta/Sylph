@@ -3,6 +3,7 @@
 	import { dndzone } from 'svelte-dnd-action';
     export let items;
     const flipDurationMs = 300;
+  
 	function handleDndConsider(e) {
 		items = e.detail.items;
 	}
@@ -19,8 +20,7 @@
 		width: 100%;
     height: 100%;
 		padding: 0.3em;
-		border: 1px solid black;
-		overflow: scroll;
+		overflow: auto;
     text-align: center;
 	}
 
@@ -32,8 +32,9 @@
 	}
 </style>
 
+<h2>Sandbox</h2>
 <section use:dndzone={{items, flipDurationMs}} on:consider={handleDndConsider} on:finalize={handleDndFinalize}>
-	{#each items as item(item.id)}
+  {#each items as item(item.id)}
 		<div animate:flip="{{duration: flipDurationMs}}">
 			{item.name}	
 		</div>

@@ -13,18 +13,16 @@
   let components = [
     { id: 1, name: 'div'},
     { id: 2, name: 'h1'},
-    { id: 3, name: 'section'}
+    { id: 3, name: 'section'},
   ];
 </script>
 
 <main>
 	<h1>Sylph</h1>
   <div class="wrapper">
-    <VSplitPane topPanelSize="75%" downPanelSize="25%" minTopPaneSize="50px" minDownPaneSize="50px">
+    <VSplitPane topPanelSize="50%" downPanelSize="50%" minTopPaneSize="50px" minDownPaneSize="50px">
         <top slot="top">
-          <HSplitPane updateCallback={() => {
-              console.log('HSplitPane Updated!');
-          }}>
+          <HSplitPane>
             <left slot="left">
               <Sandbox 
                 items={sandboxItems} 
@@ -38,9 +36,7 @@
           </HSplitPane>
         </top>
         <down slot="down">
-          <HSplitPane updateCallback={() => {
-            console.log('HSplitPane Updated!');
-          }}>
+          <HSplitPane>
             <left slot="left">
               <Preview />
             </left>
@@ -51,15 +47,12 @@
         </down>
     </VSplitPane>
   </div>
-  <div class="wrapper">
-  </div>
 </main>
 
 <style>
 	main {
 		text-align: center;
 		padding: 1em;
-		max-width: 240px;
 		margin: 0 auto;
 	}
 
@@ -78,7 +71,7 @@
 
   div.wrapper {
     width: 95%;
-    height: 400px;
+    height: 80vh;
     margin: auto;
   }
 
