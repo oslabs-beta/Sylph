@@ -20,9 +20,9 @@
 
 <main>
   <div class="wrapper">
-    <HSplitPane leftPaneSize="85vw" rightPaneSize="15vw" minLeftPaneSize="50px" minRightPaneSize="50px">
+    <HSplitPane leftPaneSize="85%" rightPaneSize="15%" minLeftPaneSize="50px" minRightPaneSize="50px">
       <left slot="left">
-        <VSplitPane topPanelSize="50vw" downPanelSize="50vw" minTopPaneSize="50px" minDownPaneSize="50px">
+        <VSplitPane topPanelSize="50%" downPanelSize="50%" minTopPaneSize="50px" minDownPaneSize="50px">
           <top slot='top'>
             <Sandbox 
                 items={sandboxItems} 
@@ -34,7 +34,7 @@
         </VSplitPane>
       </left>
       <right slot="right">
-        <VSplitPane topPanelSize="40vw" downPanelSize="60vw" minTopPaneSize="50px" minDownPaneSize="50px">
+        <VSplitPane topPanelSize="40%" downPanelSize="60%" minTopPaneSize="50px" minDownPaneSize="50px">
           <top slot='top'>
             <ComponentMenu 
                 items={components} 
