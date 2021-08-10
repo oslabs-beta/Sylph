@@ -58,7 +58,7 @@
 	}
 </style>
 
-<h2>Component Menu</h2>
+<h6>Component Menu</h6>
 <section 
   use:dndzone={{items, flipDurationMs, dropFromOthersDisabled }} 
   on:consider={handleDndConsider} 
