@@ -73,11 +73,12 @@ console.log(localStorage);
 </div>
 
 <style>
-  *{
+  * {
     text-align: left;
   }
-  .editor-container{
-    height: 100%;
-    width: 100%;
+
+  .editor-container {
+    height: 80%;
+    width: 85%;
   }
 </style>

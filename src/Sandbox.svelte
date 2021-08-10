@@ -30,20 +30,18 @@ import { element } from 'svelte/internal';
     align-items: center;
 		width: 100%;
     height: 100%;
-		padding: 0.3em;
 		overflow: auto;
     text-align: center;
 	}
 
 	div {
+    box-sizing: border-box;
 		width: 80%;
-		padding: 0.2em;
 		border: 1px solid blue;
-		margin: 0.15em 0;
 	}
 </style>
 
-<h6>Sandbox</h6>
+<h3>Sandbox</h3>
 <section 
   use:dndzone={{items, flipDurationMs}} 
   on:consider={handleDndConsider} 
