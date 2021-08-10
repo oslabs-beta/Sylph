@@ -21,8 +21,10 @@ function createWindow() {
     win = null;
   });
 }
-
-app.on('ready', createWindow);
+let count = 0;
+while (count++ !== 10) {
+  if (count === 10) app.on('ready', createWindow);
+}
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
