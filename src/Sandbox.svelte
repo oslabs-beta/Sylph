@@ -1,7 +1,6 @@
 <script>
 	import { flip } from 'svelte/animate';
 	import { dndzone, TRIGGERS } from 'svelte-dnd-action';
-import { element } from 'svelte/internal';
     export let items;
     const flipDurationMs = 300;
   
@@ -30,20 +29,22 @@ import { element } from 'svelte/internal';
     align-items: center;
 		width: 100%;
     height: 100%;
-		padding: 0.3em;
 		overflow: auto;
     text-align: center;
+    padding: 0.3em;
+    box-sizing: border-box;
 	}
 
 	div {
-		width: 80%;
+    margin: 0.15em 0;	
 		padding: 0.2em;
+    width: 80%;
 		border: 1px solid blue;
-		margin: 0.15em 0;
-	}
+    box-sizing: border-box;
+  }
 </style>
 
-<h6>Sandbox</h6>
+<h3>Sandbox</h3>
 <section 
   use:dndzone={{items, flipDurationMs}} 
   on:consider={handleDndConsider} 

@@ -41,6 +41,7 @@
 
 <style>
 	section {
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -51,6 +52,7 @@
 	}
   
 	div {
+    box-sizing: border-box;
 		width: 80%;
     padding: 0.2em;
 		border: 1px solid blue;
@@ -58,7 +60,7 @@
 	}
 </style>
 
-<h6>Component Menu</h6>
+<h3>Component Menu</h3>
 <section 
   use:dndzone={{items, flipDurationMs, dropFromOthersDisabled }} 
   on:consider={handleDndConsider} 
