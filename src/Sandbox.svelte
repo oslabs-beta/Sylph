@@ -1,7 +1,6 @@
 <script>
 	import { flip } from 'svelte/animate';
 	import { dndzone, TRIGGERS } from 'svelte-dnd-action';
-import { element } from 'svelte/internal';
     export let items;
     const flipDurationMs = 300;
   
@@ -32,13 +31,17 @@ import { element } from 'svelte/internal';
     height: 100%;
 		overflow: auto;
     text-align: center;
+    padding: 0.3em;
+    box-sizing: border-box;
 	}
 
 	div {
-    box-sizing: border-box;
-		width: 80%;
+    margin: 0.15em 0;	
+		padding: 0.2em;
+    width: 80%;
 		border: 1px solid blue;
-	}
+    box-sizing: border-box;
+  }
 </style>
 
 <h3>Sandbox</h3>
