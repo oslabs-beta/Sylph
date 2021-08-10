@@ -1,5 +1,6 @@
 <script lang="ts">
 	export let name: string;
+  localStorage.setItem("src/filename.html", "<h1>Hello World!</h1>")
 
   import { HSplitPane, VSplitPane } from 'svelte-split-pane';
 
@@ -18,9 +19,36 @@
 </script>
 
 <main>
-	<h1>Sylph</h1>
+
   <div class="wrapper">
-    <VSplitPane topPanelSize="50%" downPanelSize="50%" minTopPaneSize="50px" minDownPaneSize="50px">
+    <HSplitPane leftPaneSize="85%" rightPaneSize="15%" minLeftPaneSize="50px" minRightPaneSize="50px">
+      <left slot="left">
+        <VSplitPane topPanelSize="50%" downPanelSize="50%" minTopPaneSize="50px" minDownPaneSize="50px">
+          <top slot='top'>
+            <Sandbox 
+                items={sandboxItems} 
+              />
+          </top>
+          <down slot="down">
+            <Preview />
+          </down>
+        </VSplitPane>
+      </left>
+      <right slot="right">
+        <VSplitPane topPanelSize="40%" downPanelSize="60%" minTopPaneSize="50px" minDownPaneSize="50px">
+          <top slot='top'>
+            <ComponentMenu 
+                items={components} 
+              />
+          </top>
+          <down slot="down">
+            <ComponentCustomizer />
+          </down>
+        </VSplitPane>
+      </right>
+    </HSplitPane> 
+
+    <!-- <VSplitPane topPanelSize="50%" downPanelSize="50%" minTopPaneSize="50px" minDownPaneSize="50px">
         <top slot="top">
           <HSplitPane>
             <left slot="left">
@@ -45,15 +73,15 @@
             </right>
           </HSplitPane>
         </down>
-    </VSplitPane>
+    </VSplitPane> -->
   </div>
 </main>
 
 <style>
+  
 	main {
 		text-align: center;
-		padding: 1em;
-		margin: 0 auto;
+		
 	}
 
 	h1 {
@@ -70,8 +98,8 @@
 	}
 
   div.wrapper {
-    width: 95%;
-    height: 80vh;
+    width: 100vw;
+    height: 100vh;
     margin: auto;
   }
 

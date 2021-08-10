@@ -43,7 +43,7 @@ import { element } from 'svelte/internal';
 	}
 </style>
 
-<h2>Sandbox</h2>
+<h6>Sandbox</h6>
 <section 
   use:dndzone={{items, flipDurationMs}} 
   on:consider={handleDndConsider} 

@@ -1,5 +1,5 @@
 <script>
-
+  import Editor from "./Editor.svelte";
 </script>
 
 <style>
@@ -13,5 +13,5 @@
 </style>
 
 <section>
-  Preview Goes Here
+  <Editor lang='html' text='<h1> Hello World </h1>' filename='index.svelte'/>
 </section>
