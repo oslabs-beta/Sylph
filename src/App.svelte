@@ -41,6 +41,7 @@
               />
           </top>
           <down slot="down">
+			  <h5>Dynamically insert working element name</h5>
             <ComponentCustomizer />
           </down>
         </VSplitPane>
