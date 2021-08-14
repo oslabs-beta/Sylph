@@ -1,8 +1,7 @@
 <script lang="ts">
-  import { sandboxTree } from './sandboxStore';
+  import { sandboxElementCounter, sandboxTree } from './sandboxStore';
 	import { flip } from 'svelte/animate';
 	import { dndzone, TRIGGERS } from 'svelte-dnd-action';
-import { loop_guard } from 'svelte/internal';
     export let items;
     const flipDurationMs = 300;
   
@@ -10,8 +9,15 @@ import { loop_guard } from 'svelte/internal';
 	function handleDndConsider(e) {
 		items = e.detail.items;
 	}
+
+  //counter for 
+
 	function handleDndFinalize(e) {
     console.log('sandbox e', e);
+    //when a drop occurs
+    if (e.detail.info.trigger === TRIGGERS.DROPPED_INTO_ZONE) {
+
+    }
     //delete item from sandbox if dropped outside
     if (e.detail.info.trigger === TRIGGERS.DROPPED_OUTSIDE_OF_ANY) {
       let deleteIdx = -1;
@@ -26,7 +32,7 @@ import { loop_guard } from 'svelte/internal';
     }
   }
 
-  //updating tree sandbox functions
+  //Tree Node class & methods for sandbox tree state
   class TreeNode {
     value: any;
     children: any;
@@ -55,10 +61,6 @@ import { loop_guard } from 'svelte/internal';
       this.children.splice(removeIdx, 1);
     }
   }
-  
-  function addNode() { 
-    sandboxTree.update(n => new TreeNode('test'));
-  }
 </script>
 
 <style>
@@ -84,8 +86,8 @@ import { loop_guard } from 'svelte/internal';
 </style>
 
 <h3>Sandbox</h3>
-<button on:click={addNode}>addNode</button>
-{(console.log($sandboxTree))}
+Tree: {(console.log('sandboxTree', $sandboxTree))}
+Counter: {(console.log('sandboxElementCounter', $sandboxElementCounter))}
 
 <section 
   use:dndzone={{items, flipDurationMs}} 
