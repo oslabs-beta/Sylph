@@ -116,7 +116,6 @@
 </style>
 
 <h3>Sandbox</h3>
-State: {(console.log($sandboxTree))}
 
 <section 
   use:dndzone={{items, flipDurationMs}} 
