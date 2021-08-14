@@ -6,7 +6,8 @@
     const flipDurationMs = 300;
   
   //drag n drop functions for regular nodes
-	function handleDndConsider(e) {
+	  //drag n drop functions for regular nodes
+    function handleDndConsider(e) {
 		items = e.detail.items;
 	}
 
@@ -21,20 +22,19 @@
         }
       }
       items = e.detail.items.filter((elem) => elem.id !== itemID);
-      // items = e.detail.items.filter((_, idx) => idx !== deleteIdx);
     } else {
       items = e.detail.items;
     }
   }
 
-  //drag n drop functions for children
+  //drag n drop functions for first level nested children
   function handleDndConsiderChild(iid, e) {
     //find matching item ID in items array
     for (let i = 0; i < items.length; i++) {
       //insert node into children
       if (items[i].id === iid) {
-          items[i].children = e.detail.items;
-        }
+        items[i].children = e.detail.items;
+      }
     }
     items = [...items];
   }
@@ -44,7 +44,7 @@
     //delete item from sandbox if dropped outside
     if (e.detail.info.trigger === TRIGGERS.DROPPED_OUTSIDE_OF_ANY) {
         //find matching item ID in items array
-        for (let i = 0; i < items.length; i++) {
+      for (let i = 0; i < items.length; i++) {
         //remove node from children
         if (items[i].id === iid) {
           items[i].children = e.detail.items.filter((elem) => elem.id !== itemID);
@@ -62,33 +62,66 @@
     }
   }
 
-  //Tree Node class & methods for sandbox tree state
-  class TreeNode {
-    value: any;
-    children: any;
-    parent: any;
-    constructor(value) {
-      this.value = value;
-      this.children = [];
-      this.parent = null;
+  //drag n drop functions for second level nested children
+  function handleDndConsiderChild2(iid, e) {
+    const itemID = e.detail.info.id;
+    //delete item from sandbox if dropped outside
+    if (e.detail.info.trigger === TRIGGERS.DROPPED_OUTSIDE_OF_ANY) {
+      //find matching item ID in items array
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].children) {
+          for (let j = 0; j < items[i].children.length; j++) {
+            //remove node from children
+            if (items[i].children[j].id === iid) {
+              items[i].children[j].children = e.detail.items.filter((elem) => elem.id !== itemID);
+            }
+          }
+        }
+      }
+    } else {
+      //find matching item ID two levels down
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].children) {
+          for (let j = 0; j < items[i].children.length; j++) {
+            if (items[i].children[j].id === iid) {
+              //insert node into children
+              items[i].children[j].children = e.detail.items;
+            }
+          } 
+        }
+      }
+      items = [... items];
     }
+  }
 
-    setParentNode = function(node) {
-      this.parent = node;
-    }
-
-    getParentNode = function() {
-        return this.parent;
-    }
-
-    addChild = function(node) {
-        node.setParentNode(this);
-        this.children[this.children.length] = node;
-    }
-
-    removeChild = function(node) {
-      const removeIdx = this.children.indexOf(node);
-      this.children.splice(removeIdx, 1);
+  function handleDndFinalizeChild2(iid, e) {
+    const itemID = e.detail.info.id;
+    //delete item from sandbox if dropped outside
+    if (e.detail.info.trigger === TRIGGERS.DROPPED_OUTSIDE_OF_ANY) {
+      //find matching item ID in items array
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].children) {
+          for (let j = 0; j < items[i].children.length; j++) {
+            //remove node from children
+            if (items[i].children[j].id === iid) {
+              items[i].children[j].children = e.detail.items.filter((elem) => elem.id !== itemID);
+            }
+          }
+        }
+      }
+    } else {
+      //find matching item ID two levels down
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].children) {
+          for (let j = 0; j < items[i].children.length; j++) {
+            if (items[i].children[j].id === iid) {
+              //insert node into children
+              items[i].children[j].children = e.detail.items;
+            }
+          } 
+        }
+      }
+      items = [... items];
     }
   }
 </script>
@@ -134,6 +167,19 @@
           {#each item.children as child(child.id)}
             <div animate:flip="{{duration: flipDurationMs}}">
               {child.name}
+              {#if child.hasOwnProperty('children')}
+                <section 
+                  use:dndzone={{items:child.children, flipDurationMs}} 
+                  on:consider={(e) => handleDndConsiderChild2(child.id, e)} 
+                  on:finalize={(e) => handleDndFinalizeChild2(child.id, e)}
+                >
+                  {#each child.children as child2(child2.id)}
+                    <div animate:flip="{{duration: flipDurationMs}}">
+                      {child2.name}
+                    </div>
+                  {/each}
+                </section>
+              {/if}
             </div>
           {/each}
         </section>
