@@ -1,5 +1,5 @@
 <script>
-
+import ElementEditor from './components/ElementEditor.svelte'
 </script>
 
 <style>
@@ -13,5 +13,5 @@
 </style>
 
 <section>
-  Component Customizer Goes Here
+<ElementEditor/>
 </section>
