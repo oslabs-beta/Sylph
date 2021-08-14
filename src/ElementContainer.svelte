@@ -1,17 +1,15 @@
 <script lang="ts">
-  import { sandboxTree } from './sandboxStore';
-	import { flip } from 'svelte/animate';
-  import ElementContainer from './ElementContainer.svelte';
+  import { flip } from 'svelte/animate';
 	import { dndzone, TRIGGERS } from 'svelte-dnd-action';
     export let items;
     const flipDurationMs = 300;
   
-  //drag n drop functions 
-  function handleDndConsiderChild(e) {
+    //drag n drop functions 
+  function handleDndConsider(e) {
     items = e.detail.items;
 	}
 
-	function handleDndFinalizeChild(e) {
+	function handleDndFinalize(e) {
     //delete item from sandbox if dropped outside
     // if (e.detail.info.trigger === TRIGGERS.DROPPED_OUTSIDE_OF_ANY) {
     //   let deleteIdx = -1;
@@ -23,12 +21,11 @@
     //   items = e.detail.items.filter((elem) => elem.id !== itemID);
     // } else {
       items = e.detail.items;
-    
   }
 </script>
 
 <style>
-	section {
+  section {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -49,18 +46,16 @@
   }
 </style>
 
-<h3>Sandbox</h3>
-
 <section 
   use:dndzone={{items, flipDurationMs}} 
-  on:consider={handleDndConsiderChild} 
-  on:finalize={handleDndFinalizeChild}
+  on:consider={handleDndConsider} 
+  on:finalize={handleDndFinalize}
 >
   {#each items as item(item.id)}
     <div animate:flip="{{duration: flipDurationMs}}">
       {item.name}
       {#if item.hasOwnProperty('children')}
-        <ElementContainer items={item.children} />
+        <svelte:self items={item.children} />
       {/if}
     </div>
   {/each}

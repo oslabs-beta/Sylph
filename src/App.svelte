@@ -12,9 +12,9 @@
   let sandboxItems = [];
 
   let components = [
-    { id: 0, name: 'div', children: []},
-    { id: 1, name: 'h1'},
-    { id: 2, name: 'section', children: []},
+    { id: 1, name: 'div', children: [] },
+    { id: 2, name: 'h1', children: [] },
+    { id: 3, name: 'section', children: [] },
   ];
 </script>
 
