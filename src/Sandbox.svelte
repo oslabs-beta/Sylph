@@ -1,34 +1,64 @@
 <script lang="ts">
-  import { sandboxElementCounter, sandboxTree } from './sandboxStore';
+  import { sandboxTree } from './sandboxStore';
 	import { flip } from 'svelte/animate';
 	import { dndzone, TRIGGERS } from 'svelte-dnd-action';
     export let items;
     const flipDurationMs = 300;
   
-  //drag n drop functions
+  //drag n drop functions for regular nodes
 	function handleDndConsider(e) {
 		items = e.detail.items;
 	}
 
-  //counter for 
-
 	function handleDndFinalize(e) {
-    console.log('sandbox e', e);
-    //when a drop occurs
-    if (e.detail.info.trigger === TRIGGERS.DROPPED_INTO_ZONE) {
-
-    }
+    const itemID = e.detail.info.id;
     //delete item from sandbox if dropped outside
     if (e.detail.info.trigger === TRIGGERS.DROPPED_OUTSIDE_OF_ANY) {
       let deleteIdx = -1;
       for (let i = 0; i < items.length; i++) {
-        if (items[i].id === e.detail.info.id) {
+        if (items[i].id === itemID) {
           deleteIdx = i;
         }
       }
-      items = e.detail.items.filter((_, idx) => idx !== deleteIdx);
+      items = e.detail.items.filter((elem) => elem.id !== itemID);
+      // items = e.detail.items.filter((_, idx) => idx !== deleteIdx);
     } else {
       items = e.detail.items;
+    }
+  }
+
+  //drag n drop functions for children
+  function handleDndConsiderChild(iid, e) {
+    //find matching item ID in items array
+    for (let i = 0; i < items.length; i++) {
+      //insert node into children
+      if (items[i].id === iid) {
+          items[i].children = e.detail.items;
+        }
+    }
+    items = [...items];
+  }
+
+  function handleDndFinalizeChild(iid, e) {
+    const itemID = e.detail.info.id;
+    //delete item from sandbox if dropped outside
+    if (e.detail.info.trigger === TRIGGERS.DROPPED_OUTSIDE_OF_ANY) {
+        //find matching item ID in items array
+        for (let i = 0; i < items.length; i++) {
+        //remove node from children
+        if (items[i].id === iid) {
+          items[i].children = e.detail.items.filter((elem) => elem.id !== itemID);
+        }
+      }
+    } else {
+      //find matching item ID in items array
+      for (let i = 0; i < items.length; i++) {
+        //insert node into children
+        if (items[i].id === iid) {
+          items[i].children = e.detail.items;
+        }
+      }
+      items = [...items];
     }
   }
 
@@ -86,8 +116,7 @@
 </style>
 
 <h3>Sandbox</h3>
-Tree: {(console.log('sandboxTree', $sandboxTree))}
-Counter: {(console.log('sandboxElementCounter', $sandboxElementCounter))}
+State: {(console.log($sandboxTree))}
 
 <section 
   use:dndzone={{items, flipDurationMs}} 
@@ -95,8 +124,21 @@ Counter: {(console.log('sandboxElementCounter', $sandboxElementCounter))}
   on:finalize={handleDndFinalize}
 >
   {#each items as item(item.id)}
-		<div animate:flip="{{duration: flipDurationMs}}">
-			{item.name}	
-		</div>
+    <div animate:flip="{{duration: flipDurationMs}}">
+      {item.name}
+      {#if item.hasOwnProperty('children')}
+        <section 
+          use:dndzone={{items:item.children, flipDurationMs}} 
+          on:consider={(e) => handleDndConsiderChild(item.id, e)} 
+          on:finalize={(e) => handleDndFinalizeChild(item.id, e)}
+        >
+          {#each item.children as child(child.id)}
+            <div animate:flip="{{duration: flipDurationMs}}">
+              {child.name}
+            </div>
+          {/each}
+        </section>
+      {/if}
+    </div>
 	{/each}
 </section>

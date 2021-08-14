@@ -8,10 +8,10 @@
   
   //code from https://svelte.dev/repl/924b4cc920524065a637fa910fe10193?version=3.24.1
   function handleDndConsider(e) {
-      console.warn(`got consider ${JSON.stringify(e.detail, null, 2)}`);
+      // console.warn(`got consider ${JSON.stringify(e.detail, null, 2)}`);
       const {trigger, id} = e.detail.info;
       if (trigger === TRIGGERS.DRAG_STARTED) {
-          console.warn(`copying ${id}`);
+          // console.warn(`copying ${id}`);
           const idx = items.findIndex(item => item.id === id);
           const newId = `${id}_copy_${Math.round(Math.random() * 100000)}`;
           // the line below was added in order to be compatible with version svelte-dnd-action 0.7.4 and above 
@@ -28,7 +28,7 @@
       }
   }
   function handleDndFinalize(e) {
-      console.warn(`got finalize ${JSON.stringify(e.detail, null, 2)}`);
+      // console.warn(`got finalize ${JSON.stringify(e.detail, null, 2)}`);
       if (!shouldIgnoreDndEvents) {
           items = e.detail.items;
       }
