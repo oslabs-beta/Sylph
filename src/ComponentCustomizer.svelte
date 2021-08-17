@@ -8,10 +8,9 @@ import ElementEditor from './components/ElementEditor.svelte'
     /* display: flex;
     justify-items: center;
     align-items: center;
-    height: auto;
-    width: auto;
-    margin:-10px; */
- }
+    height: 100%;
+    width: 100%;*/
+  }
 </style>
 
 <section>
