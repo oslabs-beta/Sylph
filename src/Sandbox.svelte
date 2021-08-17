@@ -39,7 +39,7 @@
   }
 </style>
 
-<b>{node.name}</b>
+{node.name}
 {#if node.hasOwnProperty("items")}
 	<section use:dndzone={{items:node.items, flipDurationMs}}
 					 on:consider={handleDndConsider} 
