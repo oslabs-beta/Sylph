@@ -9,12 +9,29 @@
   import Preview from './Preview.svelte';
   import ComponentCustomizer from './ComponentCustomizer.svelte'
 
-  let sandboxItems = [];
+  //code based on https://svelte.dev/repl/fe8c9eca04f9417a94a8b6041df77139?version=3.42.1
+  //nesting depth
+  let depth = 100;
 
+  let nodes = {
+    //container for all nodes displayed in sandbox
+		node1: { 
+      id: 'node1',
+      name: 'HTML',
+      items: []
+    },
+    //all component nodes are REQUIRED to be placed below this line
+    //not shown on the page
+    node2: { id: 'node2', name: 'div', items: [] },
+    node3: { id: 'node3', name: 'h1', items: [] },
+    node4: { id: 'node4', name: 'section', items: [] },
+	}
+
+  //all nodes in the component menu
   let components = [
-    { id: 0, name: 'div'},
-    { id: 1, name: 'h1'},
-    { id: 2, name: 'section'},
+    { id: 'node2', name: 'div', items: [] },
+    { id: 'node3', name: 'h1', items: [] },
+    { id: 'node4', name: 'section', items: [] },
   ];
 </script>
 
@@ -24,8 +41,11 @@
       <left slot="left">
         <VSplitPane topPanelSize="50%" downPanelSize="50%" minTopPaneSize="50px" minDownPaneSize="50px">
           <top slot='top'>
+            <h3>Sandbox</h3>
             <Sandbox 
-                items={sandboxItems} 
+                node={nodes.node1}
+                bind:nodes={nodes} 
+                bind:depth={depth}
               />
           </top>
           <down slot="down">
@@ -36,9 +56,11 @@
       <right slot="right">
         <VSplitPane topPanelSize="40%" downPanelSize="60%" minTopPaneSize="50px" minDownPaneSize="50px">
           <top slot='top'>
+            <h3>Component Menu</h3>
             <ComponentMenu 
-                items={components} 
-              />
+              bind:nodes={nodes} 
+              items={components}
+            />
           </top>
           <down slot="down">
 			  <h5>Dynamically insert working element name</h5>
