@@ -13,8 +13,8 @@
   //nesting depth
   let depth = 100;
 
-  //all nodes that are displayed in the sandbox
   let nodes = {
+    //container for all nodes displayed in sandbox
 		node1: { 
       id: 'node1',
       name: 'HTML',
