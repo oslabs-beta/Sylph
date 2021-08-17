@@ -17,7 +17,7 @@
   let nodes = {
 		node1: { 
       id: 'node1',
-      name: 'main',
+      name: 'HTML',
       items: []
     },
     //all component nodes are REQUIRED to be placed below this line
