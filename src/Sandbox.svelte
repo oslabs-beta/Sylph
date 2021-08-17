@@ -11,9 +11,21 @@
 		
 	}
 	function handleDndFinalize(e) {
-    console.log('nodes', nodes);
-		node.items = e.detail.items;
-		nodes = {...nodes};
+    if (e.detail.info.trigger === TRIGGERS.DROPPED_OUTSIDE_OF_ANY) {
+      let deleteIdx = -1;
+      for (let i = 0; i < node.items.length; i++) {
+        if (node.items[i].id === e.detail.info.id) {
+          deleteIdx = i;
+        }
+      }
+      //delete from node items (visible nodes)
+      node.items = e.detail.items.filter((_, idx) => idx !== deleteIdx);
+      //delete from nodes object
+      delete nodes[e.detail.info.id];
+    } else {
+      node.items = e.detail.items;
+		  nodes = {...nodes};
+    }
 	}
 </script>
 

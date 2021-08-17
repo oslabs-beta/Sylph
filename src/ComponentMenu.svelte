@@ -7,7 +7,7 @@ import { flip } from 'svelte/animate';
   let shouldIgnoreDndEvents = false;
   let dropFromOthersDisabled = true;
 
-  // code from https://svelte.dev/repl/924b4cc920524065a637fa910fe10193?version=3.24.1
+  // code courtesy of https://svelte.dev/repl/924b4cc920524065a637fa910fe10193?version=3.24.1
   function handleDndConsider(e) {
       // console.warn(`got consider ${JSON.stringify(e.detail, null, 2)}`);
       const {trigger, id} = e.detail.info;

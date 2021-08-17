@@ -9,6 +9,7 @@
   import Preview from './Preview.svelte';
   import ComponentCustomizer from './ComponentCustomizer.svelte'
 
+  //code based on https://svelte.dev/repl/fe8c9eca04f9417a94a8b6041df77139?version=3.42.1
   //nesting depth
   let depth = 100;
 
