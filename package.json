@@ -39,6 +39,7 @@
     "codemirror": "^5.62.2",
     "sirv-cli": "^1.0.12",
     "svelte-ace": "^1.0.21",
+    "svelte-select": "^4.3.1",
     "svelte-split-pane": "^0.1.2"
   }
 }

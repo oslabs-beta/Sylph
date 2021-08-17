@@ -41,7 +41,7 @@
                 items={components} 
               />
           </top>
-          <down slot="down">
+          <down slot="down" class= 'down'>
 			  <h5>Dynamically insert working element name</h5>
             <ComponentCustomizer />
           </down>
@@ -109,5 +109,8 @@
       height: 100%;
       display: block;
       text-align: center;
+  }
+  .down {
+    overflow-y:auto;
   }
 </style>

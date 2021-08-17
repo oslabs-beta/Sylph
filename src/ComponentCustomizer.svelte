@@ -4,11 +4,13 @@ import ElementEditor from './components/ElementEditor.svelte'
 
 <style>
   section {
-    display: flex;
-    justify-content: center;
+    overflow-y:auto;
+    /* display: flex;
+    justify-items: center;
     align-items: center;
-    height: 100%;
-    width: 100%;
+    height: auto;
+    width: auto;
+    margin:-10px; */
  }
 </style>
 
