@@ -11,6 +11,7 @@
 		
 	}
 	function handleDndFinalize(e) {
+    console.log('nodes', nodes);
 		node.items = e.detail.items;
 		nodes = {...nodes};
 	}
@@ -38,7 +39,7 @@
   }
 </style>
 
-<b>{node.name}</b> 
+<b>{node.name}</b>
 {#if node.hasOwnProperty("items")}
 	<section use:dndzone={{items:node.items, flipDurationMs}}
 					 on:consider={handleDndConsider} 

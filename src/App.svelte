@@ -9,6 +9,7 @@
   import Preview from './Preview.svelte';
   import ComponentCustomizer from './ComponentCustomizer.svelte'
 
+  //nesting depth
   let depth = 100;
 
   //all nodes that are displayed in the sandbox
@@ -18,11 +19,17 @@
       name:'HTML',
       items:[]
     },
-    //all component nodes go below this line
-    //they are not shown on the page but they are REQUIRED
+    //all component nodes are REQUIRED to be placed below this line
+    //not shown on the page
     node2: { id: 'node2', name: 'div', items: [] },
     node3: { id: 'node3', name: 'h1', items: [] },
     node4: { id: 'node4', name: 'section', items: [] },
+    node5: { id: 'node5', name: 'div', items: [] },
+    node6: { id: 'node6', name: 'h1', items: [] },
+    node7: { id: 'node7', name: 'section', items: [] },
+    node8: { id: 'node8', name: 'div', items: [] },
+    node9: { id: 'node9', name: 'h1', items: [] },
+    node10: { id: 'node10', name: 'section', items: [] },
 	}
 
   //all nodes in the component menu
@@ -30,6 +37,12 @@
     { id: 'node2', name: 'div', items: [] },
     { id: 'node3', name: 'h1', items: [] },
     { id: 'node4', name: 'section', items: [] },
+    { id: 'node5', name: 'mike', items: [] },
+    { id: 'node6', name: 'christina', items: [] },
+    { id: 'node7', name: 'deshawn', items: [] },
+    { id: 'node8', name: 'ruby', items: [] },
+    { id: 'node9', name: 'james', items: [] },
+    { id: 'node10', name: 'section', items: [] },
   ];
 </script>
 
@@ -56,9 +69,9 @@
           <top slot='top'>
             <h3>Component Menu</h3>
             <ComponentMenu 
-                items={components}
-                componentList={components}
-              />
+              bind:nodes={nodes} 
+              items={components}
+            />
           </top>
           <down slot="down">
             <ComponentCustomizer />
