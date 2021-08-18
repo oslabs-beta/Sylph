@@ -27,6 +27,7 @@
 		  nodes = {...nodes};
     }
 	}
+  let active = false
 </script>
 
 <style>
@@ -49,24 +50,36 @@
 		border: 1px solid blue;
     box-sizing: border-box;
   }
+  .active {
+    background:crimson;
+    color:darkgray;
+    border:darkmagenta
+  }
 </style>
 
 {node.name}
 {#if node.hasOwnProperty("items")}
 	<section use:dndzone={{items:node.items, flipDurationMs}}
+
 					 on:consider={handleDndConsider} 
 					 on:finalize={handleDndFinalize}>
 		{#if depth>0}
        <!-- WE FILTER THE SHADOW PLACEHOLDER THAT WAS ADDED IN VERSION 0.7.4, filtering this way rather than checking whether 'nodes' have the id became possible in version 0.9.1 -->
 			{#each node.items.filter(item => item.id !== SHADOW_PLACEHOLDER_ITEM_ID) as item(item.id)}
-				<div animate:flip="{{duration: flipDurationMs}}" class="item">
+        <div animate:flip="{{duration: flipDurationMs}}" class:active class="item"
+        on:click= {(e)=> {active = !active; console.log(e.target)}}
+        >
 					<svelte:self 
-            bind:nodes={nodes} 
-            node={nodes[item.id]} 
-            depth={depth-1}
+          bind:nodes={nodes} 
+          node={nodes[item.id]} 
+          depth={depth-1}
           />
-				</div>
+        </div>
+      	
 			{/each}
 		{/if}
 	</section>
 {/if}
+
+<!-- class:active = {active} 
+          on:click= {()=> active = !active} -->

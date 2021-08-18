@@ -41,6 +41,7 @@ import { flip } from 'svelte/animate';
         shouldIgnoreDndEvents = false;
     }
   }
+
 </script>
 
 <style>
@@ -62,10 +63,11 @@ import { flip } from 'svelte/animate';
 		border: 1px solid blue;
 		margin: 0.15em 0;
 	}
+
 </style>
 
 <section 
-  use:dndzone={{items, flipDurationMs, dropFromOthersDisabled }} 
+  use:dndzone={{items, flipDurationMs, dropFromOthersDisabled }}
   on:consider={handleDndConsider} 
   on:finalize={handleDndFinalize}
 >
