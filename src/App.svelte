@@ -23,15 +23,19 @@
     //all component nodes are REQUIRED to be placed below this line
     //not shown on the page
     node2: { id: 'node2', name: 'div', items: [] },
-    node3: { id: 'node3', name: 'h1', items: [] },
+    node3: { id: 'node3', name: 'h1', items: [] }, 
     node4: { id: 'node4', name: 'section', items: [] },
+    node5: { id: 'node5', name: 'img' }
 	}
+
+  console.log(nodes.node1);
 
   //all nodes in the component menu
   let components = [
     { id: 'node2', name: 'div', items: [] },
     { id: 'node3', name: 'h1', items: [] },
     { id: 'node4', name: 'section', items: [] },
+    { id: 'node5', name: 'img'}
   ];
 </script>
 
