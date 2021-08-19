@@ -101,5 +101,6 @@
     height: 100%;
     display: block;
     text-align: center;
+    background-color: white;
   }
 </style>

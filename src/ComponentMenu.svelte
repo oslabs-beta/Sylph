@@ -53,6 +53,7 @@ import { flip } from 'svelte/animate';
     height: 100%;
 		padding: 0.3em;
 	  overflow: auto;
+    background-color: white;
 	}
   
 	div {
