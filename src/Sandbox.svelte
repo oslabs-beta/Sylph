@@ -6,10 +6,11 @@
     export let depth
 	
 	const flipDurationMs = 300;
+
 	function handleDndConsider(e) {
 		node.items = e.detail.items;
-		
 	}
+
 	function handleDndFinalize(e) {
     if (e.detail.info.trigger === TRIGGERS.DROPPED_OUTSIDE_OF_ANY) {
       let deleteIdx = -1;
@@ -60,7 +61,7 @@
        <!-- WE FILTER THE SHADOW PLACEHOLDER THAT WAS ADDED IN VERSION 0.7.4, filtering this way rather than checking whether 'nodes' have the id became possible in version 0.9.1 -->
 			{#each node.items.filter(item => item.id !== SHADOW_PLACEHOLDER_ITEM_ID) as item(item.id)}
 				<div
-          on:click = {() => {
+          on:click|stopPropagation = {(e) => {
             item.fakeAttribute = 'blah';
             console.log(item);
           }} 
