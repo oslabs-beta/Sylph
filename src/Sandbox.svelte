@@ -65,6 +65,21 @@
             item.fakeAttribute = 'blah';
             console.log(item);
           }} 
+          on:keydown|stopPropagation = {(e) => {
+            if (e.key === 'Backspace' || e.key === 'Delete') {
+              console.log(item.id);
+              let deleteIdx = -1;
+              for (let i = 0; i < node.items.length; i++) {
+                if (node.items[i].id === item.id) {
+                  deleteIdx = i;
+                }
+              }
+              //delete from node items (visible nodes)
+              node.items = node.items.filter((_, idx) => idx !== deleteIdx);
+              //delete from nodes object
+              delete nodes[item.id];
+            }
+          }}
           animate:flip="{{duration: flipDurationMs}}" 
           class="item"
         >
