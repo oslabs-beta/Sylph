@@ -1,13 +1,12 @@
-<script lang="ts">
-	export let name: string;
+<script >
   localStorage.setItem("src/filename.html", "<h1>Hello World!</h1>")
 
   import { HSplitPane, VSplitPane } from 'svelte-split-pane';
 
-  import Sandbox from './Sandbox.svelte';
-  import ComponentMenu from './ComponentMenu.svelte';
-  import Preview from './Preview.svelte';
-  import ComponentCustomizer from './ComponentCustomizer.svelte'
+  import Sandbox from './components/Sandbox.svelte';
+  import ComponentMenu from './components/ComponentMenu.svelte';
+  import Preview from './components/Preview.svelte';
+  import ComponentCustomizer from './components/ComponentCustomizer.svelte'
 
   //code based on https://svelte.dev/repl/fe8c9eca04f9417a94a8b6041df77139?version=3.42.1
   //nesting depth

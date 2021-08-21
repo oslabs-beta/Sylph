@@ -6,6 +6,7 @@ import { terser } from 'rollup-plugin-terser';
 import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
 import css from 'rollup-plugin-css-only';
+import copy from 'rollup-plugin-copy';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -35,12 +36,12 @@ function serve() {
 }
 
 export default {
-  input: 'src/main.ts',
+  input: 'src/frontend/main.ts',
   output: {
     sourcemap: true,
     format: 'iife',
     name: 'app',
-    file: 'public/build/bundle.js',
+    file: 'dist/www/build/bundle.js',
   },
   plugins: [
     svelte({
@@ -54,6 +55,11 @@ export default {
     // a separate file - better for performance
     css({ output: 'bundle.css' }),
 
+    // https://www.npmjs.com/package/rollup-plugin-copy
+    copy({
+      targets: [{ src: 'src/frontend/www/**/*', dest: 'dist/www' }],
+    }),
+
     // If you have external dependencies installed from
     // npm, you'll most likely need these plugins. In
     // some cases you'll need additional configuration -
@@ -65,6 +71,7 @@ export default {
     }),
     commonjs(),
     typescript({
+      tsconfig: 'src/frontend/tsconfig.json', // add and check!
       sourceMap: !production,
       inlineSources: !production,
     }),
@@ -75,7 +82,7 @@ export default {
 
     // Watch the `public` directory and refresh the
     // browser on changes when not in production
-    !production && livereload('public'),
+    !production && livereload('dist'),
 
     // If we're building for production (npm run build
     // instead of npm run dev), minify
