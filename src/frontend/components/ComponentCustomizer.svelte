@@ -1,5 +1,5 @@
 <script>
-import ElementEditor from './components/ElementEditor.svelte'
+import ElementEditor from './ElementEditor.svelte'
 </script>
 
 <style>

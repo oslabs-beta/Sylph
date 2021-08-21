@@ -7,9 +7,9 @@
   import "brace/theme/monokai";
 
   //props
-  export let lang;
-  export let text;
-  export let filename;
+  export let lang: string;
+  export let text: string;
+  export let filename: string;
   if(!text){
     switch (lang) {
       case 'javascript':
