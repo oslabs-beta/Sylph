@@ -9,6 +9,7 @@ import ElementEditor from './components/ElementEditor.svelte'
     align-items: center;
     height: 100%;
     width: 100%;
+    background-color: white;
   }
 </style>
 
