@@ -5,11 +5,12 @@ import ElementEditor from './components/ElementEditor.svelte'
 <style>
   section {
     overflow-y:auto;
-    /* display: flex;
+    display: flex;
     justify-items: center;
     align-items: center;
     height: 100%;
-    width: 100%;*/
+    width: 100%;
+    background-color: white;
   }
 </style>
 

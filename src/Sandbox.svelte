@@ -10,10 +10,11 @@
 
 
 	const flipDurationMs = 300;
+
 	function handleDndConsider(e) {
 		node.items = e.detail.items;
-		
 	}
+
 	function handleDndFinalize(e) {
     if (e.detail.info.trigger === TRIGGERS.DROPPED_OUTSIDE_OF_ANY) {
       let deleteIdx = -1;
@@ -70,13 +71,31 @@
 		{#if depth>0}
        <!-- WE FILTER THE SHADOW PLACEHOLDER THAT WAS ADDED IN VERSION 0.7.4, filtering this way rather than checking whether 'nodes' have the id became possible in version 0.9.1 -->
 			{#each node.items.filter(item => item.id !== SHADOW_PLACEHOLDER_ITEM_ID) as item(item.id)}
-				<div on:click={(e) => {
-          active[item.id] = !active[item.id];
+				
+				<div
+        on:click|stopPropagation = {(e) => {
           item.fakeAttribute = 'blah';
+          console.log(item);
+          active[item.id] = !active[item.id];
           activeItem = {id: item.id, name: item.name}
           console.log('ITEM IN EACH' ,item, active[item.id]);
           console.log('active' ,activeItem);
-        }} 
+          }} 
+          on:keydown|stopPropagation = {(e) => {
+            if (e.key === 'Backspace' || e.key === 'Delete') {
+              console.log(item.id);
+              let deleteIdx = -1;
+              for (let i = 0; i < node.items.length; i++) {
+                if (node.items[i].id === item.id) {
+                  deleteIdx = i;
+                }
+              }
+              //delete from node items (visible nodes)
+              node.items = node.items.filter((_, idx) => idx !== deleteIdx);
+              //delete from nodes object
+              delete nodes[item.id];
+            }
+          }}
           animate:flip="{{duration: flipDurationMs}}" 
           class="item"
           class:active={active[item.id]}
