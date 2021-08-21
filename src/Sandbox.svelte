@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { flip } from 'svelte/animate';
 	import { dndzone, SHADOW_PLACEHOLDER_ITEM_ID, TRIGGERS } from 'svelte-dnd-action';
+  import {activeNode} from './stores/store'
 
     export let nodes
     export let node
@@ -75,10 +76,13 @@
 				<div
         on:click|stopPropagation = {(e) => {
           item.fakeAttribute = 'blah';
+          item.selected = !item.selected
           console.log(item);
+          $activeNode = item
+          console.log('ACTIVE NODE ',$activeNode)
           active[item.id] = !active[item.id];
           activeItem = {id: item.id, name: item.name}
-          console.log('ITEM IN EACH' ,item, active[item.id]);
+          console.log('ITEM IN EACH' ,item, 'ACTIVE ID ', active[item.id]);
           console.log('active' ,activeItem);
           }} 
           on:keydown|stopPropagation = {(e) => {

@@ -38,3 +38,6 @@ let nodes = {
 export const nodeStore = writable(nodes, () =>
   console.log('NODESTORE ', nodeStore)
 );
+export const activeNode = writable(null, () =>
+  console.log('ACTIVENODE ', activeNode)
+);

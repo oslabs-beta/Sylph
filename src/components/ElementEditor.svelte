@@ -8,6 +8,10 @@ import { DivElement, ImageElement } from "../classes/HTMLElements.ts";
 import CollapseMenu from "./CollapseMenu.svelte"; 
 import MenuTextField from "./MenuTextField.svelte";
 import SelectDropdown from "./SelectDropdown.svelte";
+import {nodeStore as nodes}  from '../stores/store'
+import {activeNode} from '../stores/store'
+console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
+// const activeNode = Object.entries($nodes).filter (node => node[1].selected)
     const testDiv = new DivElement
     const testImage = new ImageElement
     console.log('TESTDIV', testDiv)
@@ -60,7 +64,12 @@ import SelectDropdown from "./SelectDropdown.svelte";
    
     <!-- <CollapseMenu entry ={attPair}/> -->
     <div class = 'content'>
-
+<div>
+  <p>active node</p>
+ {$activeNode}
+  <p>node tree</p>
+  { JSON.stringify($nodes)}
+</div>
     <table>
       {#each Object.entries(testDiv.attributes.classId) as pairs} 
       <tr>
