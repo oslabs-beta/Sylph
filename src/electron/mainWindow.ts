@@ -1,33 +1,33 @@
 import { app, BrowserWindow } from 'electron';
-import path from "path";
+import path from 'path';
 import EventEmitter from 'events';
 
-const appName = "MEMENTO - Svelte, Electron, TypeScript";
+const appName = 'Slyph';
 
 const defaultSettings = {
-  title:  "MEMENTO - Svelte, Electron, TypeScript",
+  title: 'Slyph',
   width: 854,
-  height: 480
-}
+  height: 480,
+};
 
 class Main {
   window!: BrowserWindow;
-  settings: {[key: string]: any};
+  settings: { [key: string]: any };
   onEvent: EventEmitter = new EventEmitter();
 
-  constructor(settings: {[key: string]: any} | null = null) {
-    this.settings = settings ? {...settings} : {...defaultSettings}
+  constructor(settings: { [key: string]: any } | null = null) {
+    this.settings = settings ? { ...settings } : { ...defaultSettings };
 
-    app.on('ready', () => { 
-      this.window = this.createWindow(); 
-      this.onEvent.emit("window-created");
+    app.on('ready', () => {
+      this.window = this.createWindow();
+      this.onEvent.emit('window-created');
     });
     app.on('window-all-closed', this.onWindowAllClosed);
     app.on('activate', this.onActivate);
   }
 
   createWindow() {
-    let settings = {...this.settings}
+    let settings = { ...this.settings };
     app.name = appName;
     let window = new BrowserWindow({
       ...settings,
@@ -36,13 +36,13 @@ class Main {
         nodeIntegration: false,
         contextIsolation: true,
         enableRemoteModule: true,
-        preload: path.join(__dirname, "preload.js")
-      }
+        preload: path.join(__dirname, 'preload.js'),
+      },
     });
 
     window.loadURL(path.join(__dirname, 'www', 'index.html'));
     window.once('ready-to-show', () => {
-      window.show()
+      window.show();
     });
 
     return window;
@@ -59,7 +59,6 @@ class Main {
       this.createWindow();
     }
   }
-
 }
 
 export default Main;

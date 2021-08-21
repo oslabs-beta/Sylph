@@ -6,10 +6,10 @@
     export let depth
 	
     // make a node Iterface
-    interface node<T> {
-      id: string | number
-      fakeAttribute: string | number
-    }
+    // interface node<T> {
+    //   id: string | number
+    //   fakeAttribute: string | number
+    // }
 
 	const flipDurationMs = 300;
 
