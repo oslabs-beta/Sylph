@@ -5,14 +5,12 @@ svelte bind value to input, set to come state/store obj? -->
 <script>
 import { bind, destroy_block } from "svelte/internal";
 import { DivElement, ImageElement } from "../classes/HTMLElements.ts";
-import { store } from "../stores/store";
 import CollapseMenu from "./CollapseMenu.svelte"; 
 import MenuTextField from "./MenuTextField.svelte";
 import SelectDropdown from "./SelectDropdown.svelte";
     const testDiv = new DivElement
     const testImage = new ImageElement
     console.log('TESTDIV', testDiv)
-    console.log('Store', $store)
     </script>
     
     <style>

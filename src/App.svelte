@@ -1,37 +1,45 @@
 <script lang="ts">
-	export let name: string;
+	// export let name: string;
   localStorage.setItem("src/filename.html", "<h1>Hello World!</h1>")
-
+  import {onMount} from 'svelte';
   import { HSplitPane, VSplitPane } from 'svelte-split-pane';
 
   import Sandbox from './Sandbox.svelte';
   import ComponentMenu from './ComponentMenu.svelte';
   import Preview from './Preview.svelte';
   import ComponentCustomizer from './ComponentCustomizer.svelte'
+  import {nodeStore as nodes}  from './stores/store'
 
   //code based on https://svelte.dev/repl/fe8c9eca04f9417a94a8b6041df77139?version=3.42.1
   //nesting depth
   let depth = 100;
 
-  let nodes = {
-    //container for all nodes displayed in sandbox
-		node1: { 
-      id: 'node1',
-      name: 'HTML',
-      items: []
-    },
-    //all component nodes are REQUIRED to be placed below this line
-    //not shown on the page
-    node2: { id: 'node2', name: 'div', items: [] },
-    node3: { id: 'node3', name: 'h1', items: [] },
-    node4: { id: 'node4', name: 'section', items: [] },
-	}
+  
+
+
+  // let nodes = {
+  //   //container for all nodes displayed in sandbox
+	// 	node1: { 
+  //     id: 'node1',
+  //     name: 'HTML',
+  //     items: []
+  //   },
+  //   //all component nodes are REQUIRED to be placed below this line
+  //   //not shown on the page
+  //   node2: { id: 'node2', name: 'div', items: [] },
+  //   node3: { id: 'node3', name: 'h1', items: [] }, 
+  //   node4: { id: 'node4', name: 'section', items: [] },
+  //   node5: { id: 'node5', name: 'img' }
+	// }
+
+  console.log('NODESTORE IN APP ',$nodes);
 
   //all nodes in the component menu
   let components = [
-    { id: 'node2', name: 'div', items: [] },
-    { id: 'node3', name: 'h1', items: [] },
-    { id: 'node4', name: 'section', items: [] },
+    { id: 'node2', name: 'div', items: [], parentId: null },
+    { id: 'node3', name: 'h1', items: [], parentId: null },
+    { id: 'node4', name: 'section', items: [], parentId: null },
+    { id: 'node5', name: 'img', parentId: null}
   ];
 </script>
 
@@ -43,9 +51,9 @@
           <top slot='top'>
             <h3>Sandbox</h3>
             <Sandbox 
-                node={nodes.node1}
-                bind:nodes={nodes} 
-                bind:depth={depth}
+            node={$nodes.node1}
+            bind:nodes={$nodes} 
+            bind:depth={depth}
               />
           </top>
           <down slot="down">
@@ -58,8 +66,8 @@
           <top slot='top'>
             <h3>Component Menu</h3>
             <ComponentMenu 
-              bind:nodes={nodes} 
-              items={components}
+            bind:nodes={$nodes}  
+             items={components}
             />
           </top>
           <down slot="down" class= 'down'>

@@ -1,10 +1,14 @@
 <script lang="ts">
 	import { flip } from 'svelte/animate';
 	import { dndzone, SHADOW_PLACEHOLDER_ITEM_ID, TRIGGERS } from 'svelte-dnd-action';
+
     export let nodes
     export let node
     export let depth
+    export let activeItem
 	
+
+
 	const flipDurationMs = 300;
 	function handleDndConsider(e) {
 		node.items = e.detail.items;
@@ -27,7 +31,7 @@
 		  nodes = {...nodes};
     }
 	}
-  let active = false
+  let active = {}
 </script>
 
 <style>
@@ -52,8 +56,8 @@
   }
   .active {
     background:crimson;
-    color:darkgray;
-    border:darkmagenta
+    color:white;
+    border:darkmagenta solid 2px;
   }
 </style>
 
@@ -66,11 +70,19 @@
 		{#if depth>0}
        <!-- WE FILTER THE SHADOW PLACEHOLDER THAT WAS ADDED IN VERSION 0.7.4, filtering this way rather than checking whether 'nodes' have the id became possible in version 0.9.1 -->
 			{#each node.items.filter(item => item.id !== SHADOW_PLACEHOLDER_ITEM_ID) as item(item.id)}
-        <div animate:flip="{{duration: flipDurationMs}}" class:active class="item"
-        on:click= {(e)=> {active = !active; console.log(e.target)}}
+				<div on:click={(e) => {
+          active[item.id] = !active[item.id];
+          item.fakeAttribute = 'blah';
+          activeItem = {id: item.id, name: item.name}
+          console.log('ITEM IN EACH' ,item, active[item.id]);
+          console.log('active' ,activeItem);
+        }} 
+          animate:flip="{{duration: flipDurationMs}}" 
+          class="item"
+          class:active={active[item.id]}
         >
-					<svelte:self 
-          bind:nodes={nodes} 
+        <svelte:self 
+        bind:nodes={nodes} 
           node={nodes[item.id]} 
           depth={depth-1}
           />
