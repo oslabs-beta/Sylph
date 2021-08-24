@@ -3,12 +3,17 @@ svelte bind value to input, set to come state/store obj? -->
 <!-- tabs for different types of attributes -->
 
 <script>
-    import { bind } from "svelte/internal";
+import { bind, destroy_block } from "svelte/internal";
 import { DivElement, ImageElement } from "../classes/HTMLElements.ts";
+import MenuTextField from "./MenuTextField.svelte";
+import SelectDropdown from "./SelectDropdown.svelte";
+import {nodeStore as nodes}  from '../stores/store'
+import {activeNode} from '../stores/store'
+console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
+// const activeNode = Object.entries($nodes).filter (node => node[1].selected)
     const testDiv = new DivElement
     const testImage = new ImageElement
-    console.log('TESTDIV ',testDiv)
-    
+    console.log('TESTDIV', testDiv)
     </script>
     
     <style>
@@ -16,7 +21,12 @@ import { DivElement, ImageElement } from "../classes/HTMLElements.ts";
         display: grid;
         /* grid-template-columns: 40% 60%; */
         width: 90%;
-        
+        height: 100%;
+        justify-content: center;
+      }
+      .drop {
+        justify-content: center;
+        width: 80%;
       }
       .editor-input {
           display:grid;
@@ -36,64 +46,66 @@ import { DivElement, ImageElement } from "../classes/HTMLElements.ts";
       ul {
           list-style: none;
       }
+      hr {
+        width: 'auto';
+      }
+      /* .card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.card:hover {
+  box-shadow: 0 4px 4px 0 rgba(0,0,0,0.2);
+} */
     </style>
     
     <!-- bind:value={}  -->
-    <ul>
-  {#each Object.entries(testImage.attributes) as attPair}
-  <li>
-    <div class='edit-container'>
-    <form class="content">
-     <div class = "editor-input">  
-      <label>{attPair[0]}: </label>
-      <input type="text" bind:value={attPair[1]}
-      />
-    </div>
-</li>
-    {/each}
-</ul>
-    <!-- <div class='edit-container'>
-    <form class="content">
-     <div class = "editor-input">  
-      <label>Class Name: </label>
-      <input type="text" 
-      />
-    </div>
-    <div class='editor-input'>
-      <label>ID:</label>
-      <input type="text" 
-      />
-    </div>
-    <div class='editor-input'>
-      <label>Display:</label>
-      <select placeHolder = 'select display' name="display" list="display-type">
-          
-          <option value="block">block</option>
-          <option value="inline block">inline block </option>
-          <option value="flex"> flex </option>
-          <option value="grid"> grid </option>
-          
-        </select>
-    </div>
-    <div class='editor-input'>
-        <label>Height:</label>
-        <input type="text" 
-        />
-    </div>
-    <div class='editor-input'>
-        <label>Width:</label>
-        <input type="text" 
-        />
-    </div>
-    <div class='editor-input'>
-        <label>Text:</label>
-        <input type="text" 
-        />
-    </div> -->
+   
+    <!-- <CollapseMenu entry ={attPair}/> -->
+    <div class = 'content'>
+<div>
+  <h3>active node</h3>
+ {JSON.stringify($activeNode)}
+  <h3>node tree</h3>
+  { JSON.stringify($nodes)}
+</div>
+<br>
 
-    <!-- </form>
-    </div> -->
-    <!-- <p> -->
-        <!-- {JSON.stringify($user, 0, 2)}</p> -->
     
-    
+   
+        <MenuTextField /> 
+
+    <!-- <table>
+      {#each Object.entries(testDiv.attributes.classId) as pairs} 
+      <tr>
+       
+        <MenuTextField itemPair ={pairs}/>
+      
+      </tr>
+      {/each}
+      <tr>
+        <td>
+          <hr>
+        </td>
+      </tr>
+      {#each Object.entries(testDiv.attributes.general) as pairs} 
+      <tr>
+        {#if pairs[0] === 'display'}
+        <SelectDropdown 
+       
+        value = {pairs} 
+        items ={[
+          {value:'block', label:'block'},
+          {value:'inline-block', label:'inline-block'},
+          {value:'flex', label:'flex'},
+          {value:'grid', label:'grid'},
+        ]}/>
+        {:else}
+        <MenuTextField itemPair ={pairs}/>
+        {/if}
+      </tr>
+      {/each}
+</table> -->
+  </div>
+
+   

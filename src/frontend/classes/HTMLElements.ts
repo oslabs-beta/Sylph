@@ -1,180 +1,338 @@
 export class DivElement {
     type:string = 'div'
-    id: ''  
-    className:''
     attributes:any= {
-       
-        padding:'', 
-        margin:'',
-        display:'',
-        color:'',
-        backgroundColor:''
+        parentId: '',
+        classId:{
+            id: '',  
+            className:''
+        },
+        general: {
+            height: '',
+            width: '',
+            backgroundColor: '',
+            color: '',
+            text: '',
+            fontSize: '',
+            fontWeight: '',
+            display: '',
+            padding:'', 
+            margin:'',
+         
+        },
     }
     children:any = {
 
     }
 }
 export class H1Element {
+    parentId: ''
     type:string ='h1'
-    id:'' 
-    className:''
-    attributes:{
-     
-        padding:'', 
-        margin:'',
-        display:'',
-        color:'',
-        backgroundColor:''
+    attributes:any= {
+        parentId: '',
+        classId:{
+            id: '',  
+            className:''
+        },
+        general: {
+            height: '',
+            width: '',
+            backgroundColor: '',
+            color: '',
+            text: '',
+            fontSize: '',
+            fontWeight: '',
+            display: '',
+            padding:'', 
+            margin:'',
+         
+        },
     }
+ 
    
 }
 export class H2Element {
     type:string ='h2'
-    id:'' 
-    className:'' 
-    attributes:{
-        padding:'', 
-        margin:'',
-        display:'',
-        color:'',
-        backgroundColor:''
+    parentId: ''
+    attributes:any= {
+        parentId: '',
+        classId:{
+            id: '',  
+            className:''
+        },
+        general: {
+            height: '',
+            width: '',
+            backgroundColor: '',
+            color: '',
+            text: '',
+            fontSize: '',
+            fontWeight: '',
+            display: '',
+            padding:'', 
+            margin:'',
+         
+        },
     }
+   
   
 }
 export class ParagraphElement {
     type:string ='p'
-    id:'' 
-    className:'' 
-    attributes:{
-        padding:'', 
-        margin:'',
-        display:'',
-        color:'',
-        backgroundColor:''
+    parentId: ''
+    attributes:any= {
+        parentId: '',
+        classId:{
+            id: '',  
+            className:''
+        },
+        general: {
+            height: '',
+            width: '',
+            backgroundColor: '',
+            color: '',
+            text: '',
+            fontSize: '',
+            fontWeight: '',
+            display: '',
+            padding:'', 
+            margin:'',
+         
+        },
     }
-    children: {
+    children:any = {
 
     }
 }
 export class FormElement {
     type:string ='form'
-    id:'' 
-    className:'' 
-    attributes:{
-        padding:'', 
-        margin:'',
-        display:'',
-        color:'',
-        backgroundColor:''
+    parentId: ''
+    attributes:any= {
+        parentId: '',
+        classId:{
+            id: '',  
+            className:''
+        },
+        general: {
+            height: '',
+            width: '',
+            backgroundColor: '',
+            color: '',
+            text: '',
+            fontSize: '',
+            fontWeight: '',
+            display: '',
+            padding:'', 
+            margin:'',
+         
+        },
     }
-    children: {
+    children:any = {
 
     }
 }
 export class InputElement {
     type:string =''
-    id:'' 
-    className:'string' 
-    attributes:{
-        padding:'', 
-        margin:'',
-        display:'',
-        color:'',
-        backgroundColor:''
+    attributes:any= {
+        parentId: '',
+        classId:{
+            id: '',  
+            className:''
+        },
+        general: {
+            inputType: '',
+            height: '',
+            width: '',
+            backgroundColor: '',
+            color: '',
+            text: '',
+            fontSize: '',
+            fontWeight: '',
+            display: '',
+            padding:'', 
+            margin:'',
+         
+        },
     }
-    children: {
+    children:any = {
 
     }
 }
 export class LabelElement {
     type:string ='label'
-    id:'' 
-    className:'' 
-    attributes:{
-        padding:'', 
-        margin:'',
-        display:'',
-        color:'',
-        backgroundColor:''
+    attributes:any= {
+        parentId: '',
+        classId:{
+            id: '',  
+            className:''
+        },
+        general: {
+            height: '',
+            width: '',
+            backgroundColor: '',
+            color: '',
+            text: '',
+            fontSize: '',
+            fontWeight: '',
+            display: '',
+            padding:'', 
+            margin:'',
+         
+        },
     }
-    children: {
+    children:any = {
 
     }
 }
 export class ButtonElement {
     type:string ='button'
-    id:'' 
-    className:'string' 
-    attributes:{
-        padding:'', 
-        margin:'',
-        display:'',
-        color:'',
-        backgroundColor:''
+    attributes:any= {
+        parentId: '',
+        classId:{
+            id: '',  
+            className:''
+        },
+        general: {
+            height: '',
+            width: '',
+            backgroundColor: '',
+            color: '',
+            text: '',
+            fontSize: '',
+            fontWeight: '',
+            display: '',
+            padding:'', 
+            margin:'',
+         
+        },
     }
-    children: {
+    children:any = {
 
     }
 }
-export class LinkElement {
-    type:string ='link'
-    id:'' 
-    className:'' 
-    attributes:{
-        padding:'', 
-        margin:'',
-        display:'',
-        color:'',
-        backgroundColor:''
+export class AnchorElement {
+    type:string ='a'
+    attributes:any= {
+        parentId: '',
+        classId:{
+            id: '',  
+            className:''
+        },
+        general: {
+            href: '',
+            height: '',
+            width: '',
+            backgroundColor: '',
+            color: '',
+            text: '',
+            fontSize: '',
+            fontWeight: '',
+            display: '',
+            padding:'', 
+            margin:'',
+         
+        },
     }
-    children: {
-
-    }
+   
 }
 export class ImageElement {
     type:string ='image'
-    id:''
-    className: ''
-    attributes:any={
-        href:'src = ""',
-        padding:'', 
-        margin:'',
-        display:'',
+    attributes:any= {
+        parentId: '',
+        classId:{
+            id: '',  
+            className:''
+        },
+        general: {
+            href: 'src = ""',
+            height: '',
+            width: '',
+            backgroundColor: '',
+            color: '',
+            text: '',
+            fontSize: '',
+            fontWeight: '',
+            display: '',
+            padding:'', 
+            margin:'',
+         
+        },
     }
-    children: {
-
-    }
+  
 }
 export class UnorderedListElement {
     type:string ='ul'
-    id:'' 
-    className:''
-    attributes:{
-        padding:'', 
-        margin:'',
-        display:'',
-        color:'',
-        backgroundColor:''
+    attributes:any= {
+        parentId: '',
+        classId:{
+            id: '',  
+            className:''
+        },
+        general: {
+            height: '',
+            width: '',
+            backgroundColor: '',
+            color: '',
+            text: '',
+            fontSize: '',
+            fontWeight: '',
+            display: '',
+            padding:'', 
+            margin:'',
+         
+        },
     }
-    children: {
+    children:any = {
 
     }
 }
 export class OrderedListElement {
-    
+    attributes:any= {
+        parentId: '',
+        classId:{
+            id: '',  
+            className:''
+        },
+        general: {
+            height: '',
+            width: '',
+            backgroundColor: '',
+            color: '',
+            text: '',
+            fontSize: '',
+            fontWeight: '',
+            display: '',
+            padding:'', 
+            margin:'',
+         
+        },
+    }
+    children:any = {
+
+    }
 }
 export class ListElement {
     type:string ='li'
-    id:'' 
-    className:'string' 
-    attributes:{
-        padding:'', 
-        margin:'',
-        display:'',
-        color:'',
-        backgroundColor:''
+    attributes:any= {
+        parentId: '',
+        classId:{
+            id: '',  
+            className:''
+        },
+        general: {
+            height: '',
+            width: '',
+            backgroundColor: '',
+            color: '',
+            text: '',
+            fontSize: '',
+            fontWeight: '',
+            display: '',
+            padding:'', 
+            margin:'',
+         
+        },
     }
-    children: {
+    children:any = {
 
     }
 }
