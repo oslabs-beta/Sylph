@@ -1,11 +1,12 @@
+  
 import { app, BrowserWindow } from 'electron';
 import path from 'path';
 import EventEmitter from 'events';
 
-const appName = 'Slyph';
+const appName = 'Sylph';
 
 const defaultSettings = {
-  title: 'Slyph',
+  title: 'Sylph',
   width: 854,
   height: 480,
 };
