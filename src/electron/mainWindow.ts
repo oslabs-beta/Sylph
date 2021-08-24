@@ -40,7 +40,7 @@ class Main {
       },
     });
 
-    window.loadURL(path.join(__dirname, 'www', 'index.html'));
+    window.loadFile(path.join(__dirname, 'www', 'index.html'));
     window.once('ready-to-show', () => {
       window.show();
     });
