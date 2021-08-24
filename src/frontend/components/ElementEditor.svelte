@@ -5,7 +5,6 @@ svelte bind value to input, set to come state/store obj? -->
 <script>
 import { bind, destroy_block } from "svelte/internal";
 import { DivElement, ImageElement } from "../classes/HTMLElements.ts";
-import CollapseMenu from "./CollapseMenu.svelte"; 
 import MenuTextField from "./MenuTextField.svelte";
 import SelectDropdown from "./SelectDropdown.svelte";
 import {nodeStore as nodes}  from '../stores/store'
@@ -65,12 +64,18 @@ console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
     <!-- <CollapseMenu entry ={attPair}/> -->
     <div class = 'content'>
 <div>
-  <p>active node</p>
- {$activeNode}
-  <p>node tree</p>
+  <h3>active node</h3>
+ {JSON.stringify($activeNode)}
+  <h3>node tree</h3>
   { JSON.stringify($nodes)}
 </div>
-    <table>
+<br>
+
+    
+   
+        <MenuTextField /> 
+
+    <!-- <table>
       {#each Object.entries(testDiv.attributes.classId) as pairs} 
       <tr>
        
@@ -100,7 +105,7 @@ console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
         {/if}
       </tr>
       {/each}
-</table>
+</table> -->
   </div>
 
    

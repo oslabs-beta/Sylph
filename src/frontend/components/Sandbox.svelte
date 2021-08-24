@@ -1,22 +1,26 @@
 <script lang="ts">
 	import { flip } from 'svelte/animate';
 	import { dndzone, SHADOW_PLACEHOLDER_ITEM_ID, TRIGGERS } from 'svelte-dnd-action';
-  import {activeNode} from './stores/store'
+  import {activeNode} from '../stores/store'
 
     export let nodes
     export let node
     export let depth
     export let activeItem
 	
- 
+    // make a node Iterface
+    // interface node<T> {
+    //   id: string | number
+    //   fakeAttribute: string | number
+    // }
 
 	const flipDurationMs = 300;
 
-	function handleDndConsider(e) {
+	function handleDndConsider(e:any) {
 		node.items = e.detail.items;
 	}
 
-	function handleDndFinalize(e) {
+	function handleDndFinalize(e:any) {
     if (e.detail.info.trigger === TRIGGERS.DROPPED_OUTSIDE_OF_ANY) {
       let deleteIdx = -1;
       for (let i = 0; i < node.items.length; i++) {

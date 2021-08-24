@@ -1,14 +1,14 @@
-<script lang="ts">
-	// export let name: string;
+<script >
   localStorage.setItem("src/filename.html", "<h1>Hello World!</h1>")
   import {onMount} from 'svelte';
   import { HSplitPane, VSplitPane } from 'svelte-split-pane';
 
-  import Sandbox from './Sandbox.svelte';
-  import ComponentMenu from './ComponentMenu.svelte';
-  import Preview from './Preview.svelte';
-  import ComponentCustomizer from './ComponentCustomizer.svelte'
+  import Sandbox from './components/Sandbox.svelte';
+  import ComponentMenu from './components/ComponentMenu.svelte';
+  import Preview from './components/Preview.svelte';
+  import ComponentCustomizer from './components/ComponentCustomizer.svelte'
   import {nodeStore as nodes}  from './stores/store'
+  import {activeNode}  from './stores/store'
 
   //code based on https://svelte.dev/repl/fe8c9eca04f9417a94a8b6041df77139?version=3.42.1
   //nesting depth
@@ -71,7 +71,8 @@
             />
           </top>
           <down slot="down" class= 'down'>
-			  <h5>Dynamically insert working element name</h5>
+			  <h5>{$activeNode?.name  || 'Select Element to Edit'}</h5>
+			  <h6>{$activeNode?.id || ''}</h6>
             <ComponentCustomizer />
           </down>
         </VSplitPane>
