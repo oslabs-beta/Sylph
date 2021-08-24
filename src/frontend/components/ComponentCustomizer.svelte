@@ -4,8 +4,9 @@ import ElementEditor from './ElementEditor.svelte'
 
 <style>
   section {
+    overflow-y:auto;
     display: flex;
-    justify-content: center;
+    justify-items: center;
     align-items: center;
     height: 100%;
     width: 100%;
