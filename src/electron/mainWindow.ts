@@ -1,12 +1,11 @@
-  
 import { app, BrowserWindow } from 'electron';
 import path from 'path';
 import EventEmitter from 'events';
 
-const appName = 'Sylph';
+const appName = 'Slyph';
 
 const defaultSettings = {
-  title: 'Sylph',
+  title: 'Slyph',
   width: 854,
   height: 480,
 };
@@ -40,10 +39,8 @@ class Main {
         preload: path.join(__dirname, 'preload.js'),
       },
     });
-    window.loadFile(
-      path.join(__dirname,'www','index.html'),
- 
-  );   
+  
+    window.loadFile(path.join(__dirname,'www','index.html'));   
    // window.loadURL(path.join(__dirname, 'www', 'index.html'));
     console.log('PATH ',path.join(__dirname, 'www', 'index.html'));
 
@@ -62,9 +59,12 @@ class Main {
   }
 
   onActivate() {
-    if (!this.window) {
+    if (BrowserWindow.getAllWindows().length === 0) {
       this.createWindow();
     }
+    // if (!this.window) {
+    //   this.createWindow();
+    // }
   }
 }
 

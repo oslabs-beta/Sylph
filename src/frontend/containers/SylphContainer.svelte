@@ -33,10 +33,10 @@
 
   //all nodes in the component menu
   let components = [
-    { id: 'node2', name: 'div', items: [], parentId: null, selected: false },
-    { id: 'node3', name: 'h1', items: [], parentId: null, selected: false },
-    { id: 'node4', name: 'section', items: [], parentId: null, selected: false },
-    { id: 'node5', name: 'img', parentId: null, selected: false}
+    { id: 'node2', name: 'div', items: [], styles:{}, selected: false },
+    { id: 'node3', name: 'h1', items: [], styles:{}, selected: false },
+    { id: 'node4', name: 'section', items: [], styles:{}, selected: false },
+    { id: 'node5', name: 'img', styles:{},  selected: false}
   ];
 </script>
 
@@ -68,8 +68,10 @@
             />
           </top>
           <down slot="down" class= 'down'>
-			  <h5>{$activeNode?.name  || 'Select Element to Edit'}</h5>
+            <div class = 'active-element'>
+			  <h3>{$activeNode?.name  || 'Select Element to Edit'}</h3>
 			  <h6>{$activeNode?.id || ''}</h6>
+        </div>
             <ComponentCustomizer />
           </down>
         </VSplitPane>
@@ -108,5 +110,12 @@
   }
   .down {
     overflow-y:auto;
+  }
+  .active-element {
+    
+    background-color: #4A2C40;
+    padding: 10px;
+    color: snow;
+
   }
 </style>

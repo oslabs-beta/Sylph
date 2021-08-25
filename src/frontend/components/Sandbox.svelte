@@ -2,6 +2,7 @@
 	import { flip } from 'svelte/animate';
 	import { dndzone, SHADOW_PLACEHOLDER_ITEM_ID, TRIGGERS } from 'svelte-dnd-action';
   import {activeNode} from '../stores/store'
+  import {clickOutside} from '../directives/clickOutside'
 
     export let nodes
     export let node
@@ -79,7 +80,7 @@
 				
 				<div
         on:click|stopPropagation = {(e) => {
-          item.fakeAttribute = 'blah';
+          console.log('NODES ', nodes.node1)
           item.selected = !item.selected
           console.log(item);
           $activeNode = item
@@ -89,6 +90,10 @@
           console.log('ITEM IN EACH' ,item, 'ACTIVE ID ', active[item.id]);
           console.log('active' ,activeItem);
           }} 
+          use:clickOutside
+          on:clickOutside = {() => {
+            console.log('CLICKOUTSIDE ACTIVE', active)
+            active={}}}
           on:keydown|stopPropagation = {(e) => {
             if (e.key === 'Backspace' || e.key === 'Delete') {
               console.log(item.id);
@@ -107,12 +112,19 @@
           animate:flip="{{duration: flipDurationMs}}" 
           class="item"
           class:active={active[item.id]}
-        >
-        <svelte:self 
+          >
+          <!-- class:active={$activeNode} -->
+          <svelte:self 
+          bind:nodes={nodes} 
+          node={node.items[node.items.map((e) => e.id).indexOf(item.id)]} 
+          depth={depth-1}
+        />
+       
+          <!-- <svelte:self 
         bind:nodes={nodes} 
           node={nodes[item.id]} 
           depth={depth-1}
-          />
+          /> -->
         </div>
       	
 			{/each}

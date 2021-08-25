@@ -30,14 +30,16 @@ let nodes = {
   },
   //all component nodes are REQUIRED to be placed below this line
   //not shown on the page
-  node2: { id: 'node2', name: 'div', items: [] },
-  node3: { id: 'node3', name: 'h1', items: [] },
-  node4: { id: 'node4', name: 'section', items: [] },
-  node5: { id: 'node5', name: 'img' },
+  // node2: { id: 'node2', name: 'div', items: [], temp: true },
+  // node3: { id: 'node3', name: 'h1', items: [], temp: true },
+  // node4: { id: 'node4', name: 'section', items: [], temp: true },
+  // node5: { id: 'node5', name: 'img', temp: true },
 };
+
 export const nodeStore = writable(nodes, () =>
   console.log('NODESTORE ', nodeStore)
 );
+
 export const activeNode = writable(null, () =>
   console.log('ACTIVENODE ', activeNode)
 );
