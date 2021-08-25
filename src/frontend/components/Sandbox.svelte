@@ -110,7 +110,7 @@
         >
         <svelte:self 
         bind:nodes={nodes} 
-          node={nodes[item.id]} 
+          node={node.items[node.items.map((e) => e.id).indexOf(item.id)]} 
           depth={depth-1}
           />
         </div>

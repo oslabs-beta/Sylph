@@ -14,6 +14,21 @@ console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
     const testDiv = new DivElement
     const testImage = new ImageElement
     console.log('TESTDIV', testDiv)
+
+    const toString = (node)=> {
+		return `<${node.name} ${node.attributes ? Object.entries(node?.attributes)
+			.map(([key, value]) => `${key}=${`"${value}"`}`)
+			.join(' '): ''}
+			${
+				true // this.isContainer
+					? '>\n\t' +
+					  node.items.map((child) => toString(child)).join('\n') +
+					  `</${node.name}>`
+					: '/>'
+			}
+		`;
+  }
+
     </script>
     
     <style>
@@ -68,6 +83,10 @@ console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
  {JSON.stringify($activeNode)}
   <h3>node tree</h3>
   { JSON.stringify($nodes)}
+</div>
+<div>
+  <h3>toString </h3>
+  {toString($nodes.node1)}
 </div>
 <br>
 
