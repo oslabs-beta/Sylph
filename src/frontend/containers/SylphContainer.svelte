@@ -48,10 +48,10 @@
           <top slot='top'>
             <h3>Sandbox</h3>
             <Sandbox 
-            node={$nodes.node1}
-            bind:nodes={$nodes} 
-            bind:depth={depth}
-              />
+              node={$nodes.node1}
+              bind:nodes={$nodes} 
+              bind:depth={depth}
+            />
           </top>
           <down slot="down">
             <Preview />
@@ -63,8 +63,8 @@
           <top slot='top'>
             <h3>Component Menu</h3>
             <ComponentMenu 
-            bind:nodes={$nodes}  
-             items={components}
+              bind:nodes={$nodes}  
+              items={components}
             />
           </top>
           <down slot="down" class= 'down'>
