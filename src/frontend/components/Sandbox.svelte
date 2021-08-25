@@ -22,14 +22,10 @@
 
 	function handleDndFinalize(e:any) {
     if (e.detail.info.trigger === TRIGGERS.DROPPED_OUTSIDE_OF_ANY) {
-      let deleteIdx = -1;
-      for (let i = 0; i < node.items.length; i++) {
-        if (node.items[i].id === e.detail.info.id) {
-          deleteIdx = i;
-        }
-      }
-      //delete from node items
+      let deleteIdx = node.items.map((e) => e.id).indexOf(e.detail.info.id);
+      //filter from node items
       node.items = e.detail.items.filter((_, idx) => idx !== deleteIdx);
+      nodes = {...nodes}
     } else {
       node.items = e.detail.items;
 		  nodes = {...nodes};
@@ -68,36 +64,31 @@
 {node.name}
 {#if node.hasOwnProperty("items")}
 	<section use:dndzone={{items:node.items, flipDurationMs}}
-
 					 on:consider={handleDndConsider} 
-					 on:finalize={handleDndFinalize}>
+					 on:finalize={handleDndFinalize}
+  >
 		{#if depth>0}
        <!-- WE FILTER THE SHADOW PLACEHOLDER THAT WAS ADDED IN VERSION 0.7.4, filtering this way rather than checking whether 'nodes' have the id became possible in version 0.9.1 -->
 			{#each node.items.filter(item => item.id !== SHADOW_PLACEHOLDER_ITEM_ID) as item(item.id)}
 				
 				<div
-        on:click|stopPropagation = {(e) => {
-          item.fakeAttribute = 'blah';
-          item.selected = !item.selected
-          console.log(item);
-          $activeNode = item
-          console.log('ACTIVE NODE ',$activeNode)
-          active[item.id] = !active[item.id];
-          activeItem = {id: item.id, name: item.name}
-          console.log('ITEM IN EACH' ,item, 'ACTIVE ID ', active[item.id]);
-          console.log('active' ,activeItem);
+          on:click|stopPropagation = {(e) => {
+            item.fakeAttribute = 'blah';
+            item.selected = !item.selected
+            console.log(item);
+            $activeNode = item
+            console.log('ACTIVE NODE ',$activeNode)
+            active[item.id] = !active[item.id];
+            activeItem = {id: item.id, name: item.name}
+            console.log('ITEM IN EACH' ,item, 'ACTIVE ID ', active[item.id]);
+            console.log('active' ,activeItem);
           }} 
           on:keydown|stopPropagation = {(e) => {
             if (e.key === 'Backspace' || e.key === 'Delete') {
-              console.log(item.id);
-              let deleteIdx = -1;
-              for (let i = 0; i < node.items.length; i++) {
-                if (node.items[i].id === item.id) {
-                  deleteIdx = i;
-                }
-              }
-              //delete from node items
+              let deleteIdx = node.items.map((e) => e.id).indexOf(item.id);
+              //filter from node items
               node.items = node.items.filter((_, idx) => idx !== deleteIdx);
+              nodes = {...nodes}
             }
           }}
           animate:flip="{{duration: flipDurationMs}}" 
