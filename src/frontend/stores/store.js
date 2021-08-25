@@ -28,12 +28,6 @@ let nodes = {
     name: 'HTML',
     items: [],
   },
-  //all component nodes are REQUIRED to be placed below this line
-  //not shown on the page
-  node2: { id: 'node2', name: 'div', items: [] },
-  node3: { id: 'node3', name: 'h1', items: [] },
-  node4: { id: 'node4', name: 'section', items: [] },
-  node5: { id: 'node5', name: 'img' },
 };
 export const nodeStore = writable(nodes, () =>
   console.log('NODESTORE ', nodeStore)

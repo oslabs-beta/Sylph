@@ -62,7 +62,10 @@ class Main {
   }
 
   onActivate() {
-    if (!this.window) {
+    // if (!this.window) {
+    //   this.createWindow();
+    // }
+    if (BrowserWindow.getAllWindows().length === 0) {
       this.createWindow();
     }
   }

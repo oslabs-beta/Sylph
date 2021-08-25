@@ -109,10 +109,10 @@
           class:active={active[item.id]}
         >
         <svelte:self 
-        bind:nodes={nodes} 
-          node={nodes[item.id]} 
+          bind:nodes={nodes} 
+          node={node.items[node.items.map((e) => e.id).indexOf(item.id)]} 
           depth={depth-1}
-          />
+        />
         </div>
       	
 			{/each}
