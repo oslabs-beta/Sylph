@@ -25,7 +25,7 @@ let nodes = {
   //container for all nodes displayed in sandbox
   node1: {
     id: 'node1',
-    name: 'HTML',
+    name: 'body',
     items: [],
   },
 };
