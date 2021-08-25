@@ -28,10 +28,8 @@
           deleteIdx = i;
         }
       }
-      //delete from node items (visible nodes)
+      //delete from node items
       node.items = e.detail.items.filter((_, idx) => idx !== deleteIdx);
-      //delete from nodes object
-      delete nodes[e.detail.info.id];
     } else {
       node.items = e.detail.items;
 		  nodes = {...nodes};
@@ -98,10 +96,8 @@
                   deleteIdx = i;
                 }
               }
-              //delete from node items (visible nodes)
+              //delete from node items
               node.items = node.items.filter((_, idx) => idx !== deleteIdx);
-              //delete from nodes object
-              delete nodes[item.id];
             }
           }}
           animate:flip="{{duration: flipDurationMs}}" 
