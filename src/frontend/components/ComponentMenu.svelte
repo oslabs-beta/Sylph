@@ -1,11 +1,29 @@
 <script>
 import { flip } from 'svelte/animate';
   import { dndzone, TRIGGERS, SHADOW_ITEM_MARKER_PROPERTY_NAME } from 'svelte-dnd-action';
+  // import {nodeState} from './stores/store'
+  // import {componentState} from './stores/store'
+
   export let items;
+  //  let items;
   export let nodes;
+  // let nodes;
   const flipDurationMs = 300;
   let shouldIgnoreDndEvents = false;
   let dropFromOthersDisabled = true;
+
+  // nodeState.subscribe(value =>{
+  //     console.log('VALUE CU',value)
+  //     nodes = value
+  //     console.log('nodes CU',nodes)
+    
+  // } )
+  // componentState.subscribe(value =>{
+  //     console.log('VALUE comp',value)
+  //     items = value
+  //     console.log('items comp',items)
+    
+  // } )
 
   // code courtesy of https://svelte.dev/repl/924b4cc920524065a637fa910fe10193?version=3.24.1
   function handleDndConsider(e) {
@@ -41,6 +59,7 @@ import { flip } from 'svelte/animate';
         shouldIgnoreDndEvents = false;
     }
   }
+
 </script>
 
 <style>
@@ -63,10 +82,11 @@ import { flip } from 'svelte/animate';
 		border: 1px solid blue;
 		margin: 0.15em 0;
 	}
+
 </style>
 
 <section 
-  use:dndzone={{items, flipDurationMs, dropFromOthersDisabled }} 
+  use:dndzone={{items, flipDurationMs, dropFromOthersDisabled }}
   on:consider={handleDndConsider} 
   on:finalize={handleDndFinalize}
 >
