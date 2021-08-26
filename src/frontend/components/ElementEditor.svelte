@@ -20,7 +20,7 @@ console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
 			.map(([key, value]) => `${key}=${`"${value}"`}`)
 			.join(' '): ''}
 			${
-				true // this.isContainer
+				node.hasOwnProperty('items') // check if the node element is self closing tag
 					? '>\n\t' +
 					  node.items.map((child) => toString(child)).join('\n') +
 					  `</${node.name}>`
