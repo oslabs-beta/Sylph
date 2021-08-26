@@ -30,23 +30,20 @@ import { flip } from 'svelte/animate';
       // console.warn(`got consider ${JSON.stringify(e.detail, null, 2)}`);
       const {trigger, id} = e.detail.info;
       if (trigger === TRIGGERS.DRAG_STARTED) {
-          // console.warn(`copying ${id}`);
-          const idx = items.findIndex(item => item.id === id);
-          const newId = `${id}_copy_${Math.round(Math.random() * 100000)}`;
-          //add new item to sandbox nodes
-          nodes[newId] = { ...items[idx], id: newId }  
-          console.log(nodes);
-          // the line below was added in order to be compatible with version svelte-dnd-action 0.7.4 and above 
-          e.detail.items = e.detail.items.filter(item => !item[SHADOW_ITEM_MARKER_PROPERTY_NAME]);
-          e.detail.items.splice(idx, 0, {...items[idx], id: newId});
-          items = e.detail.items;
-          shouldIgnoreDndEvents = true;
+        // console.warn(`copying ${id}`);
+        const idx = items.findIndex(item => item.id === id);
+        const newId = `${id}_copy_${Math.round(Math.random() * 100000)}`;
+        // the line below was added in order to be compatible with version svelte-dnd-action 0.7.4 and above 
+        e.detail.items = e.detail.items.filter(item => !item[SHADOW_ITEM_MARKER_PROPERTY_NAME]);
+        e.detail.items.splice(idx, 0, {...items[idx], id: newId});
+        items = e.detail.items;
+        shouldIgnoreDndEvents = true;
       }
       else if (!shouldIgnoreDndEvents) {
-          items = e.detail.items;
+        items = e.detail.items;
       }
       else {
-          items = [...items];
+        items = [...items];
       }
   }
   function handleDndFinalize(e) {

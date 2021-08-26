@@ -25,13 +25,15 @@ let nodes = {
   //container for all nodes displayed in sandbox
   node1: {
     id: 'node1',
-    name: 'HTML',
+    name: 'body',
     items: [],
   },
 };
+
 export const nodeStore = writable(nodes, () =>
   console.log('NODESTORE ', nodeStore)
 );
+
 export const activeNode = writable(null, () =>
   console.log('ACTIVENODE ', activeNode)
 );
