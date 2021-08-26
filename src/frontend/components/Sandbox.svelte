@@ -7,6 +7,7 @@
     export let node
     export let depth
     export let activeItem
+    let divColor
 	
     // make a node Iterface
     // interface node<T> {
@@ -48,14 +49,16 @@
 	}
 
 	div {
-    margin: 0.15em 0;	
+    margin: 0.15em 0;
+    background-color: #c1c8e4;	
 		padding: 0.2em;
+    min-height: 80px;
     width: 80%;
 		border: 1px solid blue;
     box-sizing: border-box;
   }
   .active {
-    background:crimson;
+    background:#8860d0;
     color:white;
     border:darkmagenta solid 2px;
   }
@@ -72,17 +75,15 @@
 			{#each node.items.filter(item => item.id !== SHADOW_PLACEHOLDER_ITEM_ID) as item(item.id)}
 				
 				<div
-          on:click|stopPropagation = {(e) => {
-            item.fakeAttribute = 'blah';
-            item.selected = !item.selected
-            console.log(item);
-            $activeNode = item
-            console.log('ACTIVE NODE ',$activeNode)
-            active[item.id] = !active[item.id];
-            activeItem = {id: item.id, name: item.name}
-            console.log('ITEM IN EACH' ,item, 'ACTIVE ID ', active[item.id]);
-            console.log('active' ,activeItem);
+        on:click|stopPropagation = {(e) => {
+          $activeNode = item
+          item.selected = (item === $activeNode && true)
+          console.log('ACTIVE NODE ',$activeNode)
+          console.log(active)
+          active[item.id] = !active[item.id];
+      
           }} 
+     
           on:keydown|stopPropagation = {(e) => {
             if (e.key === 'Backspace' || e.key === 'Delete') {
               let deleteIdx = node.items.map((e) => e.id).indexOf(item.id);
@@ -93,8 +94,10 @@
           }}
           animate:flip="{{duration: flipDurationMs}}" 
           class="item"
-          class:active={active[item.id]}
-        >
+          class:active={item === $activeNode && item.selected}
+          >
+          <!-- class:active={active[item.id]} -->
+          <!-- class:active={active} -->
         <svelte:self 
           bind:nodes={nodes} 
           node={node.items[node.items.map((e) => e.id).indexOf(item.id)]} 
