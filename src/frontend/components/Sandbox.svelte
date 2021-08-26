@@ -81,7 +81,6 @@
           console.log('ACTIVE NODE ',$activeNode)
           console.log(active)
           active[item.id] = !active[item.id];
-      
           }} 
      
           on:keydown|stopPropagation = {(e) => {
