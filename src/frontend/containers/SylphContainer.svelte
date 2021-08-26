@@ -33,10 +33,10 @@
 
   //all nodes in the component menu
   let components = [
-    { id: 'node2', name: 'div', items: [], styles:{}, selected: false },
-    { id: 'node3', name: 'h1', items: [], styles:{}, selected: false },
-    { id: 'node4', name: 'section', items: [], styles:{}, selected: false },
-    { id: 'node5', name: 'img', styles:{},  selected: false}
+    { id: 'node2', name: 'div', items: [], attributes:{}, styles:{}, selected: false },
+    { id: 'node3', name: 'h1', items: [], attributes:{}, styles:{}, selected: false },
+    { id: 'node4', name: 'section', items: [], attributes:{}, styles:{}, selected: false },
+    { id: 'node5', name: 'img', attributes:{}, styles:{},  selected: false}
   ];
 </script>
 
