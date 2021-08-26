@@ -67,11 +67,11 @@
               items={components}
             />
           </top>
-          <down slot="down" class= 'down'>
+          <down slot="down">
             <div class = 'active-element'>
-			  <h3>{$activeNode?.name  || 'Select Element to Edit'}</h3>
-			  <h6>{$activeNode?.id || ''}</h6>
-        </div>
+              <h3>{$activeNode?.name  || 'Select Element to Edit'}</h3>
+              <h6>{$activeNode?.id || ''}</h6>
+            </div>
             <ComponentCustomizer />
           </down>
         </VSplitPane>
@@ -108,14 +108,14 @@
     text-align: center;
     background-color: white;
   }
-  .down {
-    overflow-y:auto;
-  }
-  .active-element {
-    
-    background-color: #4A2C40;
-    padding: 10px;
-    color: snow;
 
+  down {
+    overflow-y: hidden;
+  }
+
+  .active-element {
+    background-color: #4A2C40;
+    padding: .5rem;
+    color: snow;
   }
 </style>

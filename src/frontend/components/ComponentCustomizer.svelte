@@ -4,7 +4,7 @@ import ElementEditor from './ElementEditor.svelte'
 
 <style>
   section {
-    overflow-y:auto;
+    overflow-y: auto;
     display: flex;
     justify-items: center;
     align-items: center;
@@ -15,5 +15,5 @@ import ElementEditor from './ElementEditor.svelte'
 </style>
 
 <section>
-<ElementEditor/>
+  <ElementEditor/>
 </section>
