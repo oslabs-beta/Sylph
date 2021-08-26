@@ -62,7 +62,7 @@
                     <tr >
                         <td class = "editor-input">
                             <p>
-                                Display :
+                                display :
                             </p>
                         </td>
                         <td>
@@ -108,42 +108,38 @@
     </td> -->
 
 <style>
-       
-   
-        
-      
-      .editor-input {
-          display:grid;
-          font-size:.6em;
-          /* grid-template-columns: 40% 60%; */
-          /* grid-column-gap: 10px; */
-          /* align-items: center; */
-          border-radius: 5px;
-          /* justify-content: center; */
-          width: 100%;
-          padding:10px;
-      }
-      .table-header {
-          display:flex;
-          padding: 10px;
-          justify-content: center;
-          outline:1px solid black;
-          width: auto;
-          background-color: #7D3780;
-          color: whitesmoke;
-      }
-      /* tbody {
-          border: 1px solid black;
-      } */
-     .dropdown {
+  .editor-input {
+      display:grid;
+      font-size:.6em;
+      /* grid-template-columns: 40% 60%; */
+      /* grid-column-gap: 10px; */
+      /* align-items: center; */
+      border-radius: 5px;
+      /* justify-content: center; */
+      width: 100%;
+      padding:10px;
+  }
+  .table-header {
+      display:flex;
+      padding: 10px;
+      justify-content: center;
+      outline:1px solid black;
+      width: auto;
+      background-color: #7D3780;
+      color: whitesmoke;
+  }
+  /* tbody {
+      border: 1px solid black;
+  } */
+  .dropdown {
     display: grid;
     justify-content: center;
-     }
-     .attribute-form {
-         display: flex;
-         flex-direction: column;
-     }
-     .submit-btn {
-         margin: 10px;
-     }
-    </style>
+  }
+  .attribute-form {
+      display: flex;
+      flex-direction: column;
+  }
+  .submit-btn {
+      margin: 10px;
+  }
+</style>

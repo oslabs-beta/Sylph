@@ -115,7 +115,7 @@
 
   .active-element {
     background-color: #4A2C40;
-    padding: .5rem;
+    padding: 10px;
     color: snow;
   }
 </style>

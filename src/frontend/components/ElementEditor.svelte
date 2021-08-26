@@ -30,7 +30,7 @@ svelte bind value to input, set to come state/store obj? -->
 <div class = 'content'>
   <div>
     <h3>active node</h3>
-  {JSON.stringify($activeNode)}
+    {JSON.stringify($activeNode)}
     <!-- <h3>node 1 HTML</h3>
     { JSON.stringify($nodes.node1)} -->
     <h3>node tree</h3>
