@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, Menu, MenuItem } from 'electron';
 import path from 'path';
 import EventEmitter from 'events';
 
@@ -19,13 +19,16 @@ class Main {
 
   constructor(settings: { [key: string]: any } | null = null) {
     this.settings = settings ? { ...settings } : { ...defaultSettings };
-
+    
     app.on('ready', () => {
       this.window = this.createWindow();
       this.onEvent.emit('window-created');
     });
     app.on('window-all-closed', this.onWindowAllClosed);
     app.on('activate', this.onActivate);
+  }
+  createMenu () {
+
   }
 
   createWindow ()  {

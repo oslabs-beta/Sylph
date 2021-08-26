@@ -1,8 +1,10 @@
 <script>
     import SelectDropdown from './SelectDropdown.svelte'
     import {activeNode} from '../stores/store'
+import { each } from 'svelte/internal'
     const styles = [ 'height', 'width', 'background-color', 'color',
-    'font-size','font-weight', 'display', 'padding', 'margin']
+    'font-size','font-weight','padding', 'margin', 'display']
+    const attributes = ['alt','href', 'lang', 'name','src','title', 'value']
     let attributeForm
     const handleSubmit = ()=>{
        attributeForm.reset()
@@ -27,7 +29,7 @@
                     </td>
                     <td>
                         <div class = "editor-input">  
-                            <input type="text" value = '' on:change={(e)=>$activeNode.id = e.target.value}/>
+                            <input type="text" value = '' on:change={(e)=>$activeNode.attributes.id = e.target.value}/>
                         </div>
                     </td>
                 </tr>
@@ -38,28 +40,42 @@
                         </td>
                         <td>
                             <div class = "editor-input">  
-                                <input type="text" value = '' on:change={(e)=>$activeNode.class = e.target.value}/>
+                                <input type="text" value = '' on:change={(e)=>$activeNode.attributes.class = e.target.value}/>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <div class = "editor-input">  
-                                <p>innerHTML: </p> 
+                                <p>innerText: </p> 
                             </td>
                             <td>
                                 <div class = "editor-input">  
-                                    <input type="text" value = '' on:change={(e)=>$activeNode.innerHTML = e.target.value}/>
+                                    <input type="text" value = '' on:change={(e)=>$activeNode.innerText = e.target.value}/>
                                 </div>
                             </td>
                         </tr>
+                        {#each attributes as attribute }
+                            
+                        <tr>
+                            <td>
+                                <div class = "editor-input">  
+                                    <p>{attribute}: </p> 
+                                </td>
+                                <td>
+                                    <div class = "editor-input">  
+                                        <input type="text" value = '' on:change={(e)=>$activeNode.attributes[{attribute}] = e.target.value}/>
+                                    </div>
+                                </td>
+                            </tr>
+                            {/each}
                     </tbody>
                     <tr class=table-header>
                         <th >
                             Styles
                         </th>
                     </tr>
-                    <tr >
+                    <!-- <tr >
                         <td class = "editor-input">
                             <p>
                                 Display :
@@ -78,7 +94,7 @@
                             ]}/>
                             </td>
                           
-                        </tr>
+                        </tr> -->
         {#each styles as style }   
         <tr>
        
@@ -96,16 +112,7 @@
     {/each}
 </table>
 </form>
-<!-- <td>
-    <div class = "editor-input">  
-    <p>{itemPair[0]}: </p> 
-</td>
-   <td>
-       <div class = "editor-input">  
-           <input type="text" bind:value={itemPair[1]}
-           />
-        </div>
-    </td> -->
+
 
 <style>
        

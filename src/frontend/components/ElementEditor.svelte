@@ -5,7 +5,6 @@ svelte bind value to input, set to come state/store obj? -->
 <script>
 import { DivElement, ImageElement } from "../classes/HTMLElements.ts";
 import MenuTextField from "./MenuTextField.svelte";
-import SelectDropdown from "./SelectDropdown.svelte";
 import {nodeStore as nodes, activeNode}  from '../stores/store'
 console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
     const testDiv = new DivElement
