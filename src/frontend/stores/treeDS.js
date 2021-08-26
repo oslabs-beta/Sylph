@@ -23,6 +23,8 @@ export class Tree {
 	delete() {}
 } */
 
+const containerTypes = ['div', 'h1', 'section'];
+
 class Tree {
 	//name is type of html element
 	constructor(element, name, parent, attributes) {
@@ -33,6 +35,7 @@ class Tree {
 		this.depth = parent ? parent.depth + 1 : 0;
 		this.id = 'node' + this.depth;
 		this.items = [];
+		this.isContainer = containerTypes.includes(name); // bool
 	}
 
 	//check root
@@ -46,15 +49,15 @@ class Tree {
 	}
 
 	// add child
-	appendChild(element, name, parent, attributes) {
-		let child = new Tree(this, element, name, parent, attributes);
+	appendChild(node) {
+		this.items.push(node);
 
 		// * if element type is h1, h2, h3 or p, something that cannot be nested, prevent appendChild
 		// if (type === 'H' || 'P') {
 		// 	throw new Error(`${element} cannot be nested`);
 		// }
 
-		this.items.push(child);
+		//this.items.push(child);
 		return this;
 	}
 
@@ -100,7 +103,19 @@ class Tree {
    */
 	// * need to traverse all elements, and convert them into string
 	// * Output: `<div><h1 class = ''>hello world </div> <div ${this.attributes}> </div>`
-	toString(root) {
+	toString() {
+		return `<${this.name} ${Object.entries(this.attributes)
+			.map(([key, value]) => `${key}= ${`"${value}"`}`)
+			.join(' ')}
+			${
+				this.isContainer
+					? '>\n\t' +
+					  this.items.map((child) => child.toString()).join('\n') +
+					  `</${this.name}>`
+					: '/>'
+			}
+		`;
+		/* 
 		// traverseDF
 		// Stack to store the nodes
 		let nodes = [];
@@ -131,37 +146,53 @@ class Tree {
 
 		// concatenate output array into one string
 		return output.join(' ');
-		//return output;
+		//return output; */
 	}
 }
 
+// const containerTypes = ['div', 'h1', 'section'];
 //element, name, parent, id
-let nodeA = new Tree('a', 'rootA', null, 0);
+let nodeA = new Tree('a', 'div', null, { background: 'black', id: 'nodeA' });
+// nodeA.attributes = { background: 'black', font: '12' };
 //console.log(nodeA);
 
-let nodeB = new Tree('b', 'Level 1B', nodeA);
-let nodeC = new Tree('c', 'Level 1C', nodeA);
-let nodeD = new Tree('d', 'Level 1D', nodeA);
+let nodeB = new Tree('b', 'h1', nodeA, { background: 'black', id: 'nodeB' });
+// nodeB.attributes = { background: 'black', font: '12' };
+let nodeC = new Tree('c', 'section', nodeA, {
+	background: 'black',
+	id: 'nodeC',
+});
+// nodeC.attributes = { background: 'black', font: '12' };
+let nodeD = new Tree('d', 'h1', nodeA, { background: 'black', id: 'nodeD' });
+// nodeD.attributes = { background: 'black', font: '12' };
+
+let nodeE = new Tree('e', 'h1', nodeB, { background: 'black', id: 'nodeE' });
+// nodeE.attributes = { background: 'black', font: '12' };
+let nodeF = new Tree('f', 'section', nodeB, {
+	background: 'black',
+	id: 'nodeF',
+});
+// nodeF.attributes = { background: 'black', font: '12' };
+
+let nodeG = new Tree('g', 'G', nodeC, { background: 'black', id: 'nodeG' });
+// nodeG.attributes = { background: 'black', font: 12 };
+
+/* let nodeH = new Tree('h', 'H', nodeD);
+let nodeI = new Tree('i', 'I', nodeD);
+let nodeJ = new Tree('j', 'J', nodeD);
+nodeD.appendChild(nodeH);
+nodeD.appendChild(nodeI);
+nodeD.appendChild(nodeJ); */
+
+let nodeK = new Tree('k', 'K', nodeE, { background: 'black', id: 'nodeK' });
+// nodeK.attributes = { background: 'black', font: 12 };
+
 nodeA.appendChild(nodeB);
 nodeA.appendChild(nodeC);
 nodeA.appendChild(nodeD);
-
-let nodeE = new Tree('e', 'L2 B e', nodeB);
-let nodeF = new Tree('f', 'L2 B f', nodeB);
 nodeB.appendChild(nodeE);
 nodeB.appendChild(nodeF);
-
-let nodeG = new Tree('g', 'L2 C g', nodeC);
 nodeC.appendChild(nodeG);
-
-let nodeH = new Tree('h', 'L2 D h', nodeD);
-let nodeI = new Tree('i', 'L2 D i', nodeD);
-let nodeJ = new Tree('j', 'L2 D j', nodeD);
-nodeD.appendChild(nodeH);
-nodeD.appendChild(nodeI);
-nodeD.appendChild(nodeJ);
-
-let nodeK = new Tree('k', 'L3 E k', nodeE);
 nodeE.appendChild(nodeK);
 
 // nodeA.attributes = 'I am Groot';
@@ -176,7 +207,7 @@ nodeE.appendChild(nodeK);
  */
 
 //console.log('root is: ', nodeB.getRoot());
-let testing = nodeA.toString(nodeB.getRoot());
+let testing = nodeA.toString();
 console.log('output arr is', testing);
-
+//console.log(nodeB)
 /************* */
