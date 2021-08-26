@@ -10,7 +10,7 @@
 </script>
 <form on:submit|preventDefault={handleSubmit} bind:this ={attributeForm} class = attribute-form>
     <div>
-        <button type='submit'>Apply Changes</button>
+        <button class = 'submit-btn' type='submit'>Apply Changes</button>
       </div>
     <table>
         
@@ -124,14 +124,17 @@
           padding:10px;
       }
       .table-header {
+          display:flex;
+          padding: 10px;
+          justify-content: center;
           outline:1px solid black;
           width: auto;
           background-color: #7D3780;
           color: whitesmoke;
       }
-      tbody {
+      /* tbody {
           border: 1px solid black;
-      }
+      } */
      .dropdown {
     display: grid;
     justify-content: center;
@@ -139,5 +142,8 @@
      .attribute-form {
          display: flex;
          flex-direction: column;
+     }
+     .submit-btn {
+         margin: 10px;
      }
     </style>

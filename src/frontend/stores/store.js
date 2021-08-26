@@ -25,15 +25,9 @@ let nodes = {
   //container for all nodes displayed in sandbox
   node1: {
     id: 'node1',
-    name: 'HTML',
+    name: 'body',
     items: [],
   },
-  //all component nodes are REQUIRED to be placed below this line
-  //not shown on the page
-  // node2: { id: 'node2', name: 'div', items: [], temp: true },
-  // node3: { id: 'node3', name: 'h1', items: [], temp: true },
-  // node4: { id: 'node4', name: 'section', items: [], temp: true },
-  // node5: { id: 'node5', name: 'img', temp: true },
 };
 
 export const nodeStore = writable(nodes, () =>

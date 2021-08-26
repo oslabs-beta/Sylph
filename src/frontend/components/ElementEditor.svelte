@@ -8,7 +8,6 @@ import MenuTextField from "./MenuTextField.svelte";
 import SelectDropdown from "./SelectDropdown.svelte";
 import {nodeStore as nodes, activeNode}  from '../stores/store'
 console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
-// const activeNode = Object.entries($nodes).filter (node => node[1].selected)
     const testDiv = new DivElement
     const testImage = new ImageElement
     console.log('TESTDIV', testDiv)
@@ -35,8 +34,8 @@ console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
 <div>
   <h3>active node</h3>
  {JSON.stringify($activeNode)}
-  <h3>node 1 HTML</h3>
-  { JSON.stringify($nodes.node1)}
+  <!-- <h3>node 1 HTML</h3>
+  { JSON.stringify($nodes.node1)} -->
   <h3>node tree</h3>
   { JSON.stringify($nodes)}
 
@@ -44,35 +43,5 @@ console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
     <MenuTextField /> 
 </div>
       
-      <!-- <table>
-        {#each Object.entries(testDiv.attributes.classId) as pairs} 
-        <tr>
-         
-          <MenuTextField itemPair ={pairs}/>
-        
-        </tr>
-        {/each}
-        <tr>
-          <td>
-            <hr>
-          </td>
-        </tr>
-        {#each Object.entries(testDiv.attributes.general) as pairs} 
-        <tr>
-          {#if pairs[0] === 'display'}
-          <SelectDropdown 
-         
-          value = {pairs} 
-          items ={[
-            {value:'block', label:'block'},
-            {value:'inline-block', label:'inline-block'},
-            {value:'flex', label:'flex'},
-            {value:'grid', label:'grid'},
-          ]}/>
-          {:else}
-          <MenuTextField itemPair ={pairs}/>
-          {/if}
-        </tr>
-        {/each}
-  </table> -->
+     
    

@@ -42,16 +42,16 @@
 
 <main>
   <div class="wrapper">
-    <HSplitPane leftPaneSize="85%" rightPaneSize="15%" minLeftPaneSize="50px" minRightPaneSize="50px">
+    <HSplitPane leftPaneSize="80%" rightPaneSize="20%" minLeftPaneSize="50px" minRightPaneSize="50px">
       <left slot="left">
         <VSplitPane topPanelSize="50%" downPanelSize="50%" minTopPaneSize="50px" minDownPaneSize="50px">
           <top slot='top'>
             <h3>Sandbox</h3>
             <Sandbox 
-            node={$nodes.node1}
-            bind:nodes={$nodes} 
-            bind:depth={depth}
-              />
+              node={$nodes.node1}
+              bind:nodes={$nodes} 
+              bind:depth={depth}
+            />
           </top>
           <down slot="down">
             <Preview />
@@ -63,8 +63,8 @@
           <top slot='top'>
             <h3>Component Menu</h3>
             <ComponentMenu 
-            bind:nodes={$nodes}  
-             items={components}
+              bind:nodes={$nodes}  
+              items={components}
             />
           </top>
           <down slot="down" class= 'down'>

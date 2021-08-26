@@ -1,16 +1,13 @@
 <script lang="ts">
-  import Router from 'svelte-spa-router'
-  import SylphContainer from '../containers/SylphContainer.svelte'
-
-  const routes = {
-    '/sylph': SylphContainer
-  }
+  import { push } from 'svelte-spa-router'
 </script>
 
-<section>
-  <Router {routes} />
-
-  <a href="#/sylph">Start a new Svelte prototyping project</a>
-  <p>[NOT FUNCTIONAL] EXAMPLE 2</p>
-  <p>[NOT FUNCTIONAL] EXAMPLE 3</p>
-</section>
+  <section>
+    <button on:click={() => {
+      push('/sylph');
+    }}>
+      Start a new Svelte prototyping project
+    </button>
+    <p>[NOT FUNCTIONAL] EXAMPLE 2</p>
+    <p>[NOT FUNCTIONAL] EXAMPLE 3</p>
+  </section>

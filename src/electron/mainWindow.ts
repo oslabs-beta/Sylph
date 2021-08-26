@@ -6,8 +6,10 @@ const appName = 'Slyph';
 
 const defaultSettings = {
   title: 'Slyph',
-  width: 854,
-  height: 480,
+  // width: 854,
+  // height: 480,
+  width: 1080,
+  height: 720,
 };
 
 class Main {
@@ -59,12 +61,13 @@ class Main {
   }
 
   onActivate() {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      this.createWindow();
-    }
     // if (!this.window) {
     //   this.createWindow();
     // }
+    if (BrowserWindow.getAllWindows().length === 0) {
+      this.createWindow();
+    }
+  
   }
 }
 
