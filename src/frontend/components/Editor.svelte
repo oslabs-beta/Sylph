@@ -7,9 +7,9 @@
   import "brace/theme/monokai";
 
   //props
-  export let lang;
-  export let text;
-  export let filename;
+  export let lang: string;
+  export let text: string;
+  export let filename: string;
   if(!text){
     switch (lang) {
       case 'javascript':
@@ -47,18 +47,7 @@ console.log(localStorage);
 <div class="editor-container">
   <div class="editor-lable">{filename}</div>
   <AceEditor
-    on:selectionChange={(obj) => console.log(obj.detail)}
-    on:paste={(obj) => console.log(obj.detail)}
-    on:input={(obj) => console.log(obj.detail)}
-    on:focus={() => console.log('focus')}
-    on:documentChange={(obj) => console.log(`document change : ${obj.detail}`)}
-    on:cut={() => console.log('cut')}
-    on:cursorChange={() => console.log('cursor change')}
-    on:copy={() => console.log('copy')}
-    on:init={(editor) => console.log(editor.detail)}
-    on:commandKey={(obj) => console.log(obj.detail)}
-    on:changeMode={(obj) => console.log(`change mode : ${obj.detail}`)}
-    on:blur={() => console.log('blur')}
+    
     width='100%'
     height='100%'
     lang={lang}
@@ -71,6 +60,21 @@ console.log(localStorage);
 
     
 </div>
+
+<!-- AceEditor events
+  on:selectionChange={(obj) => console.log(obj.detail)}
+    on:paste={(obj) => console.log(obj.detail)}
+    on:input={(obj) => console.log(obj.detail)}
+    on:focus={() => console.log('focus')}
+    on:documentChange={(obj) => console.log(`document change : ${obj.detail}`)}
+    on:cut={() => console.log('cut')}
+    on:cursorChange={() => console.log('cursor change')}
+    on:copy={() => console.log('copy')}
+    on:init={(editor) => console.log(editor.detail)}
+    on:commandKey={(obj) => console.log(obj.detail)}
+    on:changeMode={(obj) => console.log(`change mode : ${obj.detail}`)}
+    on:blur={() => console.log('blur')}
+ -->
 
 <style>
   * {

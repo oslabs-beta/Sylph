@@ -1,21 +1,21 @@
 {
   "name": "svelte-app",
   "version": "1.0.0",
-  "main": "./src/electron.js",
+  "main": "./dist/index.js",
   "private": true,
   "scripts": {
-    "build": "rollup -c",
+    "nodemon": "nodemon",
     "dev": "rollup -c -w",
-    "start": "sirv public --no-clear",
-    "check": "svelte-check --tsconfig ./tsconfig.json",
-    "dev-electron": "run-p dev start-electron",
-    "build-electron": "run-s build start-electron",
-    "start-electron": "electron ."
+    "start": "npm run compile && electron .",
+    "compile": "tsc",
+    "out:win": "rollup -c && tsc && electron-builder build --win --publish never",
+    "publish:win": "rollup -c && tsc && electron-builder build --win --publish always"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
     "@rollup/plugin-typescript": "^8.0.0",
+    "@smui/circular-progress": "^4.2.0",
     "@tsconfig/svelte": "^2.0.1",
     "cross-env": "^7.0.3",
     "electron": "^13.1.8",
@@ -29,16 +29,23 @@
     "svelte-ace-editor": "0.0.2",
     "svelte-check": "^2.0.0",
     "svelte-dnd-action": "^0.9.9",
-    "svelte-preprocess": "^4.0.0",
+    "svelte-preprocess": "^4.7.4",
     "tslib": "^2.0.0",
     "typescript": "^4.0.0"
   },
   "dependencies": {
     "@joshnuss/svelte-codemirror": "^0.2.6",
+    "@smui/button": "^4.2.0",
+    "@smui/card": "^4.2.0",
     "brace": "^0.11.1",
     "codemirror": "^5.62.2",
+    "electron-reload": "^2.0.0-alpha.1",
+    "electron-updater": "^4.3.9",
+    "rollup-plugin-copy": "^3.4.0",
     "sirv-cli": "^1.0.12",
     "svelte-ace": "^1.0.21",
+    "svelte-select": "^4.3.1",
+    "svelte-spa-router": "^3.2.0",
     "svelte-split-pane": "^0.1.2"
   }
 }
