@@ -68,7 +68,6 @@ import { flip } from 'svelte/animate';
 		width: 100%;
     height: 100%;
 		padding: 0.3em;
-	  overflow: auto;
     background-color: white;
 	}
   
@@ -79,7 +78,6 @@ import { flip } from 'svelte/animate';
 		border: 1px solid blue;
 		margin: 0.15em 0;
 	}
-
 </style>
 
 <section 

@@ -24,41 +24,31 @@ console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
 			}
 		`;
   }
+</script>
 
-    </script>
-    
-    <style>
-      .content {
-        display: grid;
-        /* grid-template-columns: 40% 60%; */
-        width: 90%;
-        height: 100%;
-        justify-content: center;
-      }
-
-
-
-
-    </style>
+<style>
+  .content {
+    display: grid;
+    /* grid-template-columns: 40% 60%; */
+    width: 90%;
+    height: 100%;
+    justify-content: center;
+  }
+</style>
     
     <!-- bind:value={}  -->
    
     <!-- <CollapseMenu entry ={attPair}/> -->
-    <div class = 'content'>
-      <div>
-        <h3>active node</h3>
-      {JSON.stringify($activeNode)}
-        <!-- <h3>node 1 HTML</h3>
-        { JSON.stringify($nodes.node1)} -->
-        <h3>node tree</h3>
-        { JSON.stringify($nodes)}
-<br>
-        <h3>toString </h3>
-        {toString($nodes.node1)}
-      
-
-</div>   
-    <MenuTextField /> 
+<div class = 'content'>
+  <div>
+    <h3>active node</h3>
+    {JSON.stringify($activeNode)}
+    <!-- <h3>node 1 HTML</h3>
+    { JSON.stringify($nodes.node1)} -->
+    <h3>node tree</h3>
+    { JSON.stringify($nodes)}
+  </div>   
+  <MenuTextField /> 
 </div>
       
      
