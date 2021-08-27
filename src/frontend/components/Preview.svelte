@@ -22,7 +22,7 @@
   ${'<'}/script>
 
 <main>
-	Hello world
+	good bye world
 </main>
 
 <style>
@@ -57,12 +57,22 @@
   globalThis.api.project.receive('overwritten', (sucessful)=>{
     if(sucessful){
       globalThis.api.project.send('updateProject')
+      globalThis.api.project.send('getEntry')
     }else{
       console.log('failed to update project');
     }
 
   })
+  
 
+  let entryPoint:string = 'https://www.google.com/';
+  globalThis.api.project.receive('entryPoint', data=>{
+    console.log("EntryPoint: ", data)    
+    
+    
+    entryPoint = '';
+    entryPoint = data;
+  })
 </script>
 
 <style>
@@ -81,8 +91,10 @@
   <button on:click={editCode}>update file</button>
   <Editor lang='html' text={displayedCode} filename='index.svelte'/>
     <iframe 
+      id="iframe"
       title="codePreview" 
-      srcdoc={renderedCode} 
+      
+      src={entryPoint} 
       frameborder="0"
       width="100%"
       height="100%"

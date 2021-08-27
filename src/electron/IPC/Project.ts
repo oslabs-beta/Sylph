@@ -14,6 +14,7 @@ const validSendChannel: SendChannels = {
   updateProject,
   writeOver,
   read,
+  getEntry,
 };
 
 // from Main
@@ -22,6 +23,7 @@ const validReceiveChannel: string[] = [
   'updateProject',
   'readProject',
   'overwritten',
+  'entryPoint',
 ];
 
 const project = new IPC({
@@ -80,9 +82,49 @@ async function makeNewProject(
       }
     ).on('exit', () => {
       console.log('Dependencies installed');
+      fs.writeFile(
+        path.join(dirpath, 'Projects', folder, 'public', 'index.html'),
+        `<!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset='utf-8'>
+          <meta name='viewport' content='width=device-width,initial-scale=1'>
+        
+          <title>Svelte app</title>
+        
+          <link rel='icon' type='image/png' href='./favicon.png'>
+          <link rel='stylesheet' href='./global.css'>
+          <link rel='stylesheet' href='./build/bundle.css'>
+        
+          <script defer src='./build/bundle.js'></script>
+        </head>
+        
+        <body>
+        </body>
+        </html>
+        `,
+        (err) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log('setup complete');
+          }
+        }
+      );
       mainWindow.webContents.send('madeNewProject', 'project installed');
     });
   });
+}
+
+function getEntry(
+  mainWindow: BrowserWindow,
+  event: Electron.IpcMainEvent,
+  message: any
+) {
+  mainWindow.webContents.send(
+    'entryPoint',
+    path.join(dirpath, 'Projects', folder, 'public', 'index.html')
+  );
 }
 
 function updateProject(
@@ -103,18 +145,18 @@ function updateProject(
   //   cp.exec('cd', (err, std) => console.log('std: ', std));
   // });
 
-  // cp.exec(
-  //   'npm run build',
-  //   { cwd: `.\\Projects\\${folder}` },
-  //   (err, stdout, stderr) => {
-  //     if (err) {
-  //       console.log('err: ', err);
-  //       console.log('stderr: ', stderr);
-  //     } else {
-  //       console.log('stdout: ', stdout);
-  //     }
-  //   }
-  // );
+  cp.exec(
+    'npm run build',
+    { cwd: `.\\Projects\\${folder}` },
+    (err, stdout, stderr) => {
+      if (err) {
+        console.log('err: ', err);
+        console.log('stderr: ', stderr);
+      } else {
+        console.log('stdout: ', stdout);
+      }
+    }
+  );
 }
 
 function closeProject(
