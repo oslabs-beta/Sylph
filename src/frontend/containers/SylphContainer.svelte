@@ -112,10 +112,8 @@
     overflow-y:auto;
   }
   .active-element {
-    
     background-color: #4A2C40;
     padding: 10px;
     color: snow;
-
   }
 </style>

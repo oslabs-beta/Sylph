@@ -34,6 +34,8 @@
   },
   "dependencies": {
     "@joshnuss/svelte-codemirror": "^0.2.6",
+    "@smui/button": "^4.2.0",
+    "@smui/card": "^4.2.0",
     "brace": "^0.11.1",
     "codemirror": "^5.62.2",
     "electron-reload": "^2.0.0-alpha.1",

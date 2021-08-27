@@ -6,7 +6,7 @@
 
   const routes = {
     '/': LandingPage,
-    '/sylph': SylphContainer
+    '/new-project': SylphContainer
   }
 
 </script>
