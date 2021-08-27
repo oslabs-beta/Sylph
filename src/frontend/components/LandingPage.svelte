@@ -78,11 +78,11 @@
   #landing-container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     height: 100vh;
     width: 100vw;
     text-align: center;
     box-sizing: border-box;
-    padding-top: 20rem;
   }
 
   #landing-cards-container {
