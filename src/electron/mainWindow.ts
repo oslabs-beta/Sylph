@@ -1,14 +1,15 @@
-  
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, Menu, MenuItem } from 'electron';
 import path from 'path';
 import EventEmitter from 'events';
 
-const appName = 'Sylph';
+const appName = 'Slyph';
 
 const defaultSettings = {
-  title: 'Sylph',
-  width: 854,
-  height: 480,
+  title: 'Slyph',
+  // width: 854,
+  // height: 480,
+  width: 1080,
+  height: 720,
 };
 
 class Main {
@@ -18,13 +19,16 @@ class Main {
 
   constructor(settings: { [key: string]: any } | null = null) {
     this.settings = settings ? { ...settings } : { ...defaultSettings };
-
+    
     app.on('ready', () => {
       this.window = this.createWindow();
       this.onEvent.emit('window-created');
     });
     app.on('window-all-closed', this.onWindowAllClosed);
     app.on('activate', this.onActivate);
+  }
+  createMenu () {
+
   }
 
   createWindow ()  {
@@ -40,10 +44,8 @@ class Main {
         preload: path.join(__dirname, 'preload.js'),
       },
     });
-    window.loadFile(
-      path.join(__dirname,'www','index.html'),
- 
-  );   
+  
+    window.loadFile(path.join(__dirname,'www','index.html'));   
    // window.loadURL(path.join(__dirname, 'www', 'index.html'));
     console.log('PATH ',path.join(__dirname, 'www', 'index.html'));
 
@@ -62,9 +64,13 @@ class Main {
   }
 
   onActivate() {
-    if (!this.window) {
+    // if (!this.window) {
+    //   this.createWindow();
+    // }
+    if (BrowserWindow.getAllWindows().length === 0) {
       this.createWindow();
     }
+  
   }
 }
 

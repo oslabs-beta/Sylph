@@ -1,5 +1,6 @@
 <script>
     import Select from 'svelte-select';
+    import {activeNode} from '../stores/store'
   export let items
   export let value
     // let items = [
@@ -18,27 +19,11 @@
     }
   </script>
 
-<div class = 'dropContainer'>
-    <p>Display  </p> 
-    <Select {items} {value} on:select={handleSelect}></Select>
-</div>
+    <Select {items} {value} on:select={(e)=>$activeNode.styles.display = value}></Select>
+
 
 
   <style>
-.dropContainer {
-    display:grid;
-    grid-template-columns: 30% 70%;
-    /* align-items: center; */
 
-          font-size:.6em;
-          /* grid-template-columns: 40% 60%; */
-          grid-column-gap: 10px;
-          /* align-items: center; */
-          border-radius: 5px;
-          /* justify-content: center; */
-          /* width: 100%; */
-
-      
-}
 
   </style>
