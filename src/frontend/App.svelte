@@ -8,7 +8,6 @@
     '/': LandingPage,
     '/new-project': SylphContainer
   }
-
 </script>
 
 <body>
