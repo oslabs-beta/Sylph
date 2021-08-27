@@ -1,5 +1,5 @@
 import { generateContextBridge } from './IPC/General/contextBridge';
 
-import newProject from './IPC/NewProject';
+import project from './IPC/Project';
 
-generateContextBridge([newProject]);
+generateContextBridge([project]);
