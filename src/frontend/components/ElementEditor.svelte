@@ -58,22 +58,17 @@ console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
 			}
 		`;
   }
+</script>
 
-    </script>
-    
-    <style>
-      .content {
-        display: grid;
-        /* grid-template-columns: 40% 60%; */
-        width: 90%;
-        height: 100%;
-        justify-content: center;
-      }
-
-
-
-
-    </style>
+<style>
+  .content {
+    display: grid;
+    /* grid-template-columns: 40% 60%; */
+    width: 90%;
+    height: 100%;
+    justify-content: center;
+  }
+</style>
     
     <!-- bind:value={}  -->
    

@@ -60,7 +60,7 @@ async function makeNewProject(
   cp.exec(
     `npx degit sveltejs/template ${message}`,
     {
-      cwd: '.\\Projects\\',
+      cwd: './Projects',
     },
     (error, stdout, stderr) => {
       if (error) {
@@ -72,7 +72,7 @@ async function makeNewProject(
     console.log('New Project init');
     cp.exec(
       'npm i',
-      { cwd: `.\\Projects\\${message}` },
+      { cwd: `./Projects/${message}` },
       (err, stdout, stderr) => {
         if (err) {
           console.log(err);
@@ -147,7 +147,7 @@ function updateProject(
 
   cp.exec(
     'npm run build',
-    { cwd: `.\\Projects\\${folder}` },
+    { cwd: `./Projects/${folder}` },
     (err, stdout, stderr) => {
       if (err) {
         console.log('err: ', err);
