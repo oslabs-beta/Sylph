@@ -49,6 +49,7 @@
 
     globalThis.api.project.send('writeOver', {path: 'src\\App.svelte', data: newData});
     console.log('hitting read')
+    
   }
 
   globalThis.api.project.receive('readProject', (data)=>{
@@ -58,6 +59,7 @@
     if(sucessful){
       globalThis.api.project.send('updateProject')
       globalThis.api.project.send('getEntry')
+      iframeElement.src+='';
     }else{
       console.log('failed to update project');
     }
@@ -70,9 +72,12 @@
     console.log("EntryPoint: ", data)    
     
     
-    entryPoint = '';
+    
     entryPoint = data;
   })
+
+  let iframeElement;
+  
 </script>
 
 <style>
@@ -90,10 +95,10 @@
   <button on:click={showCode}>get file string</button>
   <button on:click={editCode}>update file</button>
   <Editor lang='html' text={displayedCode} filename='index.svelte'/>
-    <iframe 
+    <iframe
+    bind:this={iframeElement}
       id="iframe"
       title="codePreview" 
-      
       src={entryPoint} 
       frameborder="0"
       width="100%"

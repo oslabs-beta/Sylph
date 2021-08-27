@@ -11,13 +11,47 @@ console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
     const testImage = new ImageElement
     console.log('TESTDIV', testDiv)
 
+    const updateCode=(node)=>{
+      const newData = `<script>
+	export let name;
+  ${'<'}/script>
+
+<main>
+	${toString(node)}
+</main>
+
+<style>
+	main {
+		text-align: center;
+		padding: 1em;
+		max-width: 240px;
+		margin: 0 auto;
+	}
+
+	h1 {
+		color: #ff3e00;
+		text-transform: uppercase;
+		font-size: 4em;
+		font-weight: 100;
+	}
+
+	@media (min-width: 640px) {
+		main {
+			max-width: none;
+		}
+	}
+</style>`;
+
+    globalThis.api.project.send('writeOver', {path: 'src\\App.svelte', data: newData});
+    }
+
     const toString = (node)=> {
 		return `<${node.name} ${node.attributes ? Object.entries(node?.attributes)
 			.map(([key, value]) => `${key}=${`"${value}"`}`)
 			.join(' '): ''}
 			${
 				node.hasOwnProperty('items') // check if the node element is self closing tag
-					? '>\n\t' +
+					? `>${node.innerText? node.innerText : ' '}\n\t` +
 					  node.items.map((child) => toString(child)).join('\n') +
 					  `</${node.name}>`
 					: '/>'
@@ -39,16 +73,21 @@ console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
     <!-- bind:value={}  -->
    
     <!-- <CollapseMenu entry ={attPair}/> -->
-<div class = 'content'>
-  <div>
-    <h3>active node</h3>
-    {JSON.stringify($activeNode)}
-    <!-- <h3>node 1 HTML</h3>
-    { JSON.stringify($nodes.node1)} -->
-    <h3>node tree</h3>
-    { JSON.stringify($nodes)}
-  </div>   
-  <MenuTextField /> 
+    <div class = 'content'>
+      <div>
+        <h3>active node</h3>
+      {JSON.stringify($activeNode)}
+        <!-- <h3>node 1 HTML</h3>
+        { JSON.stringify($nodes.node1)} -->
+        <h3>node tree</h3>
+        { JSON.stringify($nodes)}
+<br>
+        <h3>toString </h3>
+        {updateCode($nodes.node1)}
+      
+
+</div>   
+    <MenuTextField /> 
 </div>
       
      
