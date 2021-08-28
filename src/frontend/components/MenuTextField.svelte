@@ -1,6 +1,6 @@
 <script>
     import SelectDropdown from './SelectDropdown.svelte'
-    import {activeNode, editorBody, IDBody} from '../stores/store'
+    import {activeNode, editorBody, IDBody, nodeStore as nodes} from '../stores/store'
 import { bind, each } from 'svelte/internal'
     const styles = [ 'height', 'width', 'background-color', 'color',
     'font-size','font-weight','padding', 'margin', 'display']
@@ -18,36 +18,16 @@ import { bind, each } from 'svelte/internal'
             $IDBody = 'block'
           }
        attributeForm.reset()
+       $nodes = {...$nodes};
     // activeNode.attributes.id ? $editorBody = 'block' : $editorBody = 'none'
     }
     const handleStyleSubmit = ()=>{
        styleForm.reset()
+       $nodes = {...$nodes};
     }
     let available = false
 </script>
-<!-- <form on:submit|preventDefault={handleIDSubmit} bind:this ={IDForm} class = ID-form >
-    <table>
-        <tr class='table-header'>
-            <th>
-                ID
-            </th>
-        </tr>
-        <tr>
-            <td>
-                <div class = "editor-input">  
-                    <p>id: </p> 
-                </td>
-                <td>
-                    <div class = "editor-input">  
-                        <input type="text" value = '' on:change={(e)=>$activeNode.attributes.id = e.target.value}/>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <div>
-            <button class = 'submit-ID-btn' type='submit'>Assign ID</button>
-        </div>
-    </form> -->
+
     <container class='main-container'>
     <form on:submit|preventDefault={handleSubmit} bind:this ={attributeForm} class = attribute-form>
         <div>
@@ -183,11 +163,8 @@ import { bind, each } from 'svelte/internal'
   .editor-input {
       display:grid;
       font-size:.6em;
-      /* grid-template-columns: 40% 60%; */
-      /* grid-column-gap: 10px; */
-      /* align-items: center; */
+   
       border-radius: 5px;
-      /* justify-content: center; */
       width: 100%;
       padding:10px;
   }
@@ -200,13 +177,7 @@ import { bind, each } from 'svelte/internal'
       background-color: #7D3780;
       color: whitesmoke;
   }
-  /* tbody {
-      border: 1px solid black;
-  } */
-  /* .dropdown {
-    display: grid;
-    justify-content: center;
-  } */
+
   .attribute-form {
       display: flex;
       flex-direction: column;

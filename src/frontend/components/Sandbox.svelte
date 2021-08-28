@@ -101,8 +101,7 @@
           class="item"
           class:active={item === $activeNode && item.selected}
           >
-          <!-- class:active={active[item.id]} -->
-          <!-- class:active={active} -->
+     
         <svelte:self 
           bind:nodes={nodes} 
           node={node.items[node.items.map((e) => e.id).indexOf(item.id)]} 
@@ -115,5 +114,3 @@
 	</section>
 {/if}
 
-<!-- class:active = {active} 
-          on:click= {()=> active = !active} -->

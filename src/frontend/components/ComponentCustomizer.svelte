@@ -4,8 +4,7 @@
 
 <style>
   section {
-    overflow-y: scroll;
-    /* overflow-y: auto; */
+    overflow-y: auto;
     display: flex;
     justify-items: center;
     align-items: center;
