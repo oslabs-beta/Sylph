@@ -113,7 +113,7 @@
                   value = '' 
                   on:change={(e)=> {
                     $activeNode.styles[style] = e.target.value;
-                    nodes = {...nodes}
+                    $nodes = {...$nodes};
                   }}
                 />
             </div>
