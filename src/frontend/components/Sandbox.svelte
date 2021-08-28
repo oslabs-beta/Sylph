@@ -74,13 +74,12 @@
 			{#each node.items.filter(item => item.id !== SHADOW_PLACEHOLDER_ITEM_ID) as item(item.id)}
 				
 				<div
-        on:click|stopPropagation = {(e) => {
-          $activeNode = item
-          item.selected = (item === $activeNode && true)
-          console.log('ACTIVE NODE ',$activeNode)
-          console.log(active)
-          active[item.id] = !active[item.id];
-      
+          on:click|stopPropagation = {(e) => {
+            $activeNode = item
+            item.selected = (item === $activeNode && true)
+            console.log('ACTIVE NODE ',$activeNode)
+            console.log(active)
+            active[item.id] = !active[item.id];
           }} 
      
           on:keydown|stopPropagation = {(e) => {
@@ -92,8 +91,8 @@
             }
           }}
           animate:flip="{{duration: flipDurationMs}}" 
-          class="item"
-          class:active={item === $activeNode && item.selected}
+            class="item"
+            class:active={item === $activeNode && item.selected}
           >
           <!-- class:active={active[item.id]} -->
           <!-- class:active={active} -->
