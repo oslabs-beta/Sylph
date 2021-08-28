@@ -142,7 +142,13 @@ import { bind, each } from 'svelte/internal'
         </td>
         <td>
             <div class = "editor-input">  
-                <input type="text" value = '' on:change={(e)=>$activeNode.styles[style] = e.target.value}/>
+                <input 
+                  type="text" 
+                  value = '' 
+                  on:change={(e)=> {
+                    $activeNode.styles[style] = e.target.value;
+                  }}
+                />
             </div>
         </td>
      

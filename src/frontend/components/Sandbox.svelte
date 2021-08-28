@@ -98,8 +98,8 @@
             }
           }}
           animate:flip="{{duration: flipDurationMs}}" 
-          class="item"
-          class:active={item === $activeNode && item.selected}
+            class="item"
+            class:active={item === $activeNode && item.selected}
           >
      
         <svelte:self 
