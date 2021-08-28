@@ -11,7 +11,8 @@
   let attributeForm;
 
   const handleSubmit = ()=>{
-      attributeForm.reset()
+    attributeForm.reset()
+    $nodes = {...$nodes};
   }
 </script>
 <form on:submit|preventDefault={handleSubmit} bind:this ={attributeForm} class = attribute-form>
@@ -113,7 +114,6 @@
                   value = '' 
                   on:change={(e)=> {
                     $activeNode.styles[style] = e.target.value;
-                    $nodes = {...$nodes};
                   }}
                 />
             </div>
