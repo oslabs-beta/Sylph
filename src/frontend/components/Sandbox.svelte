@@ -51,7 +51,6 @@
     margin: 0.15em 0;
     background-color: #c1c8e4;	
 		padding: 0.2em;
-    min-height: 80px;
     width: 80%;
 		border: 1px solid blue;
     box-sizing: border-box;

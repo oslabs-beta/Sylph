@@ -6,19 +6,26 @@ import { bind, each } from 'svelte/internal'
     'font-size','font-weight','padding', 'margin', 'display']
     const attributes = ['alt','href', 'lang', 'name','src','title', 'value']
     let attributeForm
-    let IDForm
+    let styleForm
+    let IDField
     // let IDBody = 'block'
     const handleSubmit = ()=>{
+          if( IDField.value.length>0 ){ 
+              $editorBody = 'block'  
+              $IDBody = 'none'
+          } else {
+            $editorBody = 'none'
+            $IDBody = 'block'
+          }
        attributeForm.reset()
+    // activeNode.attributes.id ? $editorBody = 'block' : $editorBody = 'none'
     }
-    const handleIDSubmit = ()=>{
-       IDForm.reset()
-       $editorBody = 'block'
-       $IDBody = 'none'
+    const handleStyleSubmit = ()=>{
+       styleForm.reset()
     }
     let available = false
 </script>
-<form on:submit|preventDefault={handleIDSubmit} bind:this ={IDForm} class = ID-form >
+<!-- <form on:submit|preventDefault={handleIDSubmit} bind:this ={IDForm} class = ID-form >
     <table>
         <tr class='table-header'>
             <th>
@@ -40,33 +47,33 @@ import { bind, each } from 'svelte/internal'
         <div>
             <button class = 'submit-ID-btn' type='submit'>Assign ID</button>
         </div>
-        <p style='display:{$IDBody}; color:#ff0f0f; font-weight:700;'>Assign an ID to customize element</p>
-</form>
-<form on:submit|preventDefault={handleSubmit} bind:this ={attributeForm} class = attribute-form>
-    <div style= 'display:{$editorBody}'>
-    <div>
-        <button class = 'submit-btn' type='submit'>Apply Changes</button>
-      </div>
-    <table >
-        
-            
-        <tbody  >
-            <tr class='table-header'>
-                <th>
-                    Attributes
-                </th>
-            </tr>
-            <!-- <tr>
-                <td>
-                    <div class = "editor-input">  
-                        <p>id: </p> 
-                    </td>
-                    <td>
-                        <div class = "editor-input">  
-                            <input type="text" value = '' on:change={(e)=>$activeNode.attributes.id = e.target.value}/>
-                        </div>
-                    </td>
-                </tr> -->
+    </form> -->
+    <container class='main-container'>
+    <form on:submit|preventDefault={handleSubmit} bind:this ={attributeForm} class = attribute-form>
+        <div>
+          
+            <table >
+                
+                
+                <tbody  >
+                    <tr class='table-header' >
+                        <th >
+                                Attributes
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class = "editor-input">  
+                                <p>id: </p> 
+                            </td>
+                            <td>
+                                <div class = "editor-input">  
+                                    <input type="text" value = '' bind:this={IDField} on:change={(e)=>$activeNode.attributes.id = e.target.value}/>
+                                </div>
+                            </td>
+                        </tr>
+                   
+                          
                 <tr>
                     <td>
                         <div class = "editor-input">  
@@ -104,8 +111,24 @@ import { bind, each } from 'svelte/internal'
                                 </td>
                             </tr>
                             {/each}
+                </tbody >
+            </table>
+            </div>
+            <div>
+                <button class = 'submit-btn' type='submit'>Apply Attributes</button>
+            </div>
+            </form >
+            <div style='display:{$IDBody}'>
+                <p style= 'color:#ff0f0f; font-weight:700; font-size: 1em;' >Must assign  ID to customize styles</p>
+            </div>
+            <form on:submit|preventDefault={handleStyleSubmit} bind:this ={styleForm} class = style-form>
+               <div style= 'display:{$editorBody}'>
+                <table>
+              
+                
+            <tbody >  
                     <tr class=table-header>
-                        <th >
+                        <th colspan='2'>
                             Styles
                         </th>
                     </tr>
@@ -135,6 +158,7 @@ import { bind, each } from 'svelte/internal'
     <td>
         <div class = "editor-input">  
             <p>{style}: </p> 
+          </div>
         </td>
         <td>
             <div class = "editor-input">  
@@ -144,54 +168,55 @@ import { bind, each } from 'svelte/internal'
      
     </tr>
     {/each}
-</tbody>
+</tbody>  
 </table>
+<div>
+    <button class = 'submit-btn' type='submit'>Apply Styles</button>
+</div>
 </div>
 </form>
+</container>
+<div style= 'height: 200px'>
 
-
+</div>
 <style>
-       
-   
-        
-      
-      .editor-input {
-          display:grid;
-          font-size:.6em;
-          /* grid-template-columns: 40% 60%; */
-          /* grid-column-gap: 10px; */
-          /* align-items: center; */
-          border-radius: 5px;
-          /* justify-content: center; */
-          width: 100%;
-          padding:10px;
-      }
-      /* .editor-body {
-          display: editorBody;
-      } */
-      .table-header {
-          display:flex;
-          padding: 10px;
-          justify-content: center;
-          outline:1px solid black;
-          width: auto;
-          background-color: #7D3780;
-          color: whitesmoke;
-      }
-      /* tbody {
-          border: 1px solid black;
-      } */
-     /* .dropdown {
+  .editor-input {
+      display:grid;
+      font-size:.6em;
+      /* grid-template-columns: 40% 60%; */
+      /* grid-column-gap: 10px; */
+      /* align-items: center; */
+      border-radius: 5px;
+      /* justify-content: center; */
+      width: 100%;
+      padding:10px;
+  }
+  .table-header {
+      display:flex;
+      padding: 10px;
+      justify-content: center;
+      outline:1px solid black;
+      width: auto;
+      background-color: #7D3780;
+      color: whitesmoke;
+  }
+  /* tbody {
+      border: 1px solid black;
+  } */
+  /* .dropdown {
     display: grid;
     justify-content: center;
-     } */
-     .attribute-form {
-         /* display: none; */
-         display: flex;
-         flex-direction: column;
-         
-     }
-     .submit-btn {
-         margin: 10px;
-     }
-    </style>
+  } */
+  .attribute-form {
+      display: flex;
+      flex-direction: column;
+  }
+  .submit-btn {
+      margin: 10px;
+  }
+  .main-container {
+      height: 100%;
+      margin: 10px;
+  }
+  
+</style>
