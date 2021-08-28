@@ -1,6 +1,6 @@
 <script>
     import Select from 'svelte-select';
-    import {activeNode} from '../stores/store'
+    import {activeNode} from '../stores/store';
   export let items
   export let value
     // let items = [
@@ -19,7 +19,14 @@
     }
   </script>
 
-    <Select {items} {value} on:select={(e)=>$activeNode.styles.display = value}></Select>
+    <Select 
+      {items} 
+      {value} 
+      on:select={(e) => {
+        $activeNode.styles.display = value;
+      }}
+    >
+    </Select>
 
 
 

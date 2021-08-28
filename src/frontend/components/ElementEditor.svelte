@@ -78,7 +78,23 @@ console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
 					: '/>'
 			}
 		`;
-  }
+  }//end of toString
+  
+  const styleToString = (node) => {
+	return `
+			# ${
+				node.items.map(child=>child.attributes.id + ':{'+Object.entries(child.styles).map(([key,value])=> key + '=' + value)  +'}')
+			}, 
+			${
+				node.hasOwnProperty('items') // check if the node element is self closing tag
+				? 
+				  node.items.map((child) => styleToString(child)) 
+				: ''
+			}
+	`; //end of return
+}; //end of styleToString
+
+
 </script>
 
 <style>
