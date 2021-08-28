@@ -1,5 +1,4 @@
 import { app, BrowserWindow, Menu, MenuItem } from 'electron';
-import {push} from 'svelte-spa-router'
 import path from 'path';
 import EventEmitter from 'events';
 
@@ -41,7 +40,7 @@ const template:any = [
         label: 'Start New Project',
         accelerator: process.platform === 'darwin' ? 'Command+Shift+N' : 'Ctrl+Shift+N',
         click () {
-          push('/')
+         
         }
       },
       { type: 'separator' },

@@ -37,3 +37,9 @@ export const nodeStore = writable(nodes, () =>
 export const activeNode = writable(null, () =>
   console.log('ACTIVENODE ', activeNode)
 );
+
+export const editorBody = writable('none', () =>
+  console.log('editorBody ', editorBody)
+);
+
+export const IDBody = writable('block', () => console.log('IDBody ', IDBody));

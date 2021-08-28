@@ -1,28 +1,62 @@
 <script>
     import SelectDropdown from './SelectDropdown.svelte'
-    import {activeNode} from '../stores/store'
-import { each } from 'svelte/internal'
+    import {activeNode, editorBody, IDBody} from '../stores/store'
+import { bind, each } from 'svelte/internal'
     const styles = [ 'height', 'width', 'background-color', 'color',
     'font-size','font-weight','padding', 'margin', 'display']
     const attributes = ['alt','href', 'lang', 'name','src','title', 'value']
     let attributeForm
+    let IDForm
+    // let IDBody = 'block'
     const handleSubmit = ()=>{
        attributeForm.reset()
     }
+    const handleIDSubmit = ()=>{
+       IDForm.reset()
+       $editorBody = 'block'
+       $IDBody = 'none'
+    }
+    let available = false
 </script>
+<form on:submit|preventDefault={handleIDSubmit} bind:this ={IDForm} class = ID-form >
+    <table>
+        <tr class='table-header'>
+            <th>
+                ID
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <div class = "editor-input">  
+                    <p>id: </p> 
+                </td>
+                <td>
+                    <div class = "editor-input">  
+                        <input type="text" value = '' on:change={(e)=>$activeNode.attributes.id = e.target.value}/>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div>
+            <button class = 'submit-ID-btn' type='submit'>Assign ID</button>
+        </div>
+        <p style='display:{$IDBody}; color:#ff0f0f; font-weight:700;'>Assign an ID to customize element</p>
+</form>
 <form on:submit|preventDefault={handleSubmit} bind:this ={attributeForm} class = attribute-form>
+    <div style= 'display:{$editorBody}'>
     <div>
         <button class = 'submit-btn' type='submit'>Apply Changes</button>
       </div>
-    <table>
+    <table >
         
-        <tbody>
+            
+        <tbody  >
             <tr class='table-header'>
                 <th>
                     Attributes
                 </th>
             </tr>
-            <tr>
+            <!-- <tr>
                 <td>
                     <div class = "editor-input">  
                         <p>id: </p> 
@@ -32,7 +66,7 @@ import { each } from 'svelte/internal'
                             <input type="text" value = '' on:change={(e)=>$activeNode.attributes.id = e.target.value}/>
                         </div>
                     </td>
-                </tr>
+                </tr> -->
                 <tr>
                     <td>
                         <div class = "editor-input">  
@@ -40,7 +74,7 @@ import { each } from 'svelte/internal'
                         </td>
                         <td>
                             <div class = "editor-input">  
-                                <input type="text" value = '' on:change={(e)=>$activeNode.attributes.class = e.target.value}/>
+                                <input type="text" value = '' on:change={(e)=>$activeNode.attributes.class = e.target.value} disabled = {available}/>
                             </div>
                         </td>
                     </tr>
@@ -48,6 +82,7 @@ import { each } from 'svelte/internal'
                         <td>
                             <div class = "editor-input">  
                                 <p>innerText: </p> 
+                             
                             </td>
                             <td>
                                 <div class = "editor-input">  
@@ -60,7 +95,7 @@ import { each } from 'svelte/internal'
                         <tr>
                             <td>
                                 <div class = "editor-input">  
-                                    <p>{attribute}: </p> 
+                                    <p >{attribute}: </p> 
                                 </td>
                                 <td>
                                     <div class = "editor-input">  
@@ -69,7 +104,6 @@ import { each } from 'svelte/internal'
                                 </td>
                             </tr>
                             {/each}
-                    </tbody>
                     <tr class=table-header>
                         <th >
                             Styles
@@ -110,7 +144,9 @@ import { each } from 'svelte/internal'
      
     </tr>
     {/each}
+</tbody>
 </table>
+</div>
 </form>
 
 
@@ -130,6 +166,9 @@ import { each } from 'svelte/internal'
           width: 100%;
           padding:10px;
       }
+      /* .editor-body {
+          display: editorBody;
+      } */
       .table-header {
           display:flex;
           padding: 10px;
@@ -142,13 +181,15 @@ import { each } from 'svelte/internal'
       /* tbody {
           border: 1px solid black;
       } */
-     .dropdown {
+     /* .dropdown {
     display: grid;
     justify-content: center;
-     }
+     } */
      .attribute-form {
+         /* display: none; */
          display: flex;
          flex-direction: column;
+         
      }
      .submit-btn {
          margin: 10px;
