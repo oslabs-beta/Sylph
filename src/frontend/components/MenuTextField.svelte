@@ -1,14 +1,18 @@
 <script>
-    import SelectDropdown from './SelectDropdown.svelte'
-    import {activeNode} from '../stores/store'
-import { each } from 'svelte/internal'
-    const styles = [ 'height', 'width', 'background-color', 'color',
-    'font-size','font-weight','padding', 'margin', 'display']
-    const attributes = ['alt','href', 'lang', 'name','src','title', 'value']
-    let attributeForm
-    const handleSubmit = ()=>{
-       attributeForm.reset()
-    }
+  import SelectDropdown from './SelectDropdown.svelte';
+  import {nodeStore as nodes}  from '../stores/store';
+  import {activeNode} from '../stores/store';
+  import { each } from 'svelte/internal';
+  
+  const styles = [ 'height', 'width', 'background-color', 'color',
+  'font-size','font-weight','padding', 'margin', 'display']
+  const attributes = ['alt','href', 'lang', 'name','src','title', 'value'];
+
+  let attributeForm;
+
+  const handleSubmit = ()=>{
+      attributeForm.reset()
+  }
 </script>
 <form on:submit|preventDefault={handleSubmit} bind:this ={attributeForm} class = attribute-form>
     <div>
@@ -104,7 +108,14 @@ import { each } from 'svelte/internal'
         </td>
         <td>
             <div class = "editor-input">  
-                <input type="text" value = '' on:change={(e)=>$activeNode.styles[style] = e.target.value}/>
+                <input 
+                  type="text" 
+                  value = '' 
+                  on:change={(e)=> {
+                    $activeNode.styles[style] = e.target.value;
+                    nodes = {...nodes}
+                  }}
+                />
             </div>
         </td>
      
