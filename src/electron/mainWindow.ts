@@ -11,6 +11,134 @@ const defaultSettings = {
   width: 1080,
   height: 720,
 };
+const isMac = process.platform === 'darwin';
+const template:any = [
+  // { role: 'appMenu' }
+  ...(isMac ? [{
+    label: app.name,
+    submenu: [
+      { role: 'about' },
+      { type: 'separator' },
+      { role: 'services' },
+      { type: 'separator' },
+      { role: 'hide' },
+      { role: 'hideOthers' },
+      { role: 'unhide' },
+      { type: 'separator' },
+      { role: 'quit' }
+    ]
+  }] : []), 
+  // { role: 'fileMenu' }
+  {
+    label: 'File',
+    submenu: [
+      {
+        label: 'Save Project',
+        accelerator: process.platform === 'darwin' ? 'Command+S' : 'Ctrl+S',
+      },
+      {
+        label: 'Start New Project',
+        accelerator: process.platform === 'darwin' ? 'Command+Shift+N' : 'Ctrl+Shift+N',
+        click () {
+         
+        }
+      },
+      { type: 'separator' },
+      isMac ? { role: 'close' } : { role: 'quit' },
+    ]
+  },
+  // { role: 'editMenu' }
+  {
+    label: 'Edit',
+    submenu: [
+      { role: 'undo' },
+      { role: 'redo' },
+      { type: 'separator' },
+      { role: 'cut' },
+      { role: 'copy' },
+      { role: 'paste' },
+      ...(isMac ? [
+        { role: 'pasteAndMatchStyle' },
+        { role: 'delete' },
+        { role: 'selectAll' },
+        { type: 'separator' },
+        {
+          label: 'Speech',
+          submenu: [
+            { role: 'startSpeaking' },
+            { role: 'stopSpeaking' }
+          ]
+        }
+      ] : [
+        { role: 'delete' },
+        { type: 'separator' },
+        { role: 'selectAll' }
+      ])
+    ]
+  },
+  // { role: 'viewMenu' }
+  {
+    label: 'View',
+    submenu: [
+      { role: 'reload' },
+      { role: 'forceReload' },
+      { role: 'toggleDevTools' },
+      { type: 'separator' },
+      { role: 'resetZoom' },
+      { role: 'zoomIn' },
+      { role: 'zoomOut' },
+      { type: 'separator' },
+      { role: 'togglefullscreen' }
+    ]
+  },
+  // { role: 'windowMenu' }
+  {
+    label: 'Window',
+    submenu: [
+      { role: 'minimize' },
+      { role: 'zoom' },
+      ...(isMac ? [
+        { type: 'separator' },
+        { role: 'front' },
+        { type: 'separator' },
+        { role: 'window' }
+      ] : [
+        { role: 'close' }
+      ])
+    ]
+  },
+  {
+    role: 'help',
+    submenu: [
+      {
+        label: 'Learn More',
+        click: async () => {
+          const { shell } = require('electron')
+          await shell.openExternal('https://electronjs.org')
+        }
+      }
+    ]
+  },
+
+]
+// const template:any = [
+//   {
+//     label: 'Sylph',
+//     submenu: [{ role: 'About Sylph' }, { role: 'Preferences' }],
+//   },
+//   {
+//     label: 'File',
+//     submenu: [
+//       { role: 'Start New Project' },
+//       isMac ? { role: 'close' } : { role: 'quit' },
+//     ],
+//   },
+//   {
+//     label: 'View',
+//     submenu: [{ role: 'Reload' }, { role: 'Toggle Developer Tools' }],
+//   },
+// ];
+// const menu:any = Menu.buildFromTemplate(template)
 
 class Main {
   window!: BrowserWindow;
@@ -21,6 +149,7 @@ class Main {
     this.settings = settings ? { ...settings } : { ...defaultSettings };
     
     app.on('ready', () => {
+      Menu.setApplicationMenu(Menu.buildFromTemplate(template));    
       this.window = this.createWindow();
       this.onEvent.emit('window-created');
     });

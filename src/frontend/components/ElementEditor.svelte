@@ -29,10 +29,29 @@ console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
 	}
 
 	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
+    padding: 5px;
+		color: white;
+    min-height: 25px;
+    border: solid 1px green;
+    background-color: purple;
+	}
+
+  div {
+    padding: 5px;
+		color: white;
+    min-height: 25px;
+    border: solid 1px blue;
+    
+    background-color: green;
+	}
+
+  section {
+    padding: 5px;
+		color: white;
+    min-height: 25px;
+    border: solid 1px orange;
+    
+    background-color: pink;
 	}
 
 	@media (min-width: 640px) {
@@ -43,6 +62,8 @@ console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
 </style>`;
 
     globalThis.api.project.send('writeOver', {path: 'src\\App.svelte', data: newData});
+    globalThis.api.project.send('read', {path: 'src\\App.svelte'});
+    console.log('hitting read')
     }
 
     const toString = (node)=> {
@@ -57,7 +78,23 @@ console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
 					: '/>'
 			}
 		`;
-  }
+  }//end of toString
+  
+  const styleToString = (node) => {
+	return `
+			# ${
+				node.items.map(child=>child.attributes.id + ':{'+Object.entries(child.styles).map(([key,value])=> key + '=' + value)  +'}')
+			}, 
+			${
+				node.hasOwnProperty('items') // check if the node element is self closing tag
+				? 
+				  node.items.map((child) => styleToString(child)) 
+				: ''
+			}
+	`; //end of return
+}; //end of styleToString
+
+
 </script>
 
 <style>

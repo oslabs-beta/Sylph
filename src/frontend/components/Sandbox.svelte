@@ -1,13 +1,12 @@
 <script lang="ts">
 	import { flip } from 'svelte/animate';
 	import { dndzone, SHADOW_PLACEHOLDER_ITEM_ID, TRIGGERS } from 'svelte-dnd-action';
-  import {activeNode} from '../stores/store'
+  import {activeNode, editorBody, IDBody} from '../stores/store'
 
     export let nodes
     export let node
     export let depth
     export let activeItem
-    let divColor
 	
     // make a node Iterface
     // interface node<T> {
@@ -77,9 +76,16 @@
         on:click|stopPropagation = {(e) => {
           $activeNode = item
           item.selected = (item === $activeNode && true)
+          if ($activeNode.attributes?.id){
+             $editorBody = 'block'
+             $IDBody = 'none'
+          } else{
+            $editorBody = 'none'
+            $IDBody = 'block'
+          }
           console.log('ACTIVE NODE ',$activeNode)
-          console.log(active)
           active[item.id] = !active[item.id];
+          console.log('ATTRIBUTE ID', $activeNode.attributes?.id)
       
           }} 
      
@@ -92,11 +98,10 @@
             }
           }}
           animate:flip="{{duration: flipDurationMs}}" 
-          class="item"
-          class:active={item === $activeNode && item.selected}
+            class="item"
+            class:active={item === $activeNode && item.selected}
           >
-          <!-- class:active={active[item.id]} -->
-          <!-- class:active={active} -->
+     
         <svelte:self 
           bind:nodes={nodes} 
           node={node.items[node.items.map((e) => e.id).indexOf(item.id)]} 
@@ -109,5 +114,3 @@
 	</section>
 {/if}
 
-<!-- class:active = {active} 
-          on:click= {()=> active = !active} -->
