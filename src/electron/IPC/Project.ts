@@ -20,7 +20,7 @@ const validSendChannel: SendChannels = {
 // from Main
 const validReceiveChannel: string[] = [
   'madeNewProject',
-  'updateProject',
+  'projectUpdated',
   'readProject',
   'overwritten',
   'entryPoint',
@@ -70,6 +70,7 @@ async function makeNewProject(
     }
   ).on('close', () => {
     console.log('New Project init');
+    console.log('npm i path: ', `./Projects/${message}`);
     cp.exec(
       'npm i',
       { cwd: `./Projects/${message}` },
@@ -127,36 +128,32 @@ function getEntry(
   );
 }
 
-function updateProject(
+async function updateProject(
   mainWindow: BrowserWindow,
   event: Electron.IpcMainEvent,
   message: any
 ) {
   history.push('updateProject -> ');
   console.log(history.join(''));
-  // cp.exec('cd', (err, stdout, stderr) => {
-  //   console.log('stdout: ', stdout);
-  // });
 
-  // console.log(folder);
-  // cp.exec(`cd .\\Projects\\${folder}\\`, (error, stdout, stderr) => {
-  //   if (error) console.log('error: ', error);
-  //   console.log(stdout);
-  //   cp.exec('cd', (err, std) => console.log('std: ', std));
-  // });
+  console.log('build path: ', `./Projects/${folder}/`);
 
-  cp.exec(
-    'npm run build',
-    { cwd: `./Projects/${folder}` },
-    (err, stdout, stderr) => {
-      if (err) {
-        console.log('err: ', err);
-        console.log('stderr: ', stderr);
-      } else {
-        console.log('stdout: ', stdout);
+  await cp
+    .exec(
+      'npm run build',
+      { cwd: `./Projects/${folder}` },
+      (err, stdout, stderr) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(stdout);
+        }
       }
-    }
-  );
+    )
+    .on('close', () => {
+      console.log('updated build');
+      mainWindow.webContents.send('projectUpdated');
+    });
 }
 
 function closeProject(
