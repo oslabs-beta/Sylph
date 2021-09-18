@@ -169,7 +169,6 @@ import { bind, each } from 'svelte/internal'
   .editor-input {
       display:grid;
       font-size:.6em;
-   
       border-radius: 5px;
       width: 100%;
       padding:10px;
@@ -194,6 +193,9 @@ import { bind, each } from 'svelte/internal'
   .main-container {
       height: 100%;
       margin: 10px;
+  }
+  tr {
+      border: 1px darkgray solid;
   }
   
 </style>
