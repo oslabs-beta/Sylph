@@ -15,6 +15,7 @@ const validSendChannel: SendChannels = {
   writeOver,
   read,
   getEntry,
+  killDev,
 };
 
 // from Main
@@ -35,6 +36,7 @@ const project = new IPC({
 export default project;
 
 const history: [string] = ['Begin log -> '];
+let devProcess: any;
 
 // Enter here the functions for ElectronJS
 
@@ -122,10 +124,11 @@ function getEntry(
   event: Electron.IpcMainEvent,
   message: any
 ) {
-  mainWindow.webContents.send(
-    'entryPoint',
-    path.join(dirpath, 'Projects', folder, 'public', 'index.html')
-  );
+  mainWindow.webContents.send('entryPoint', 'http://localhost:5000');
+  // mainWindow.webContents.send(
+  //   'entryPoint',
+  //   path.join(dirpath, 'Projects', folder, 'public', 'index.html')
+  // );
 }
 
 async function updateProject(
@@ -135,17 +138,30 @@ async function updateProject(
 ) {
   history.push('updateProject -> ');
   console.log(history.join(''));
+  // console.log('before');
+  // const dev = cp.execSync('npm run build', { cwd: `./Projects/${folder}` });
+  // console.log('after');
+  // const dev = cp.spawn('npm run dev', [], {
+  //   cwd: `./Projects/${folder}`,
+  //   detached: true,
+  // });
+  // dev.on('error', (err) => {
+  //   console.log('spawn err:', err);
+  // });
 
-  console.log('build path: ', `./Projects/${folder}/`);
+  // devProcess = dev;
+  // console.log('devPID: ', typeof devPID, devPID);
 
-  await cp
+  const dev = cp
     .exec(
-      'npm run build',
+      'npm run dev',
       { cwd: `./Projects/${folder}` },
       (err, stdout, stderr) => {
         if (err) {
+          console.log('was Error: ');
           console.log(err);
         } else {
+          console.log('no error: ');
           console.log(stdout);
         }
       }
@@ -154,6 +170,20 @@ async function updateProject(
       console.log('updated build');
       mainWindow.webContents.send('projectUpdated');
     });
+
+  // devPID = dev.pid;
+  // console.log('devPID: ', typeof devPID, devPID);
+  // dev.kill('SIGINT');
+}
+
+function killDev(
+  mainWindow: BrowserWindow,
+  event: Electron.IpcMainEvent,
+  message: any
+) {
+  // cp.kill(devPID);
+  console.log('devProcess: ', typeof devProcess, devProcess);
+  process.kill(-devProcess);
 }
 
 function closeProject(
