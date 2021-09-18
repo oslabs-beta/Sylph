@@ -6,10 +6,8 @@
     Content,
     Header,
     Title,
-    Subtitle,
   } from '@smui/drawer';
   import Button, { Label } from '@smui/button';
-  import List, { Item, Text } from '@smui/list';
 
   import Sandbox from '../components/Sandbox.svelte';
   import ComponentMenu from '../components/ComponentMenu.svelte';
