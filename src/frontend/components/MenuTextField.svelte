@@ -162,14 +162,13 @@ import { bind, each } from 'svelte/internal'
 </div>
 </form>
 </container>
-<div style= 'height: 200px'>
+<!-- <div style= 'height: 200px'>
 
-</div>
+</div> -->
 <style>
   .editor-input {
       display:grid;
       font-size:.6em;
-   
       border-radius: 5px;
       width: 100%;
       padding:10px;
