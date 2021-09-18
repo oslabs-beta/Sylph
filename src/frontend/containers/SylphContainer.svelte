@@ -1,7 +1,15 @@
-<script >
+<script>
   localStorage.setItem("src/filename.html", "<h1>Hello World!</h1>")
-  import { onMount } from 'svelte';
+
   import { HSplitPane, VSplitPane } from 'svelte-split-pane';
+  import Drawer, {
+    Content,
+    Header,
+    Title,
+    Subtitle,
+  } from '@smui/drawer';
+  import Button, { Label } from '@smui/button';
+  import List, { Item, Text } from '@smui/list';
 
   import Sandbox from '../components/Sandbox.svelte';
   import ComponentMenu from '../components/ComponentMenu.svelte';
@@ -10,24 +18,12 @@
   import {nodeStore as nodes}  from '../stores/store'
   import { activeNode }  from '../stores/store'
 
+  //drawer functionality
+  let open = false;
+
   //code based on https://svelte.dev/repl/fe8c9eca04f9417a94a8b6041df77139?version=3.42.1
   //nesting depth
   let depth = 100;
-
-  // let nodes = {
-  //   //container for all nodes displayed in sandbox
-	// 	node1: { 
-  //     id: 'node1',
-  //     name: 'HTML',
-  //     items: []
-  //   },
-  //   //all component nodes are REQUIRED to be placed below this line
-  //   //not shown on the page
-  //   node2: { id: 'node2', name: 'div', items: [] },
-  //   node3: { id: 'node3', name: 'h1', items: [] }, 
-  //   node4: { id: 'node4', name: 'section', items: [] },
-  //   node5: { id: 'node5', name: 'img' }
-	// }
 
   console.log('NODESTORE IN APP ', $nodes);
 
@@ -44,19 +40,39 @@
   <div class="wrapper">
     <HSplitPane leftPaneSize="80%" rightPaneSize="20%" minLeftPaneSize="50px" minRightPaneSize="50px">
       <left slot="left">
-        <VSplitPane topPanelSize="50%" downPanelSize="50%" minTopPaneSize="50px" minDownPaneSize="50px">
-          <top slot='top'>
-            <h3>Sandbox</h3>
-            <Sandbox 
-              node={$nodes.node1}
-              bind:nodes={$nodes} 
-              bind:depth={depth}
-            />
-          </top>
-          <down slot="down">
-            <Preview />
-          </down>
-        </VSplitPane>
+        <div class="drawer-container">
+          <Drawer variant="dismissible" bind:open>
+            <Header>
+              <Title>Super Drawer</Title>
+              <Subtitle>It's the best drawer.</Subtitle>
+            </Header>
+            <Content>
+              <List>
+                <Item>
+                  <Text>Gray Kittens</Text>
+                </Item>
+              </List>
+            </Content>
+          </Drawer>
+          <VSplitPane topPanelSize="50%" downPanelSize="50%" minTopPaneSize="50px" minDownPaneSize="50px">
+            <top slot='top'>
+              <h3>Sandbox</h3>
+              <Sandbox 
+                node={$nodes.node1}
+                bind:nodes={$nodes} 
+                bind:depth={depth}
+              />
+              <div id="toggle-drawer">
+                <Button on:click={() => (open = !open)}
+                  ><Label>Toggle Drawer</Label></Button
+                >
+              </div>
+            </top>
+            <down slot="down">
+              <Preview />
+            </down>
+          </VSplitPane>
+        </div>
       </left>
       <right slot="right">
         <VSplitPane topPanelSize="40%" downPanelSize="60%" minTopPaneSize="50px" minDownPaneSize="50px">
@@ -117,5 +133,22 @@
     background-color: #4A2C40;
     padding: 10px;
     color: snow;
+  }
+
+  #toggle-drawer {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: white;
+  }
+
+  .drawer-container {
+    height: 100%;
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    z-index: 1;
   }
 </style>
