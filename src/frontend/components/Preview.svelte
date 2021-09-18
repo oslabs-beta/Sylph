@@ -1,5 +1,7 @@
 <script lang="ts">
   import Editor from "./Editor.svelte";
+  globalThis.api.project.send('read', {path: 'src\\App.svelte'});
+    console.log('hitting read')
   let renderedCode = `<!DOCTYPE html>
   <html lang="en">
     <head>
@@ -92,8 +94,8 @@
 </style>
 
 <section>
-  <button on:click={showCode}>get file string</button>
-  <button on:click={editCode}>update file</button>
+  <!-- <button on:click={showCode}>get file string</button>
+  <button on:click={editCode}>update file</button> -->
   <Editor lang='html' text={displayedCode} filename='index.svelte'/>
     <iframe
     bind:this={iframeElement}

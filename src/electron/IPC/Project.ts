@@ -132,7 +132,7 @@ function updateProject(
   event: Electron.IpcMainEvent,
   message: any
 ) {
-  history.push('updateProject');
+  history.push('updateProject -> ');
   console.log(history.join(''));
   // cp.exec('cd', (err, stdout, stderr) => {
   //   console.log('stdout: ', stdout);
