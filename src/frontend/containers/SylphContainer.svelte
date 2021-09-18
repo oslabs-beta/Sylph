@@ -32,9 +32,14 @@
     { id: 'node4', name: 'section', items: [], attributes:{}, styles:{}, selected: false },
     { id: 'node5', name: 'img', attributes:{}, styles:{},  selected: false}
   ];
+
+  // const killDev = ()=>{
+  //   globalThis.api.project.send('killDev');
+  // }
 </script>
 
 <main>
+  <!-- <button on:click={killDev}>kill dev</button> -->
   <div class="wrapper">
     <div class="drawer-container">
       <Drawer variant="dismissible" bind:open>

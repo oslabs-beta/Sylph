@@ -14,52 +14,22 @@
     <body>Hello World!</body>
   </html>`
   let displayedCode:string = ' ';
-  const showCode = ()=>{
-    globalThis.api.project.send('read', {path: 'src\\App.svelte'});
-    console.log('hitting read')
-  }
-  const editCode = ()=>{
-    const newData = `<script>
-	export let name;
-  ${'<'}/script>
 
-<main>
-	good bye world
-</main>
-
-<style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
-</style>`;
-
-    globalThis.api.project.send('writeOver', {path: 'src\\App.svelte', data: newData});
-    console.log('hitting read')
-    
-  }
+  let buildFinished=false;
+  globalThis.api.project.receive('projectUpdated', ()=>{
+    console.log('projectUpdated received')
+    buildFinished= true;
+  })
 
   globalThis.api.project.receive('readProject', (data)=>{
     displayedCode = data;
   })
   globalThis.api.project.receive('overwritten', (sucessful)=>{
     if(sucessful){
-      globalThis.api.project.send('updateProject')
+      if(buildFinished){
+        globalThis.api.project.send('updateProject')
+        buildFinished = false;
+      }
       globalThis.api.project.send('getEntry')
       iframeElement.src+='';
     }else{
@@ -71,10 +41,7 @@
 
   let entryPoint:string = 'https://www.google.com/';
   globalThis.api.project.receive('entryPoint', data=>{
-    console.log("EntryPoint: ", data)    
-    
-    
-    
+    console.log("EntryPoint: ", data)        
     entryPoint = data;
   })
 
