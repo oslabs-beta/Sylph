@@ -2,7 +2,8 @@
   localStorage.setItem("src/filename.html", "<h1>Hello World!</h1>")
 
   import { HSplitPane, VSplitPane } from 'svelte-split-pane';
-  import Drawer, {
+  import   Drawer,
+{
     Content,
     Header,
     Title,
