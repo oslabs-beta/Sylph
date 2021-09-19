@@ -32,18 +32,18 @@ import { bind, each } from 'svelte/internal'
     <form on:submit|preventDefault={handleSubmit} bind:this ={attributeForm} class = attribute-form>
         <div>
           
-            <table >
+            <table class= 'attribute-table' >
                 
                 
+                <tr class='table-header' >
+                    <th >
+                        Attributes
+                    </th>
+                </tr>
                 <tbody  >
-                    <tr class='table-header' >
-                        <th >
-                                Attributes
-                        </th>
-                    </tr>
                     <tr>
                         <td>
-                            <div class = "editor-input">  
+                            <div class = "editor-title">  
                                 <p>id: </p> 
                             </td>
                             <td>
@@ -56,7 +56,7 @@ import { bind, each } from 'svelte/internal'
                           
                 <tr>
                     <td>
-                        <div class = "editor-input">  
+                        <div class = "editor-title">  
                             <p>class: </p> 
                         </td>
                         <td>
@@ -67,7 +67,7 @@ import { bind, each } from 'svelte/internal'
                     </tr>
                     <tr>
                         <td>
-                            <div class = "editor-input">  
+                            <div class = "editor-title">  
                                 <p>innerText: </p> 
                              
                             </td>
@@ -79,10 +79,11 @@ import { bind, each } from 'svelte/internal'
                         </tr>
                         {#each attributes as attribute }
                             
-                        <tr>
+                        <tr >
                             <td>
-                                <div class = "editor-input">  
+                                <div class = "editor-title">  
                                     <p >{attribute}: </p> 
+                                    </div>
                                 </td>
                                 <td>
                                     <div class = "editor-input">  
@@ -106,12 +107,12 @@ import { bind, each } from 'svelte/internal'
                 <table>
               
                 
-            <tbody >  
                     <tr class=table-header>
                         <th colspan='2'>
                             Styles
                         </th>
                     </tr>
+                    <tbody >  
                     <!-- <tr >
                         <td class = "editor-input">
                             <p>
@@ -136,8 +137,8 @@ import { bind, each } from 'svelte/internal'
         <tr>
        
     <td>
-        <div class = "editor-input">  
-            <p>{style}: </p> 
+        <div class = "editor-title">  
+            {style}: 
           </div>
         </td>
         <td>
@@ -168,11 +169,24 @@ import { bind, each } from 'svelte/internal'
 <style>
   .editor-input {
       display:grid;
+      grid-template-columns: 1fr 2fr;
       font-size:.6em;
       border-radius: 5px;
-      width: 100%;
-      padding:10px;
+      height:100%;
+      width:100%;
+      padding-left: 5px;
+      margin:-5px;
+      justify-content: flex-start;
   }
+  .editor-title {
+      display:grid;
+      grid-template-columns: 1fr 2fr;
+      font-size:.6em;
+      padding:-5px;
+      margin:-5px;
+      justify-items: end;
+  }
+
   .table-header {
       display:flex;
       padding: 10px;
@@ -186,16 +200,44 @@ import { bind, each } from 'svelte/internal'
   .attribute-form {
       display: flex;
       flex-direction: column;
+      justify-content: flex-start;
   }
   .submit-btn {
       margin: 10px;
   }
   .main-container {
-      height: 100%;
-      margin: 10px;
+      width: 100%;
+      height:auto;
+      margin: 0;
+  }
+  p{
+      padding-left: 10px;
+  }
+  tbody{
+      display:grid;
+      grid-template-columns: 1fr ;
   }
   tr {
+    display:grid;
+      grid-template-columns: 1fr 2fr;
+  }
+  td {
+      display:flex;
+      align-items: center;
+  }
+  .editor-input input {
+      width: auto;
+  }
+  tr td   {
+      
       border: 1px darkgray solid;
+      width:100%;
+      padding:1px;
+      contain: content;
+  }
+  .attribute-table {
+      display:grid;
+      
   }
   
 </style>
