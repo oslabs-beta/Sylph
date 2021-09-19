@@ -175,7 +175,7 @@ class Main {
     });
   
     window.loadFile(path.join(__dirname,'www','index.html'));   
-   // window.loadURL(path.join(__dirname, 'www', 'index.html'));
+  //  window.loadURL(path.join(__dirname, 'www', 'index.html'));
     console.log('PATH ',path.join(__dirname, 'www', 'index.html'));
 
     window.once('ready-to-show', () => { 
