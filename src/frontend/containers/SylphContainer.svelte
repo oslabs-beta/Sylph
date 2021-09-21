@@ -12,7 +12,9 @@
   import Sandbox from '../components/Sandbox.svelte';
   import ComponentMenu from '../components/ComponentMenu.svelte';
   import Preview from '../components/Preview.svelte';
+  import PortSnackbar from '../components/PortSnackbar.svelte';
   import ComponentCustomizer from '../components/ComponentCustomizer.svelte'
+  
   import {nodeStore as nodes}  from '../stores/store'
   import { activeNode }  from '../stores/store'
 
@@ -94,6 +96,7 @@
       </HSplitPane> 
     </div>
   </div>
+  <PortSnackbar />
 </main>
 
 <style>
