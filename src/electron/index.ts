@@ -10,6 +10,4 @@ let main = new Main();
 
 main.onEvent.on('window-created', () => {
   project.initIpcMain(ipcMain, main.window);
-
-  // updaterInfo.initAutoUpdater(autoUpdater, main.window);
 });

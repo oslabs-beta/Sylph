@@ -15,12 +15,13 @@ const validSendChannel: SendChannels = {
   writeOver,
   read,
   getEntry,
+  killDev,
 };
 
 // from Main
 const validReceiveChannel: string[] = [
   'madeNewProject',
-  'updateProject',
+  'projectUpdated',
   'readProject',
   'overwritten',
   'entryPoint',
@@ -35,6 +36,7 @@ const project = new IPC({
 export default project;
 
 const history: [string] = ['Begin log -> '];
+let devProcess: any;
 
 // Enter here the functions for ElectronJS
 
@@ -70,6 +72,7 @@ async function makeNewProject(
     }
   ).on('close', () => {
     console.log('New Project init');
+    console.log('npm i path: ', `./Projects/${message}`);
     cp.exec(
       'npm i',
       { cwd: `./Projects/${message}` },
@@ -121,42 +124,66 @@ function getEntry(
   event: Electron.IpcMainEvent,
   message: any
 ) {
-  mainWindow.webContents.send(
-    'entryPoint',
-    path.join(dirpath, 'Projects', folder, 'public', 'index.html')
-  );
+  mainWindow.webContents.send('entryPoint', 'http://localhost:5000');
+  // mainWindow.webContents.send(
+  //   'entryPoint',
+  //   path.join(dirpath, 'Projects', folder, 'public', 'index.html')
+  // );
 }
 
-function updateProject(
+async function updateProject(
   mainWindow: BrowserWindow,
   event: Electron.IpcMainEvent,
   message: any
 ) {
   history.push('updateProject -> ');
   console.log(history.join(''));
-  // cp.exec('cd', (err, stdout, stderr) => {
-  //   console.log('stdout: ', stdout);
+  // console.log('before');
+  // const dev = cp.execSync('npm run build', { cwd: `./Projects/${folder}` });
+  // console.log('after');
+  // const dev = cp.spawn('npm run dev', [], {
+  //   cwd: `./Projects/${folder}`,
+  //   detached: true,
+  // });
+  // dev.on('error', (err) => {
+  //   console.log('spawn err:', err);
   // });
 
-  // console.log(folder);
-  // cp.exec(`cd .\\Projects\\${folder}\\`, (error, stdout, stderr) => {
-  //   if (error) console.log('error: ', error);
-  //   console.log(stdout);
-  //   cp.exec('cd', (err, std) => console.log('std: ', std));
-  // });
+  // devProcess = dev;
+  // console.log('devPID: ', typeof devPID, devPID);
 
-  cp.exec(
-    'npm run build',
-    { cwd: `./Projects/${folder}` },
-    (err, stdout, stderr) => {
-      if (err) {
-        console.log('err: ', err);
-        console.log('stderr: ', stderr);
-      } else {
-        console.log('stdout: ', stdout);
+  const dev = cp
+    .exec(
+      'npm run dev',
+      { cwd: `./Projects/${folder}` },
+      (err, stdout, stderr) => {
+        if (err) {
+          console.log('was Error: ');
+          console.log(err);
+        } else {
+          console.log('no error: ');
+          console.log(stdout);
+        }
       }
-    }
-  );
+    )
+    .on('close', () => {
+      console.log('updated build');
+      mainWindow.webContents.send('projectUpdated');
+    });
+
+  // devPID = dev.pid;
+  // console.log('devPID: ', typeof devPID, devPID);
+  // dev.kill('SIGINT');
+}
+
+function killDev(
+  mainWindow: BrowserWindow,
+  event: Electron.IpcMainEvent,
+  message: any
+) {
+  // cp.kill(devPID);
+  console.log('devProcess: ', typeof devProcess, devProcess);
+  process.kill(-devProcess);
 }
 
 function closeProject(
