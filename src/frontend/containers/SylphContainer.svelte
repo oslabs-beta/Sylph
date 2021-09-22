@@ -12,7 +12,9 @@
   import Sandbox from '../components/Sandbox.svelte';
   import ComponentMenu from '../components/ComponentMenu.svelte';
   import Preview from '../components/Preview.svelte';
+  import PortSnackbar from '../components/PortSnackbar.svelte';
   import ComponentCustomizer from '../components/ComponentCustomizer.svelte'
+  
   import {nodeStore as nodes}  from '../stores/store'
   import { activeNode }  from '../stores/store'
 
@@ -60,20 +62,22 @@
           <left slot="left">
             <VSplitPane topPanelSize="50%" downPanelSize="50%" minTopPaneSize="50px" minDownPaneSize="50px">
               <top slot='top'>
+                <div id="toggle-drawer">
+                  <Button
+                    on:click={() => (open = !open)}
+                    variant="raised"
+                  >
+                    <Label>
+                      Components
+                    </Label>
+                  </Button>
+                </div>
                 <h3>Sandbox</h3>
                 <Sandbox 
                   node={$nodes.node1}
                   bind:nodes={$nodes} 
                   bind:depth={depth}
                 />
-                <div id="toggle-drawer">
-                  <Button 
-                    on:click={() => (open = !open)}
-                    variant="raised"
-                  >
-                    <Label>Components</Label>
-                  </Button>
-                </div>
               </top>
               <down slot="down">
                 <Preview />
@@ -97,6 +101,7 @@
       </HSplitPane> 
     </div>
   </div>
+  <PortSnackbar />
 </main>
 
 <style>
@@ -140,11 +145,12 @@
 
   #toggle-drawer {
     position: absolute;
-    top: 10px;
-    left: 0;
+    top: 100px;
+    left: -55px;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     background-color: white;
+    transform: rotate(90deg);
   }
 
   .drawer-container {
