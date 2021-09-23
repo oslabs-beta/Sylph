@@ -1,6 +1,6 @@
 <script lang="ts">
   import Editor from "./Editor.svelte";
-  globalThis.api.project.send('read', {path: 'src\\App.svelte'});
+  globalThis.api.project.send('read', {path: 'src/App.svelte'});
     console.log('hitting read')
   let renderedCode = `<!DOCTYPE html>
   <html lang="en">
@@ -39,7 +39,7 @@
   })
   
 
-  let entryPoint:string = 'https://www.google.com/';
+  let entryPoint: string = '';
   globalThis.api.project.receive('entryPoint', data=>{
     console.log("EntryPoint: ", data)        
     entryPoint = data;
