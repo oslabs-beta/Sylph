@@ -36,6 +36,10 @@ import { flip } from 'svelte/animate';
         // the line below was added in order to be compatible with version svelte-dnd-action 0.7.4 and above 
         e.detail.items = e.detail.items.filter(item => !item[SHADOW_ITEM_MARKER_PROPERTY_NAME]);
         e.detail.items.splice(idx, 0, { ...JSON.parse(JSON.stringify(items[idx])), id: newId })
+<<<<<<< HEAD
+        // {...items[idx], id: newId});
+=======
+>>>>>>> dev
         items = e.detail.items;
         shouldIgnoreDndEvents = true;
       }

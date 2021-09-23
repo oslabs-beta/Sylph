@@ -2,7 +2,8 @@
   localStorage.setItem("src/filename.html", "<h1>Hello World!</h1>")
 
   import { HSplitPane, VSplitPane } from 'svelte-split-pane';
-  import Drawer, {
+  import   Drawer,
+{
     Content,
     Header,
     Title,
@@ -27,7 +28,7 @@
 
   console.log('NODESTORE IN APP ', $nodes);
 
-  //all nodes in the component menu
+  //all nodes in the component menu to drag into sandbox
   let components = [
     { id: 'node2', name: 'div', items: [], attributes:{}, styles:{}, selected: false },
     { id: 'node3', name: 'h1', items: [], attributes:{}, styles:{}, selected: false },
@@ -62,6 +63,16 @@
           <left slot="left">
             <VSplitPane topPanelSize="50%" downPanelSize="50%" minTopPaneSize="50px" minDownPaneSize="50px">
               <top slot='top'>
+<<<<<<< HEAD
+                <h3>Sandbox</h3>
+                <Sandbox 
+                  node={$nodes.node1}
+                  bind:nodes={$nodes} 
+                  bind:depth={depth}
+                  
+                />
+=======
+>>>>>>> dev
                 <div id="toggle-drawer">
                   <Button
                     on:click={() => (open = !open)}
@@ -91,7 +102,7 @@
             </top>
             <down slot="down">
               <div class = 'active-element'>
-          <h3>{$activeNode?.name  || 'Select Element to Edit'}</h3>
+          <h4>{$activeNode?.name  || 'Edit global attributes'+'\n'+'or select element to edit'}</h4>
           <h6>{$activeNode?.id || ''}</h6>
           </div>
               <ComponentCustomizer />
@@ -138,7 +149,7 @@
   }
 
   .active-element {
-    background-color: #4A2C40;
+    background-color: #7D3780;
     padding: 10px;
     color: snow;
   }
