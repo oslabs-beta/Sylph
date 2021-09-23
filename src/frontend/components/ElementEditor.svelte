@@ -62,8 +62,8 @@ console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
 	}
 </style>`;
 
-    globalThis.api.project.send('writeOver', {path: 'src\\App.svelte', data: newData});
-    globalThis.api.project.send('read', {path: 'src\\App.svelte'});
+    globalThis.api.project.send('writeOver', {path: 'src/App.svelte', data: newData});
+    globalThis.api.project.send('read', {path: 'src/App.svelte'});
     console.log('hitting read')
     }
 
@@ -115,8 +115,8 @@ console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
         <h3>node tree</h3>
         { JSON.stringify($nodes)}
 <br>
-        <!-- <h3>toString </h3>
-        {updateCode($nodes.node1)} -->
+        <h3>toString </h3>
+        {updateCode($nodes.node1)}
       
 
 </div>   
