@@ -16,6 +16,7 @@ const validSendChannel: SendChannels = {
   read,
   getEntry,
   killDev,
+  getDirectory,
 };
 
 // from Main
@@ -25,6 +26,7 @@ const validReceiveChannel: string[] = [
   'readProject',
   'overwritten',
   'entryPoint',
+  'directorySent',
 ];
 
 const project = new IPC({
@@ -209,6 +211,28 @@ function writeOver(
       }
     }
   );
+}
+
+function dirCrawl(dir: string) {
+  const dirObj: any = { [dir]: [] };
+
+  const dirContents: string[] = fs.readdirSync(dir);
+
+  dirContents.map((elm) => {
+    const next = path.join(dir, elm);
+    dirObj[dir].push(fs.lstatSync(next).isDirectory() ? dirCrawl(next) : next);
+  });
+  return dirObj;
+}
+
+function getDirectory(
+  mainWindow: BrowserWindow,
+  event: Electron.IpcMainEvent,
+  message: any
+) {
+  const dirObj: {} = dirCrawl(path.join(dirpath, 'Projects'));
+  console.log(dirObj);
+  mainWindow.webContents.send('directorySent', dirObj);
 }
 
 function read(
