@@ -66,6 +66,7 @@
                   node={$nodes.node1}
                   bind:nodes={$nodes} 
                   bind:depth={depth}
+                  
                 />
                 <div id="toggle-drawer">
                   <Button 
@@ -88,7 +89,7 @@
             </top>
             <down slot="down">
               <div class = 'active-element'>
-          <h3>{$activeNode?.name  || 'Select Element to Edit'}</h3>
+          <h4>{$activeNode?.name  || 'Edit global attributes'+'\n'+'or select element to edit'}</h4>
           <h6>{$activeNode?.id || ''}</h6>
           </div>
               <ComponentCustomizer />
@@ -134,7 +135,7 @@
   }
 
   .active-element {
-    background-color: #4A2C40;
+    background-color: #7D3780;
     padding: 10px;
     color: snow;
   }

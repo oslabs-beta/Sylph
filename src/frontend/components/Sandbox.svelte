@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { flip } from 'svelte/animate';
 	import { dndzone, SHADOW_PLACEHOLDER_ITEM_ID, TRIGGERS } from 'svelte-dnd-action';
-  import {activeNode, editorBody, IDBody} from '../stores/store'
+  import {activeNode, editorBody} from '../stores/store'
 
     export let nodes
     export let node
@@ -67,6 +67,7 @@
 	<section use:dndzone={{items:node.items, flipDurationMs}}
 					 on:consider={handleDndConsider} 
 					 on:finalize={handleDndFinalize}
+           on:click = {()=> $activeNode = null}
   >
 		{#if depth>0}
        <!-- WE FILTER THE SHADOW PLACEHOLDER THAT WAS ADDED IN VERSION 0.7.4, filtering this way rather than checking whether 'nodes' have the id became possible in version 0.9.1 -->
@@ -74,15 +75,16 @@
 				
 				<div
         on:click|stopPropagation = {(e) => {
-          $activeNode = item
+          $activeNode = null;
+          $activeNode = item;
           item.selected = (item === $activeNode && true)
-          if ($activeNode.attributes?.id){
-             $editorBody = 'block'
-             $IDBody = 'none'
-          } else{
-            $editorBody = 'none'
-            $IDBody = 'block'
-          }
+          // if ($activeNode.attributes?.id){
+          //    $editorBody = 'block'
+            
+          // } else{
+          //   $editorBody = 'none'
+            
+          // }
           console.log('ACTIVE NODE ',$activeNode)
           active[item.id] = !active[item.id];
           console.log('ATTRIBUTE ID', $activeNode.attributes?.id)

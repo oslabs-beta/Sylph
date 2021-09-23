@@ -26,5 +26,3 @@ export const activeNode = writable(null, () =>
 export const editorBody = writable('none', () =>
   console.log('editorBody ', editorBody)
 );
-//global state to conditionally display message to enter id to edit attributes
-export const IDBody = writable('block', () => console.log('IDBody ', IDBody));
