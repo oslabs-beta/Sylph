@@ -14,43 +14,37 @@ Attributes.general = [
   'translate',
   'height',
   'width',
-  'on:blur',
-  'on:change',
-  'on:click',
-  'on:contextmenu',
-  'on:copy',
-  'on:cut',
-  'on:dblclick',
-  'on:drag',
-  'on:dragend',
-  'on:dragenter',
-  'on:dragleave',
-  'on:dragover',
-  'on:dragstart',
-  'on:drop',
-  'on:focus',
-  'on:input',
-  'on:invalid',
-  'on:keydown',
-  'on:keypress',
-  'on:keyup',
-  'on:mousedown',
-  'on:mousemove',
-  'on:mouseout',
-  'on:mouseover',
-  'on:mouseup',
-  'on:mousewheel',
-  'on:paste',
-  'on:scroll',
-  'on:select',
-  'on:wheel',
+  // 'on:blur',
+  // 'on:change',
+  // 'on:click',
+  // 'on:contextmenu',
+  // 'on:copy',
+  // 'on:cut',
+  // 'on:dblclick',
+  // 'on:drag',
+  // 'on:dragend',
+  // 'on:dragenter',
+  // 'on:dragleave',
+  // 'on:dragover',
+  // 'on:dragstart',
+  // 'on:drop',
+  // 'on:focus',
+  // 'on:input',
+  // 'on:invalid',
+  // 'on:keydown',
+  // 'on:keypress',
+  // 'on:keyup',
+  // 'on:mousedown',
+  // 'on:mousemove',
+  // 'on:mouseout',
+  // 'on:mouseover',
+  // 'on:mouseup',
+  // 'on:mousewheel',
+  // 'on:paste',
+  // 'on:scroll',
+  // 'on:select',
+  // 'on:wheel',
 ];
-
-Attributes.div = [];
-
-Attributes.h1 = [];
-
-Attributes.section = [];
 
 Attributes.img = [
   'alt',
@@ -72,13 +66,7 @@ Attributes.a = [
   'type',
 ];
 
-Attributes.p = [];
-
-Attributes.hr = [];
-
 Attributes.blockquote = ['cite'];
-
-Attributes.span = [];
 
 Attributes.form = [
   'accept-charset',
@@ -149,16 +137,4 @@ Attributes.textarea = [
 
 Attributes.ol = ['reversed', 'start'];
 
-Attributes.ul = [];
-
 Attributes.li = ['value'];
-
-Attributes.header = [];
-
-Attributes.nav = [];
-
-Attributes.main = [];
-
-Attributes.article = [];
-
-Attributes.footer = [];

@@ -1,6 +1,6 @@
 <script lang="ts">
   import Editor from "./Editor.svelte";
-  globalThis.api.project.send('read', {path: 'src\\App.svelte'});
+  globalThis.api.project.send('read', {path: 'src/App.svelte'});
     console.log('hitting read')
   let renderedCode = `<!DOCTYPE html>
   <html lang="en">

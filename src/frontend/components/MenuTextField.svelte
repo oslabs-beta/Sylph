@@ -6,23 +6,58 @@
 import { bind, each } from 'svelte/internal'
     // const styles = [ 'height', 'width', 'background-color', 'color',
     // 'font-size','font-weight','padding', 'margin', 'display']
-    const attributes = Attributes.general
+    // const attributes = Attributes.general
+    
     // const attributes = ['alt','href', 'lang', 'name','src','title', 'value']
     let attributeForm
     let styleForm
     let IDField
-     
+    
+        const attributeList = () =>{
+         switch ($activeNode?.name){
+          case 'a':
+              console.log('a hit')
+              return Attributes.general.concat(Attributes.a).sort();
+                
+          case 'blockquote':
+              return Attributes.general.concat(Attributes.blockquote).sort();
+               
+          case 'button':
+              return Attributes.general.concat(Attributes.button).sort();
+                
+          case 'form':
+              return Attributes.general.concat(Attributes.form).sort();
+                
+          case 'img':
+              return Attributes.general.concat(Attributes.img).sort();
+                
+          case 'li':
+              return Attributes.general.concat(Attributes.li).sort();
+                
+          case 'ol':
+              return Attributes.general.concat(Attributes.ol).sort();
+                
+          case 'textarea':
+              return Attributes.general.concat(Attributes.textarea).sort();
+              
+          default:
+              return Attributes.general  
+        }
+        return 
+    }
+    let attributes = [];
+
+    $: $activeNode?.name ? attributes = attributeList() : attributes = Attributes.general
+    // $: $activeNode?.name ? attributes = attributeList() : attributes = Attributes.general
+    console.log(attributes)
+   
+    // = $activeNode?.name ? attributeList() : Attributes.general
+    console.log('ATTRIBUTES' ,attributes)
     
     console.log('IDFIELD ',IDField)
     // let IDBody = 'block'
     const handleSubmit = ()=>{
-        //   if( IDField.value.length>0 ){ 
-        //       $editorBody = 'block'  
-              
-        //   } else {
-        //     $editorBody = 'none'
-            
-        //   }
+    
        attributeForm.reset()
        styleForm.reset()
        $nodes = {...$nodes};
@@ -30,10 +65,7 @@ import { bind, each } from 'svelte/internal'
        console.log($activeNode)
     // activeNode.attributes.id ? $editorBody = 'block' : $editorBody = 'none'
     }
-    // const handleStyleSubmit = ()=>{
-    //    styleForm.reset()
-    //    $nodes = {...$nodes};
-    // }
+  
     let available = false
 </script>
 
@@ -77,6 +109,9 @@ import { bind, each } from 'svelte/internal'
         </div>
 
         <!-- loop to dynamically populate editor fields -->
+        <div style = {{display:'none'}}>
+            <!-- {attributeList()}{console.log('ATTRIBUTES', attributes)} -->
+        </div>
         {#each attributes as attribute }
         <div class = "attribute-row">
             <div class = "editor-title">  
