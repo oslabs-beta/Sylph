@@ -39,7 +39,7 @@
   })
   
 
-  let entryPoint:string = 'https://www.google.com/';
+  let entryPoint: string = '';
   globalThis.api.project.receive('entryPoint', data=>{
     console.log("EntryPoint: ", data)        
     entryPoint = data;

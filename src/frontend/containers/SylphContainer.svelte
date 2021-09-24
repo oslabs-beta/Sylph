@@ -81,6 +81,13 @@
           <left slot="left">
             <VSplitPane topPanelSize="50%" downPanelSize="50%" minTopPaneSize="50px" minDownPaneSize="50px">
               <top slot='top'>
+                <h3>Sandbox</h3>
+                <Sandbox 
+                  node={$nodes.node1}
+                  bind:nodes={$nodes} 
+                  bind:depth={depth}
+                  
+                />
                 <div id="toggle-drawer">
                   <Button
                     on:click={() => (open = !open)}

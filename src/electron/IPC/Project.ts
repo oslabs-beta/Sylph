@@ -201,6 +201,7 @@ function writeOver(
     path.join(dirpath, 'Projects', folder, message.path),
     message.data,
     (err) => {
+      console.log('message.path', message.path);
       if (err) {
         console.log(err);
         mainWindow.webContents.send('overwritten', false);
