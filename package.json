@@ -18,7 +18,9 @@
     "@smui/button": "^4.2.0",
     "@smui/circular-progress": "^4.2.0",
     "@smui/drawer": "^5.0.0-beta.5",
+    "@smui/icon-button": "^4.2.0",
     "@smui/list": "^5.0.0-beta.5",
+    "@smui/snackbar": "^5.0.0-beta.5",
     "@tsconfig/svelte": "^2.0.1",
     "cross-env": "^7.0.3",
     "electron": "^13.1.8",
@@ -37,8 +39,10 @@
     "typescript": "^4.0.0"
   },
   "dependencies": {
+    "-": "^0.0.1",
     "@joshnuss/svelte-codemirror": "^0.2.6",
     "@smui/card": "^4.2.0",
+    "D": "^1.0.0",
     "brace": "^0.11.1",
     "codemirror": "^5.62.2",
     "electron-reload": "^2.0.0-alpha.1",

@@ -2,7 +2,8 @@
   localStorage.setItem("src/filename.html", "<h1>Hello World!</h1>")
 
   import { HSplitPane, VSplitPane } from 'svelte-split-pane';
-  import Drawer, {
+  import   Drawer,
+{
     Content,
     Header,
     Title,
@@ -12,7 +13,9 @@
   import Sandbox from '../components/Sandbox.svelte';
   import ComponentMenu from '../components/ComponentMenu.svelte';
   import Preview from '../components/Preview.svelte';
+  import PortSnackbar from '../components/PortSnackbar.svelte';
   import ComponentCustomizer from '../components/ComponentCustomizer.svelte'
+  
   import {nodeStore as nodes}  from '../stores/store'
   import { activeNode }  from '../stores/store'
 import Directory from '../components/Directory.svelte';
@@ -26,7 +29,7 @@ import Directory from '../components/Directory.svelte';
 
   console.log('NODESTORE IN APP ', $nodes);
 
-  //all nodes in the component menu
+  //all nodes in the component menu to drag into sandbox
   let components = [
     { id: 'node2', name: 'div', items: [], attributes:{}, styles:{}, selected: false },
     { id: 'node3', name: 'h1', items: [], attributes:{}, styles:{}, selected: false },
@@ -61,20 +64,22 @@ import Directory from '../components/Directory.svelte';
           <left slot="left">
             <VSplitPane topPanelSize="50%" downPanelSize="50%" minTopPaneSize="50px" minDownPaneSize="50px">
               <top slot='top'>
+                <div id="toggle-drawer">
+                  <Button
+                    on:click={() => (open = !open)}
+                    variant="raised"
+                  >
+                    <Label>
+                      Components
+                    </Label>
+                  </Button>
+                </div>
                 <h3>Sandbox</h3>
                 <Sandbox 
                   node={$nodes.node1}
                   bind:nodes={$nodes} 
                   bind:depth={depth}
                 />
-                <div id="toggle-drawer">
-                  <Button 
-                    on:click={() => (open = !open)}
-                    variant="raised"
-                  >
-                    <Label>Components</Label>
-                  </Button>
-                </div>
               </top>
               <down slot="down">
                 <Preview />
@@ -89,7 +94,7 @@ import Directory from '../components/Directory.svelte';
             </top>
             <down slot="down">
               <div class = 'active-element'>
-          <h3>{$activeNode?.name  || 'Select Element to Edit'}</h3>
+          <h4>{$activeNode?.name  || 'Edit global attributes'+'\n'+'or select element to edit'}</h4>
           <h6>{$activeNode?.id || ''}</h6>
           </div>
               <ComponentCustomizer />
@@ -99,6 +104,7 @@ import Directory from '../components/Directory.svelte';
       </HSplitPane> 
     </div>
   </div>
+  <PortSnackbar />
 </main>
 
 <style>
@@ -135,18 +141,19 @@ import Directory from '../components/Directory.svelte';
   }
 
   .active-element {
-    background-color: #4A2C40;
+    background-color: #7D3780;
     padding: 10px;
     color: snow;
   }
 
   #toggle-drawer {
     position: absolute;
-    top: 10px;
-    left: 0;
+    top: 100px;
+    left: -55px;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     background-color: white;
+    transform: rotate(90deg);
   }
 
   .drawer-container {
