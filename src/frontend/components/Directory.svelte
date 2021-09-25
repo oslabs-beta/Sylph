@@ -1,14 +1,63 @@
 <script lang="ts">
-  let dirObj: object;
-  const handleClick = ()=> {
+  import TreeView from './TreeView.svelte'
+
+  // const tree = {
+	// 	label: "USA", children: [
+	// 		{label: "Florida", children: [
+	// 			{label: "Jacksonville"},
+	// 			{label: "Orlando", children: [
+	// 				{label: "Disney World"},
+	// 				{label: "Universal Studio"},
+	// 				{label: "Sea World"},
+	// 			]},
+	// 			{label: "Miami"},
+	// 		]},
+	// 		{label: "California", children: [
+	// 			{label: "San Francisco"},
+	// 			{label: "Los Angeles"},
+	// 			{label: "Sacramento"},
+	// 		]},
+	// 	],
+	// }
+
+
+  let tree: object;
+  const handleClick = async ()=> {
     globalThis.api.project.send('getDirectory')
-    globalThis.api.project.receive('directorySent', dir=>dirObj = dir);
-    console.log('dirObj', dirObj)
+    await globalThis.api.project.receive('directorySent', dir=>tree = dir);
+    console.log('tree', tree)
+    }
+
+    const displayDirectory = (directory: object | string[]):string=>{
+      const dir = Object.entries(directory);
+      return `      
+        <li>${dir[0][0]}
+          <ul>
+            ${dir[0][1].map(value=>{
+              if(typeof value === 'object'){
+                return displayDirectory(value);
+              }else{
+                return `<li>
+                  ${value}
+                 </li>`
+              }
+            }).join('')}
+          </ul>
+        </li>      
+      `
     }
 </script>
 
 <div>
   <button on:click={handleClick}>log dir</button>
+  <!-- <ul>
+    {@html tree?  displayDirectory(tree) : ''}
+  </ul> -->
+  {#if tree}
+  <TreeView {tree}/>
+  {/if}
 </div>
 
-<style></style>
+<style>
+
+</style>

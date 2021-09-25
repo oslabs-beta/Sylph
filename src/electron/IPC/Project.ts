@@ -213,14 +213,28 @@ function writeOver(
   );
 }
 
+// function dirCrawl(dir: string) {
+//   const dirObj: any = { [dir]: [] };
+
+//   const dirContents: string[] = fs.readdirSync(dir);
+
+//   dirContents.map((elm) => {
+//     const next = path.join(dir, elm);
+//     dirObj[dir].push(fs.lstatSync(next).isDirectory() ? dirCrawl(next) : next);
+//   });
+//   return dirObj;
+// }
+
 function dirCrawl(dir: string) {
-  const dirObj: any = { [dir]: [] };
+  const dirObj: any = { label: dir, children: [] };
 
   const dirContents: string[] = fs.readdirSync(dir);
 
   dirContents.map((elm) => {
     const next = path.join(dir, elm);
-    dirObj[dir].push(fs.lstatSync(next).isDirectory() ? dirCrawl(next) : next);
+    dirObj.children.push(
+      fs.lstatSync(next).isDirectory() ? dirCrawl(next) : { label: next }
+    );
   });
   return dirObj;
 }
