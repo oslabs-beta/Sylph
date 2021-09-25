@@ -8,6 +8,7 @@
     Title,
     Scrim
   } from '@smui/drawer';
+  import Paper from '@smui/paper';
   import Button, { Label } from '@smui/button';
 
   import Sandbox from '../components/Sandbox.svelte';
@@ -117,9 +118,17 @@
               <h3>Placeholder</h3>
             </top>
             <down slot="down">
-              <div class = 'active-element'>
-          <h4>{$activeNode?.name  || 'Edit global attributes'+'\n'+'or select element to edit'}</h4>
-          <h6>{$activeNode?.id || ''}</h6>
+          <div class = 'active-element'>
+            <Paper color="primary">
+              <Title>
+                Element Editor
+              </Title>
+              <br />
+              <Content>
+                <p>{$activeNode ? `Element Name: ${$activeNode?.name}` : 'Edit global attributes'+'\n'+'or select element to edit.'}</p>
+                <p>{$activeNode ? `Element ID: ${$activeNode?.id}` : ''}</p>
+              </Content>
+            </Paper>
           </div>
               <ComponentCustomizer />
             </down>
@@ -165,8 +174,8 @@
   }
 
   .active-element {
-    background-color: #7D3780;
-    padding: 10px;
+    margin: 0 auto;
+    padding: 36px 18px;
     color: snow;
   }
 
