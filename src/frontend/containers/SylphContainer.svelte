@@ -2,11 +2,11 @@
   localStorage.setItem("src/filename.html", "<h1>Hello World!</h1>")
 
   import { HSplitPane, VSplitPane } from 'svelte-split-pane';
-  import   Drawer,
-{
+  import Drawer, {
     Content,
     Header,
     Title,
+    Scrim
   } from '@smui/drawer';
   import Button, { Label } from '@smui/button';
 
@@ -63,7 +63,7 @@
   <!-- <button on:click={killDev}>kill dev</button> -->
   <div class="wrapper">
     <div class="drawer-container">
-      <Drawer variant="dismissible" bind:open>
+      <Drawer variant="modal" bind:open>
         <Header>
           <Title>Components</Title>
         </Header>
@@ -77,6 +77,7 @@
           <Label>Close</Label>
         </Button>
       </Drawer>
+      <Scrim />
       <HSplitPane leftPaneSize="80%" rightPaneSize="20%" minLeftPaneSize="50px" minRightPaneSize="50px">
           <left slot="left">
             <VSplitPane topPanelSize="50%" downPanelSize="50%" minTopPaneSize="50px" minDownPaneSize="50px">
