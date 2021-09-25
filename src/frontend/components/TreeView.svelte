@@ -25,13 +25,14 @@
 			</span>
 			{#if expanded}
 				{#each children as child}
-					<svelte:self tree={child} />
+					<svelte:self  tree={child} />
 				{/each}
 			{/if}
 		{:else}
-			<span>
-				<span class="no-arrow"/>
-				{label}
+			<span >
+				<span class="no-arrow">
+				{@html `<span onclick={console.log('${label}')} >${label}</span>`}
+				</span>
 			</span>
 		{/if}
 	</li>

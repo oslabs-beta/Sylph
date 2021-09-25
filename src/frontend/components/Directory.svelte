@@ -59,5 +59,7 @@
 </div>
 
 <style>
-
+*{
+  text-align: left;
+}
 </style>

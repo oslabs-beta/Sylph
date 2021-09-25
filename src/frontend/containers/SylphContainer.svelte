@@ -132,7 +132,7 @@ import Directory from '../components/Directory.svelte';
     width: 100%;
     height: 100%;
     display: block;
-    text-align: center;
+    /* text-align: center; */
     background-color: white;
   }
   
