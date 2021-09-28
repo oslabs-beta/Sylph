@@ -4,25 +4,52 @@
     import SelectDropdown from './SelectDropdown.svelte'
     import {activeNode, editorBody, nodeStore as nodes} from '../stores/store'
 import { bind, each } from 'svelte/internal'
-    // const styles = [ 'height', 'width', 'background-color', 'color',
-    // 'font-size','font-weight','padding', 'margin', 'display']
-    const attributes = Attributes.general
-    // const attributes = ['alt','href', 'lang', 'name','src','title', 'value']
+
     let attributeForm
     let styleForm
     let IDField
-     
-    
-    console.log('IDFIELD ',IDField)
-    // let IDBody = 'block'
-    const handleSubmit = ()=>{
-        //   if( IDField.value.length>0 ){ 
-        //       $editorBody = 'block'  
+    //dynamically adds element specific attributes to editor list
+        const attributeList = () =>{
+         switch ($activeNode?.name){
+          case 'a':
+              console.log('a hit')
+              return Attributes.general.concat(Attributes.a).sort();
+                
+          case 'blockquote':
+              return Attributes.general.concat(Attributes.blockquote).sort();
+               
+          case 'button':
+              return Attributes.general.concat(Attributes.button).sort();
+                
+          case 'form':
+              return Attributes.general.concat(Attributes.form).sort();
+                
+          case 'img':
+              return Attributes.general.concat(Attributes.img).sort();
+                
+          case 'li':
+              return Attributes.general.concat(Attributes.li).sort();
+                
+          case 'ol':
+              return Attributes.general.concat(Attributes.ol).sort();
+                
+          case 'textarea':
+              return Attributes.general.concat(Attributes.textarea).sort();
               
-        //   } else {
-        //     $editorBody = 'none'
-            
-        //   }
+          default:
+              return Attributes.general  
+        }
+        return 
+    }
+    //array iterated to build editor list
+    let attributes = [];
+
+    //works like useEffect passing activenode.name into the dependency array
+    $: $activeNode?.name ? attributes = attributeList() : attributes = Attributes.general
+   
+   
+    const handleSubmit = ()=>{
+    
        attributeForm.reset()
        styleForm.reset()
        $nodes = {...$nodes};
@@ -30,10 +57,7 @@ import { bind, each } from 'svelte/internal'
        console.log($activeNode)
     // activeNode.attributes.id ? $editorBody = 'block' : $editorBody = 'none'
     }
-    // const handleStyleSubmit = ()=>{
-    //    styleForm.reset()
-    //    $nodes = {...$nodes};
-    // }
+  
     let available = false
 </script>
 
@@ -54,7 +78,6 @@ import { bind, each } from 'svelte/internal'
                 value = {$activeNode?.attributes?.id || ''} 
                 bind:this={IDField} on:input={(e)=>{
                      $activeNode.attributes.id = e.target.value}}/>
-                <!-- <input type="text" placeholder="***assign id to edit styles***" value = '' bind:this={IDField} on:change={(e)=>IDField.value = e.target.value}/> -->
             </div>
         </div>
 
@@ -77,6 +100,7 @@ import { bind, each } from 'svelte/internal'
         </div>
 
         <!-- loop to dynamically populate editor fields -->
+      
         {#each attributes as attribute }
         <div class = "attribute-row">
             <div class = "editor-title">  
@@ -106,9 +130,7 @@ import { bind, each } from 'svelte/internal'
          </div>   
          {/each}
       {/if}
-            <!-- <div>
-                <button class = 'submit-btn' type='submit'>Apply Attributes</button>
-            </div> -->
+      
             </form >
    
             <form on:submit|preventDefault={handleSubmit} bind:this ={styleForm} class = style-form>
@@ -151,12 +173,10 @@ import { bind, each } from 'svelte/internal'
       width:100%;
       padding-left: 5px;
       margin:-5px;
-      /* margin-bottom: -10px; */
   }
   .editor-title {
       display:grid;
       align-items: center;
-      /* grid-template-columns: 1fr 2fr; */
       font-size:.6em;
       padding:-5px;
       margin:-5px;
@@ -201,7 +221,6 @@ import { bind, each } from 'svelte/internal'
   }
   input {
       border-radius: 0;
-      /* border:none; */
       outline:2px darkgray solid;
   }
 

@@ -1,29 +1,14 @@
 <script>
 import { flip } from 'svelte/animate';
   import { dndzone, TRIGGERS, SHADOW_ITEM_MARKER_PROPERTY_NAME } from 'svelte-dnd-action';
-  // import {nodeState} from './stores/store'
-  // import {componentState} from './stores/store'
+ 
 
   export let items;
-  //  let items;
   export let nodes;
-  // let nodes;
   const flipDurationMs = 300;
   let shouldIgnoreDndEvents = false;
   let dropFromOthersDisabled = true;
 
-  // nodeState.subscribe(value =>{
-  //     console.log('VALUE CU',value)
-  //     nodes = value
-  //     console.log('nodes CU',nodes)
-    
-  // } )
-  // componentState.subscribe(value =>{
-  //     console.log('VALUE comp',value)
-  //     items = value
-  //     console.log('items comp',items)
-    
-  // } )
 
   // code courtesy of https://svelte.dev/repl/924b4cc920524065a637fa910fe10193?version=3.24.1
   function handleDndConsider(e) {
@@ -36,6 +21,7 @@ import { flip } from 'svelte/animate';
         // the line below was added in order to be compatible with version svelte-dnd-action 0.7.4 and above 
         e.detail.items = e.detail.items.filter(item => !item[SHADOW_ITEM_MARKER_PROPERTY_NAME]);
         e.detail.items.splice(idx, 0, { ...JSON.parse(JSON.stringify(items[idx])), id: newId })
+        // {...items[idx], id: newId});
         items = e.detail.items;
         shouldIgnoreDndEvents = true;
       }
