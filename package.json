@@ -22,6 +22,7 @@
     "@smui/list": "^5.0.0-beta.5",
     "@smui/paper": "^5.0.0-beta.5",
     "@smui/snackbar": "^5.0.0-beta.5",
+    "@smui/textfield": "^5.0.0-beta.6",
     "@tsconfig/svelte": "^2.0.1",
     "cross-env": "^7.0.3",
     "electron": "^13.1.8",

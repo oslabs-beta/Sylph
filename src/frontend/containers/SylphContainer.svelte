@@ -175,7 +175,7 @@
 
   .active-element {
     margin: 0 auto;
-    padding: 36px 18px;
+    padding: 1rem;
     color: snow;
   }
 
@@ -194,6 +194,5 @@
     position: relative;
     display: flex;
     overflow: hidden;
-    z-index: 0;
   }
 </style>

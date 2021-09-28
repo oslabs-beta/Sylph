@@ -39,7 +39,6 @@
     default:
         return Attributes.general  
     }
-    return 
   }
   //array iterated to build editor list
   let attributes = [];
@@ -56,102 +55,106 @@
     // activeNode.attributes.id ? $editorBody = 'block' : $editorBody = 'none'
   }
 
-let available = false
+  let available = false
 </script>
 
-    <container class='main-container'>
-         
-    <form on:submit|preventDefault={handleSubmit} bind:this ={attributeForm} class = attribute-form>
-        <!-- static always on top of the list attributes -->
-        {#if $activeNode?.name}
-        <div class='table-header'>
-           Element Attributes
-        </div>
-        <div class = "attribute-row">
-            <div class = "editor-title">  
-                <p>id: </p> 
-            </div>
-            <div class = "editor-input">  
-                <input type="text" placeholder="***assign id to edit styles***" 
-                value = {$activeNode?.attributes?.id || ''} 
-                bind:this={IDField} on:input={(e)=>{
-                     $activeNode.attributes.id = e.target.value}}/>
-            </div>
-        </div>
+  <container class='main-container'>
+        
+  <form 
+    on:submit|preventDefault={handleSubmit} 
+    bind:this ={attributeForm} 
+    class="attribute-form"
+  >
+      <!-- static always on top of the list attributes -->
+      {#if $activeNode?.name}
+      <div class='table-header'>
+          Element Attributes
+      </div>
+      <div class = "attribute-row">
+          <div class = "editor-title">  
+              <p>id: </p> 
+          </div>
+          <div class = "editor-input">  
+              <input type="text" placeholder="***assign id to edit styles***" 
+              value = {$activeNode?.attributes?.id || ''} 
+              bind:this={IDField} on:input={(e)=>{
+                    $activeNode.attributes.id = e.target.value}}/>
+          </div>
+      </div>
 
-        <div class = "attribute-row">
-            <div class = "editor-title">  
-                <p>class: </p> 
-            </div>
-            <div class = "editor-input">  
-                <input type="text" value = '' on:change={(e)=>$activeNode.attributes.class = e.target.value} disabled = {available}/>
-            </div>
-        </div>
+      <div class = "attribute-row">
+          <div class = "editor-title">  
+              <p>class: </p> 
+          </div>
+          <div class = "editor-input">  
+              <input type="text" value = '' on:change={(e)=>$activeNode.attributes.class = e.target.value} disabled = {available}/>
+          </div>
+      </div>
 
-        <div class = "attribute-row">
-            <div class = "editor-title">  
-                <p>innerText: </p> 
-            </div>
-            <div class = "editor-input">  
-                <input type="text" value = '' on:change={(e)=>$activeNode.innerText = e.target.value}/>
-            </div>
-        </div>
+      <div class = "attribute-row">
+          <div class = "editor-title">  
+              <p>innerText: </p> 
+          </div>
+          <div class = "editor-input">  
+              <input type="text" value = '' on:change={(e)=>$activeNode.innerText = e.target.value}/>
+          </div>
+      </div>
 
-        <!-- loop to dynamically populate editor fields -->
-      
+      <!-- loop to dynamically populate editor fields -->
+    
+      {#each attributes as attribute }
+      <div class = "attribute-row">
+          <div class = "editor-title">  
+              <p >{attribute}: </p> 
+          </div>
+        
+          <div class = "editor-input">  
+              <input type="text" value = {$activeNode?.attributes[attribute] || ''}
+                on:change={(e)=>$activeNode.attributes[attribute] = e.target.value}/>
+          </div>
+      </div>                            
+            
+      {/each}
+      {:else}
+      <div class='table-header'>
+          Global Attributes
+        </div>
+        
         {#each attributes as attribute }
         <div class = "attribute-row">
             <div class = "editor-title">  
                 <p >{attribute}: </p> 
             </div>
-          
             <div class = "editor-input">  
-                <input type="text" value = {$activeNode?.attributes[attribute] || ''}
-                  on:change={(e)=>$activeNode.attributes[attribute] = e.target.value}/>
+                <input type="text" value = '' on:change={(e)=>$activeNode.attributes[{attribute}] = e.target.value}/>
             </div>
-        </div>                            
-              
+        </div>   
         {/each}
-        {:else}
-        <div class='table-header'>
-            Global Attributes
-         </div>
-         
-         {#each attributes as attribute }
-         <div class = "attribute-row">
-             <div class = "editor-title">  
-                 <p >{attribute}: </p> 
-             </div>
-             <div class = "editor-input">  
-                 <input type="text" value = '' on:change={(e)=>$activeNode.attributes[{attribute}] = e.target.value}/>
-             </div>
-         </div>   
-         {/each}
-      {/if}
-      
-            </form >
-   
-            <form on:submit|preventDefault={handleSubmit} bind:this ={styleForm} class = style-form>
-               <!-- <div style= 'display:{$editorBody}'> -->
-        {#if IDField?.value.length>0 || $activeNode?.attributes?.id }
-        <div class='table-header'>
-            Styles
-        </div>
-        {#each Styles as style }   
-        <div class = "attribute-row">
-            <div class = "editor-title">  
-                <p >{style}: </p> 
-            </div>
-            <div class = "editor-input">  
-                <input type="text" value = '' on:change={(e)=> {
-                    $activeNode.styles[style] = e.target.value;
-                  }}
-                />
-            </div>
-        </div> 
- 
-    {/each}
     {/if}
+    
+          </form >
+  
+          <form on:submit|preventDefault={handleSubmit} bind:this ={styleForm} class = style-form>
+              <!-- <div style= 'display:{$editorBody}'> -->
+      {#if IDField?.value.length>0 || $activeNode?.attributes?.id }
+      <div class='table-header'>
+          Styles
+      </div>
+      {#each Styles as style }   
+      <div class = "attribute-row">
+          <div class = "editor-title">  
+              <p >{style}: </p> 
+          </div>
+          <div class = "editor-input">  
+              <input type="text" value = '' on:change={(e)=> {
+                  $activeNode.styles[style] = e.target.value;
+                }}
+              />
+          </div>
+      </div> 
+
+  {/each}
+  {/if}
 
 <div>
     <button class = 'submit-btn' type='submit'>Apply</button>

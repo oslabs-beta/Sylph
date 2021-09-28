@@ -105,10 +105,14 @@ svelte bind value to input, set to come state/store obj? -->
     height: 100%;
     justify-content: center;
   }
+
+  .update-code {
+    display: none;
+  }
 </style>
 
-<div class = 'content'>
-  <div style={{display:'grid', contain:'content', width:'100%',}}>
+<div class="content">
+  <div class="update-code">
     <!-- <h3>active node</h3>
     {JSON.stringify($activeNode)}
     <h3>node tree</h3>
