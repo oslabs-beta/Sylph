@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, MenuItem } from 'electron';
+import { app, BrowserWindow, Menu, MenuItem, dialog } from 'electron';
 import path from 'path';
 import EventEmitter from 'events';
 
@@ -12,22 +12,26 @@ const defaultSettings = {
   height: 720,
 };
 const isMac = process.platform === 'darwin';
-const template:any = [
+const template: any = [
   // { role: 'appMenu' }
-  ...(isMac ? [{
-    label: app.name,
-    submenu: [
-      { role: 'about' },
-      { type: 'separator' },
-      { role: 'services' },
-      { type: 'separator' },
-      { role: 'hide' },
-      { role: 'hideOthers' },
-      { role: 'unhide' },
-      { type: 'separator' },
-      { role: 'quit' }
-    ]
-  }] : []), 
+  ...(isMac
+    ? [
+        {
+          label: app.name,
+          submenu: [
+            { role: 'about' },
+            { type: 'separator' },
+            { role: 'services' },
+            { type: 'separator' },
+            { role: 'hide' },
+            { role: 'hideOthers' },
+            { role: 'unhide' },
+            { type: 'separator' },
+            { role: 'quit' },
+          ],
+        },
+      ]
+    : []),
   // { role: 'fileMenu' }
   {
     label: 'File',
@@ -38,14 +42,23 @@ const template:any = [
       },
       {
         label: 'Start New Project',
-        accelerator: process.platform === 'darwin' ? 'Command+Shift+N' : 'Ctrl+Shift+N',
-        click () {
-         
-        }
+        accelerator:
+          process.platform === 'darwin' ? 'Command+Shift+N' : 'Ctrl+Shift+N',
+        click() {},
       },
       { type: 'separator' },
+      {
+        label: 'Open Folder',
+        click: async () => {
+          const { filePaths } = await dialog.showOpenDialog({
+            properties: ['openDirectory'],
+          });
+          console.log(filePaths[0]);
+          console.log('Open Folder clicked');
+        },
+      },
       isMac ? { role: 'close' } : { role: 'quit' },
-    ]
+    ],
   },
   // { role: 'editMenu' }
   {
@@ -57,24 +70,19 @@ const template:any = [
       { role: 'cut' },
       { role: 'copy' },
       { role: 'paste' },
-      ...(isMac ? [
-        { role: 'pasteAndMatchStyle' },
-        { role: 'delete' },
-        { role: 'selectAll' },
-        { type: 'separator' },
-        {
-          label: 'Speech',
-          submenu: [
-            { role: 'startSpeaking' },
-            { role: 'stopSpeaking' }
+      ...(isMac
+        ? [
+            { role: 'pasteAndMatchStyle' },
+            { role: 'delete' },
+            { role: 'selectAll' },
+            { type: 'separator' },
+            {
+              label: 'Speech',
+              submenu: [{ role: 'startSpeaking' }, { role: 'stopSpeaking' }],
+            },
           ]
-        }
-      ] : [
-        { role: 'delete' },
-        { type: 'separator' },
-        { role: 'selectAll' }
-      ])
-    ]
+        : [{ role: 'delete' }, { type: 'separator' }, { role: 'selectAll' }]),
+    ],
   },
   // { role: 'viewMenu' }
   {
@@ -88,8 +96,8 @@ const template:any = [
       { role: 'zoomIn' },
       { role: 'zoomOut' },
       { type: 'separator' },
-      { role: 'togglefullscreen' }
-    ]
+      { role: 'togglefullscreen' },
+    ],
   },
   // { role: 'windowMenu' }
   {
@@ -97,15 +105,15 @@ const template:any = [
     submenu: [
       { role: 'minimize' },
       { role: 'zoom' },
-      ...(isMac ? [
-        { type: 'separator' },
-        { role: 'front' },
-        { type: 'separator' },
-        { role: 'window' }
-      ] : [
-        { role: 'close' }
-      ])
-    ]
+      ...(isMac
+        ? [
+            { type: 'separator' },
+            { role: 'front' },
+            { type: 'separator' },
+            { role: 'window' },
+          ]
+        : [{ role: 'close' }]),
+    ],
   },
   {
     role: 'help',
@@ -113,14 +121,13 @@ const template:any = [
       {
         label: 'Learn More',
         click: async () => {
-          const { shell } = require('electron')
-          await shell.openExternal('https://electronjs.org')
-        }
-      }
-    ]
+          const { shell } = require('electron');
+          await shell.openExternal('https://electronjs.org');
+        },
+      },
+    ],
   },
-
-]
+];
 // const template:any = [
 //   {
 //     label: 'Sylph',
@@ -147,20 +154,18 @@ class Main {
 
   constructor(settings: { [key: string]: any } | null = null) {
     this.settings = settings ? { ...settings } : { ...defaultSettings };
-    
+
     app.on('ready', () => {
-      Menu.setApplicationMenu(Menu.buildFromTemplate(template));    
+      Menu.setApplicationMenu(Menu.buildFromTemplate(template));
       this.window = this.createWindow();
       this.onEvent.emit('window-created');
     });
     app.on('window-all-closed', this.onWindowAllClosed);
     app.on('activate', this.onActivate);
   }
-  createMenu () {
+  createMenu() {}
 
-  }
-
-  createWindow ()  {
+  createWindow() {
     let settings = { ...this.settings };
     app.name = appName;
     let window = new BrowserWindow({
@@ -173,16 +178,16 @@ class Main {
         preload: path.join(__dirname, 'preload.js'),
       },
     });
-  
-    window.loadFile(path.join(__dirname,'www','index.html'));   
-   // window.loadURL(path.join(__dirname, 'www', 'index.html'));
-    console.log('PATH ',path.join(__dirname, 'www', 'index.html'));
 
-    window.once('ready-to-show', () => { 
-      console.log('READY TO SHOW')
+    window.loadFile(path.join(__dirname, 'www', 'index.html'));
+    // window.loadURL(path.join(__dirname, 'www', 'index.html'));
+    console.log('PATH ', path.join(__dirname, 'www', 'index.html'));
+
+    window.once('ready-to-show', () => {
+      console.log('READY TO SHOW');
       window.show();
     });
-    console.log('WINDOW ',window)
+    console.log('WINDOW ', window);
     return window;
   }
 
@@ -199,7 +204,6 @@ class Main {
     if (BrowserWindow.getAllWindows().length === 0) {
       this.createWindow();
     }
-  
   }
 }
 
