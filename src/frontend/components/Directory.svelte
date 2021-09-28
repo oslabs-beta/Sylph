@@ -1,29 +1,10 @@
 <script lang="ts">
   import TreeView from './TreeView.svelte'
 
-  // const tree = {
-	// 	label: "USA", children: [
-	// 		{label: "Florida", children: [
-	// 			{label: "Jacksonville"},
-	// 			{label: "Orlando", children: [
-	// 				{label: "Disney World"},
-	// 				{label: "Universal Studio"},
-	// 				{label: "Sea World"},
-	// 			]},
-	// 			{label: "Miami"},
-	// 		]},
-	// 		{label: "California", children: [
-	// 			{label: "San Francisco"},
-	// 			{label: "Los Angeles"},
-	// 			{label: "Sacramento"},
-	// 		]},
-	// 	],
-	// }
-
-
   let tree: object;
   const handleClick = async ()=> {
     globalThis.api.project.send('getDirectory')
+    
     await globalThis.api.project.receive('directorySent', dir=>tree = dir);
     console.log('tree', tree)
     }
