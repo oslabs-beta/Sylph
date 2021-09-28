@@ -80,7 +80,7 @@ import Directory from '../components/Directory.svelte';
         </Button>
       </Drawer>
       <Scrim />
-      <HSplitPane leftPaneSize="80%" rightPaneSize="20%" minLeftPaneSize="50px" minRightPaneSize="50px">
+      <HSplitPane leftPaneSize="80%" rightPaneSize="20%" minLeftPaneSize="50px" minRightPaneSize="400px">
           <left slot="left">
             <VSplitPane topPanelSize="50%" downPanelSize="50%" minTopPaneSize="50px" minDownPaneSize="50px">
               <top slot='top'>
@@ -120,7 +120,7 @@ import Directory from '../components/Directory.svelte';
               <Directory/>
             </top>
             <down slot="down">
-          <div class = 'active-element'>
+          <div class="active-element">
             <Paper color="primary">
               <Title>
                 Element Editor

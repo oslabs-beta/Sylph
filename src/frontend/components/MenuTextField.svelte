@@ -1,9 +1,8 @@
-<script>
+<script lang="ts">
   import {Attributes} from './Attributes';
   import {Styles} from './Styles'
   import SelectDropdown from './SelectDropdown.svelte'
   import {activeNode, editorBody, nodeStore as nodes} from '../stores/store'
-  import { bind, each } from 'svelte/internal'
 
   let attributeForm
   let styleForm
@@ -83,12 +82,12 @@
       </div>
 
       <div class = "attribute-row">
-          <div class = "editor-title">  
-              <p>class: </p> 
-          </div>
-          <div class = "editor-input">  
-              <input type="text" value = '' on:change={(e)=>$activeNode.attributes.class = e.target.value} disabled = {available}/>
-          </div>
+        <div class = "editor-title">  
+          <p>class: </p> 
+        </div>
+        <div class = "editor-input">  
+          <input type="text" value='' on:change={(e)=>$activeNode.attributes.class = e.target.value} disabled = {available}/>
+        </div>
       </div>
 
       <div class = "attribute-row">
@@ -103,33 +102,40 @@
       <!-- loop to dynamically populate editor fields -->
     
       {#each attributes as attribute }
-      <div class = "attribute-row">
-          <div class = "editor-title">  
-              <p >{attribute}: </p> 
-          </div>
-        
-          <div class = "editor-input">  
-              <input type="text" value = {$activeNode?.attributes[attribute] || ''}
-                on:change={(e)=>$activeNode.attributes[attribute] = e.target.value}/>
-          </div>
+      <div class="attribute-row">
+        <div class = "editor-title">  
+          <p>{attribute}:</p> 
+        </div>
+      
+        <div class = "editor-input">  
+            <input 
+              type="text" 
+              value={$activeNode?.attributes[attribute] || ''}
+              on:change={(e)=>$activeNode.attributes[attribute] = e.target.value}
+            />
+        </div>
       </div>                            
             
       {/each}
       {:else}
-      <div class='table-header'>
-          Global Attributes
-        </div>
+      <div class="table-header">
+        Global Attributes   
+      </div>
         
-        {#each attributes as attribute }
-        <div class = "attribute-row">
-            <div class = "editor-title">  
-                <p >{attribute}: </p> 
+      {#each attributes as attribute }
+        <div class="attribute-row">
+          <div class="editor-title">  
+                <p>{attribute}:</p> 
             </div>
-            <div class = "editor-input">  
-                <input type="text" value = '' on:change={(e)=>$activeNode.attributes[{attribute}] = e.target.value}/>
+            <div class="editor-input">  
+              <input 
+                type="text" 
+                value='' 
+                on:change={(e)=>$activeNode.attributes[attribute] = e.target.value}
+              />
             </div>
         </div>   
-        {/each}
+      {/each}
     {/if}
     
           </form >
@@ -186,12 +192,11 @@
   }
 
   .attribute-row {
-    display:grid;
-    grid-template-columns: 1fr 3fr;
+    display: grid;
+    grid-template-columns: 1fr 3fr; 
     align-items: center;
     border: 1px darkgray solid;
-    padding:-2px;
-    
+    padding: -2px;
     padding-top: 0;
     padding-bottom:0;
   }
