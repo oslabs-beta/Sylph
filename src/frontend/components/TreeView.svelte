@@ -21,7 +21,7 @@
 		{#if children}
 			<span on:click={toggleExpansion}>
 				<span class="arrow" class:arrowDown>&#x25b6</span>
-				{label}
+				{label.slice(label.lastIndexOf('\\') + 1 )}
 			</span>
 			{#if expanded}
 				{#each children as child}
@@ -31,7 +31,8 @@
 		{:else}
 			<span >
 				<span class="no-arrow">
-				{@html `<span onclick={console.log('${label}')} >${label}</span>`}
+					<!-- <span onclick={console.log(label)} >{label.slice(label.lastIndexOf('\\')+ 1)}</span> -->
+				{@html `<span onclick={console.log(\`${label}\`)} >${label.slice(label.lastIndexOf('\\')+ 1)}</span>`}
 				</span>
 			</span>
 		{/if}

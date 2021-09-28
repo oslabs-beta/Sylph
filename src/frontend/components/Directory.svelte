@@ -19,7 +19,7 @@
                 return displayDirectory(value);
               }else{
                 return `<li>
-                  ${value}
+                  ${value.slice(value.lastIndexOf('/'))}
                  </li>`
               }
             }).join('')}

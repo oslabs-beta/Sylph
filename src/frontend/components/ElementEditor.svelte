@@ -13,76 +13,39 @@ console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
     console.log('TESTDIV', testDiv)
 
     const updateCode=(node)=>{
-      const newData = `<script>
-	export let name;
-  ${'<'}/script>
+      const newData = 
+`<script>
+  export let name;
+${'<'}/script>
 
 <main>
-	${toString(node)}
+  ${toString(node)}
 </main>
 
 <style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
-
-	h1 {
-    padding: 5px;
-		color: white;
-    min-height: 25px;
-    border: solid 1px green;
-    background-color: purple;
-	}
-
-  div {
-    padding: 5px;
-		color: white;
-    min-height: 25px;
-    border: solid 1px blue;
-    
-    background-color: green;
-	}
-
-  section {
-    padding: 5px;
-		color: white;
-    min-height: 25px;
-    border: solid 1px orange;
-    
-    background-color: pink;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
+  ${styleToString(node)}
 </style>`;
 
     globalThis.api.project.send('writeOver', {path: 'src/App.svelte', data: newData});
     globalThis.api.project.send('read', {path: 'src/App.svelte'});
-    console.log('hitting read')
     }
 
-    const toString = (node)=> {
-		return `<${node.name} ${node.attributes ? Object.entries(node?.attributes)
-			.map(([key, value]) => `${key}=${`"${value}"`}`)
-			.join(' '): ''}
+    const toString = (node, lvl=0)=> {
+		return `${'    '.repeat(lvl)}<${node.name} ${node.attributes ? Object.entries(node?.attributes)
+			.map(([key, value]) => `${key}=${key==='style'?`{${value}}`: `"${value}"`}`)
+      .join(' '): ''}>
 			${
 				node.hasOwnProperty('items') // check if the node element is self closing tag
-					? `>${node.innerText? node.innerText : ' '}\n\t` +
-					  node.items.map((child) => toString(child)).join('\n') +
+					? `${node.innerText? node.innerText : ' '}\n${'    '.repeat(lvl+1)}` +
+					  node.items.map((child) => toString(child, lvl+1)).join('') +
 					  `</${node.name}>`
-					: '/>'
+					: `/>`
 			}
 		`;
   }//end of toString
   
   const styleToString = (node) => {
-	return `
+	return '';`
 			# ${
 				node.items.map(child=>child.attributes.id + ':{'+Object.entries(child.styles).map(([key,value])=> key + '=' + value)  +'}')
 			}, 
