@@ -115,7 +115,7 @@ console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
         <h3>node tree</h3>
         { JSON.stringify($nodes)}
 <br>
-        <!-- <h3>toString </h3> -->
+        <h3>toString </h3>
         {updateCode($nodes.node1)}
       
 

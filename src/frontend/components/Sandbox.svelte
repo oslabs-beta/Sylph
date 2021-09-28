@@ -78,13 +78,7 @@
           $activeNode = null;
           $activeNode = item;
           item.selected = (item === $activeNode && true)
-          // if ($activeNode.attributes?.id){
-          //    $editorBody = 'block'
-            
-          // } else{
-          //   $editorBody = 'none'
-            
-          // }
+
           console.log('ACTIVE NODE ',$activeNode)
           active[item.id] = !active[item.id];
           console.log('ATTRIBUTE ID', $activeNode.attributes?.id)
