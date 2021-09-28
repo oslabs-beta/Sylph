@@ -19,6 +19,7 @@
   
   import {nodeStore as nodes}  from '../stores/store'
   import { activeNode }  from '../stores/store'
+import Directory from '../components/Directory.svelte';
 
   //drawer functionality
   let open = false;
@@ -116,6 +117,7 @@
           <VSplitPane topPanelSize="40%" downPanelSize="60%" minTopPaneSize="50px" minDownPaneSize="50px">
             <top slot='top'>
               <h3>Placeholder</h3>
+              <Directory/>
             </top>
             <down slot="down">
           <div class = 'active-element'>
@@ -165,7 +167,7 @@
     width: 100%;
     height: 100%;
     display: block;
-    text-align: center;
+    /* text-align: center; */
     background-color: white;
   }
   
