@@ -13,13 +13,14 @@
 
   import Sandbox from '../components/Sandbox.svelte';
   import ComponentMenu from '../components/ComponentMenu.svelte';
-  import Preview from '../components/Preview.svelte';
   import PortSnackbar from '../components/PortSnackbar.svelte';
   import ComponentCustomizer from '../components/ComponentCustomizer.svelte'
   
   import {nodeStore as nodes}  from '../stores/store'
   import { activeNode }  from '../stores/store'
-import Directory from '../components/Directory.svelte';
+
+  import Directory from '../components/Directory.svelte';
+  import PreviewEditorContainer from './PreviewEditorContainer.svelte';
 
   //drawer functionality
   let open = false;
@@ -27,8 +28,6 @@ import Directory from '../components/Directory.svelte';
   //code based on https://svelte.dev/repl/fe8c9eca04f9417a94a8b6041df77139?version=3.42.1
   //nesting depth
   let depth = 100;
-
-  console.log('NODESTORE IN APP ', $nodes);
 
   //all nodes in the component menu to drag into sandbox
   let components = [
@@ -89,7 +88,6 @@ import Directory from '../components/Directory.svelte';
                   node={$nodes.node1}
                   bind:nodes={$nodes} 
                   bind:depth={depth}
-                  
                 />
                 <div id="toggle-drawer">
                   <Button
@@ -109,7 +107,7 @@ import Directory from '../components/Directory.svelte';
                 />
               </top>
               <down slot="down">
-                <Preview />
+                <PreviewEditorContainer />
               </down>
             </VSplitPane>
           </left>
@@ -176,8 +174,8 @@ import Directory from '../components/Directory.svelte';
   }
 
   .active-element {
-    margin: 0 auto;
-    padding: 1rem;
+    /* margin: 0 auto; */
+    padding: 10px;
     color: snow;
   }
 

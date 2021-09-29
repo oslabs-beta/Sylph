@@ -59,7 +59,7 @@ ${styleToString(node)}
   }
 </style>
 
-<div class="content">
+<!-- <div class="content"> -->
   <div class="update-code">
     <!-- <h3>active node</h3>
     {JSON.stringify($activeNode)}
@@ -70,7 +70,7 @@ ${styleToString(node)}
     {updateCode($nodes.node1)} 
   </div>   
   <MenuTextField /> 
-</div>
+<!-- </div> -->
       
      
    
