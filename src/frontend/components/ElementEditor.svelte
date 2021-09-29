@@ -111,7 +111,7 @@ svelte bind value to input, set to come state/store obj? -->
   }
 </style>
 
-<div class="content">
+<!-- <div class="content"> -->
   <div class="update-code">
     <!-- <h3>active node</h3>
     {JSON.stringify($activeNode)}
@@ -122,7 +122,7 @@ svelte bind value to input, set to come state/store obj? -->
     {updateCode($nodes.node1)} 
   </div>   
   <MenuTextField /> 
-</div>
+<!-- </div> -->
       
      
    

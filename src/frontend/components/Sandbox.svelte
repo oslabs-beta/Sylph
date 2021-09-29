@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { flip } from 'svelte/animate';
 	import { dndzone, SHADOW_PLACEHOLDER_ITEM_ID, TRIGGERS } from 'svelte-dnd-action';
-  import {activeNode, editorBody} from '../stores/store'
+  import {activeNode} from '../stores/store'
 
     export let nodes
     export let node
@@ -78,11 +78,7 @@
           $activeNode = null;
           $activeNode = item;
           item.selected = (item === $activeNode && true)
-
-          console.log('ACTIVE NODE ',$activeNode)
-          active[item.id] = !active[item.id];
-          console.log('ATTRIBUTE ID', $activeNode.attributes?.id)
-      
+          active[item.id] = !active[item.id];      
           }} 
      
           on:keydown|stopPropagation = {(e) => {
