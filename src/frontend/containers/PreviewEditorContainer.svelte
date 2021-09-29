@@ -79,7 +79,7 @@
   <!-- <button on:click={showCode}>get file string</button>
   <button on:click={editCode}>update file</button> -->
   <div>
-    <TabBar tabs={['Code Editor', 'Preview']} let:tab bind:active>
+    <TabBar tabs={['Code Editor', 'Preview', 'Code Editor + Preview']} let:tab bind:active>
       <Tab {tab}>
         <Label>{tab}</Label>
       </Tab>
@@ -88,7 +88,18 @@
   <div class="preview-editor-content">
   {#if active === "Code Editor"}
     <Editor lang='html' text={displayedCode} filename='index.svelte'/>
+  {:else if active === 'Preview'}
+    <iframe
+      bind:this={iframeElement}
+      id="iframe"
+      title="codePreview" 
+      src={entryPoint} 
+      frameborder="0"
+      width="100%"
+      height="100%"
+    />
   {:else}
+    <Editor lang='html' text={displayedCode} filename='index.svelte'/>
     <iframe
       bind:this={iframeElement}
       id="iframe"
@@ -99,5 +110,5 @@
       height="100%"
     />
   {/if}
-</div>
+  </div>
 </section>
