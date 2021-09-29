@@ -26,8 +26,6 @@
   //nesting depth
   let depth = 100;
 
-  console.log('NODESTORE IN APP ', $nodes);
-
   //all nodes in the component menu to drag into sandbox
   let components = [
     { id: 'node_a', name: 'a', attributes:{}, styles:{},  selected: false},

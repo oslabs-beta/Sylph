@@ -22,7 +22,8 @@ export const nodeStore = writable(nodes, () =>
 export const activeNode = writable(null, () =>
   console.log('ACTIVENODE ', activeNode)
 );
-//global state to conditionally display attribute editor field
-export const editorBody = writable('none', () =>
-  console.log('editorBody ', editorBody)
+
+//global state of attribute search field value
+export const searchFieldValue = writable('', () =>
+  console.log('searchFieldValue ', searchFieldValue)
 );

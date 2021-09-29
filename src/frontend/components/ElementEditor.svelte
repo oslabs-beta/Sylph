@@ -7,11 +7,9 @@ import { DivElement, ImageElement } from "../classes/HTMLElements.ts";
 import MenuTextField from "./MenuTextField.svelte";
 import {nodeStore as nodes, activeNode}  from '../stores/store'
 let nodeActive = $activeNode
-console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
+// console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
     const testDiv = new DivElement
     const testImage = new ImageElement
-    console.log('TESTDIV', testDiv)
-
     const updateCode=(node)=>{
       const newData = `<script>
 	export let name;
