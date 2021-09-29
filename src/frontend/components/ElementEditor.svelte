@@ -3,14 +3,9 @@ svelte bind value to input, set to come state/store obj? -->
 <!-- tabs for different types of attributes -->
 
 <script>
-import { DivElement, ImageElement } from "../classes/HTMLElements.ts";
-import MenuTextField from "./MenuTextField.svelte";
-import {nodeStore as nodes, activeNode}  from '../stores/store'
-let nodeActive = $activeNode
-console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
-    const testDiv = new DivElement
-    const testImage = new ImageElement
-    console.log('TESTDIV', testDiv)
+  import { DivElement, ImageElement } from "../classes/HTMLElements.ts";
+  import MenuTextField from "./MenuTextField.svelte";
+  import {nodeStore as nodes, activeNode}  from '../stores/store'
 
     const updateCode=(node)=>{
       const newData = 
@@ -68,21 +63,23 @@ ${'<'}/script>
     height: 100%;
     justify-content: center;
   }
+
+  .update-code {
+    display: none;
+  }
 </style>
 
-<div class = 'content'>
-  <div style={{display:'grid', contain:'content', width:'100%',}}>
-    <h3>active node</h3>
+<div class="content">
+  <div class="update-code">
+    <!-- <h3>active node</h3>
     {JSON.stringify($activeNode)}
-    <!-- <h3>node 1 HTML</h3>
-    { JSON.stringify($nodes.node1)} -->
     <h3>node tree</h3>
-    { JSON.stringify($nodes)}
-    <br>
-    <h3>toString </h3>
-    {updateCode($nodes.node1)}
+    {JSON.stringify($nodes)}
+    <br />
+    <h3>toString </h3> -->
+    {updateCode($nodes.node1)} 
   </div>   
-    <MenuTextField /> 
+  <MenuTextField /> 
 </div>
       
      

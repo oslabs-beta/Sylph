@@ -1,159 +1,166 @@
-<script>
-    import {Attributes} from './Attributes';
-    import {Styles} from './Styles'
-    import SelectDropdown from './SelectDropdown.svelte'
-    import {activeNode, editorBody, nodeStore as nodes} from '../stores/store'
-import { bind, each } from 'svelte/internal'
+<script lang="ts">
+  import {Attributes} from './Attributes';
+  import {Styles} from './Styles'
+  import SelectDropdown from './SelectDropdown.svelte'
+  import {activeNode, editorBody, nodeStore as nodes} from '../stores/store'
 
-    let attributeForm
-    let styleForm
-    let IDField
-    //dynamically adds element specific attributes to editor list
-        const attributeList = () =>{
-         switch ($activeNode?.name){
-          case 'a':
-              console.log('a hit')
-              return Attributes.general.concat(Attributes.a).sort();
-                
-          case 'blockquote':
-              return Attributes.general.concat(Attributes.blockquote).sort();
-               
-          case 'button':
-              return Attributes.general.concat(Attributes.button).sort();
-                
-          case 'form':
-              return Attributes.general.concat(Attributes.form).sort();
-                
-          case 'img':
-              return Attributes.general.concat(Attributes.img).sort();
-                
-          case 'li':
-              return Attributes.general.concat(Attributes.li).sort();
-                
-          case 'ol':
-              return Attributes.general.concat(Attributes.ol).sort();
-                
-          case 'textarea':
-              return Attributes.general.concat(Attributes.textarea).sort();
-              
-          default:
-              return Attributes.general  
-        }
-        return 
+  let attributeForm
+  let styleForm
+  let IDField
+  //dynamically adds element specific attributes to editor list
+  const attributeList = () =>{
+    switch ($activeNode?.name){
+    case 'a':
+        console.log('a hit')
+        return Attributes.general.concat(Attributes.a).sort();
+          
+    case 'blockquote':
+        return Attributes.general.concat(Attributes.blockquote).sort();
+          
+    case 'button':
+        return Attributes.general.concat(Attributes.button).sort();
+          
+    case 'form':
+        return Attributes.general.concat(Attributes.form).sort();
+          
+    case 'img':
+        return Attributes.general.concat(Attributes.img).sort();
+          
+    case 'li':
+        return Attributes.general.concat(Attributes.li).sort();
+          
+    case 'ol':
+        return Attributes.general.concat(Attributes.ol).sort();
+          
+    case 'textarea':
+        return Attributes.general.concat(Attributes.textarea).sort();
+        
+    default:
+        return Attributes.general  
     }
-    //array iterated to build editor list
-    let attributes = [];
+  }
+  //array iterated to build editor list
+  let attributes = [];
 
-    //works like useEffect passing activenode.name into the dependency array
-    $: $activeNode?.name ? attributes = attributeList() : attributes = Attributes.general
-   
-   
-    const handleSubmit = ()=>{
-    
-       attributeForm.reset()
-       styleForm.reset()
-       $nodes = {...$nodes};
-       $activeNode = null
-       console.log($activeNode)
+  //works like useEffect passing activenode.name into the dependency array
+  $: $activeNode?.name ? attributes = attributeList() : attributes = Attributes.general
+
+  const handleSubmit = ()=>{
+    attributeForm.reset()
+    styleForm.reset()
+    $nodes = {...$nodes};
+    $activeNode = null
+    console.log($activeNode)
     // activeNode.attributes.id ? $editorBody = 'block' : $editorBody = 'none'
-    }
-  
-    let available = false
+  }
+
+  let available = false
 </script>
 
-    <container class='main-container'>
-         
-    <form on:submit|preventDefault={handleSubmit} bind:this ={attributeForm} class = attribute-form>
-        <!-- static always on top of the list attributes -->
-        {#if $activeNode?.name}
-        <div class='table-header'>
-           Element Attributes
-        </div>
-        <div class = "attribute-row">
-            <div class = "editor-title">  
-                <p>id: </p> 
-            </div>
-            <div class = "editor-input">  
-                <input type="text" placeholder="***assign id to edit styles***" 
-                value = {$activeNode?.attributes?.id || ''} 
-                bind:this={IDField} on:input={(e)=>{
-                     $activeNode.attributes.id = e.target.value}}/>
-            </div>
-        </div>
+  <container class='main-container'>
+        
+  <form 
+    on:submit|preventDefault={handleSubmit} 
+    bind:this ={attributeForm} 
+    class="attribute-form"
+  >
+      <!-- static always on top of the list attributes -->
+      {#if $activeNode?.name}
+      <div class='table-header'>
+          Element Attributes
+      </div>
+      <div class = "attribute-row">
+          <div class = "editor-title">  
+              <p>id: </p> 
+          </div>
+          <div class = "editor-input">  
+              <input type="text" placeholder="***assign id to edit styles***" 
+              value = {$activeNode?.attributes?.id || ''} 
+              bind:this={IDField} on:input={(e)=>{
+                    $activeNode.attributes.id = e.target.value}}/>
+          </div>
+      </div>
 
-        <div class = "attribute-row">
-            <div class = "editor-title">  
-                <p>class: </p> 
-            </div>
-            <div class = "editor-input">  
-                <input type="text" value = '' on:change={(e)=>$activeNode.attributes.class = e.target.value} disabled = {available}/>
-            </div>
+      <div class = "attribute-row">
+        <div class = "editor-title">  
+          <p>class: </p> 
         </div>
-
-        <div class = "attribute-row">
-            <div class = "editor-title">  
-                <p>innerText: </p> 
-            </div>
-            <div class = "editor-input">  
-                <input type="text" value = '' on:change={(e)=>$activeNode.innerText = e.target.value}/>
-            </div>
+        <div class = "editor-input">  
+          <input type="text" value='' on:change={(e)=>$activeNode.attributes.class = e.target.value} disabled = {available}/>
         </div>
+      </div>
 
-        <!-- loop to dynamically populate editor fields -->
+      <div class = "attribute-row">
+          <div class = "editor-title">  
+              <p>innerText: </p> 
+          </div>
+          <div class = "editor-input">  
+              <input type="text" value = '' on:change={(e)=>$activeNode.innerText = e.target.value}/>
+          </div>
+      </div>
+
+      <!-- loop to dynamically populate editor fields -->
+    
+      {#each attributes as attribute }
+      <div class="attribute-row">
+        <div class = "editor-title">  
+          <p>{attribute}:</p> 
+        </div>
       
-        {#each attributes as attribute }
-        <div class = "attribute-row">
-            <div class = "editor-title">  
-                <p >{attribute}: </p> 
-            </div>
-          
-            <div class = "editor-input">  
-                <input type="text" value = {$activeNode?.attributes[attribute] || ''}
-                  on:change={(e)=>$activeNode.attributes[attribute] = e.target.value}/>
-            </div>
-        </div>                            
-              
-        {/each}
-        {:else}
-        <div class='table-header'>
-            Global Attributes
-         </div>
-         
-         {#each attributes as attribute }
-         <div class = "attribute-row">
-             <div class = "editor-title">  
-                 <p >{attribute}: </p> 
-             </div>
-             <div class = "editor-input">  
-                 <input type="text" value = '' on:change={(e)=>$activeNode.attributes[{attribute}] = e.target.value}/>
-             </div>
-         </div>   
-         {/each}
-      {/if}
-      
-            </form >
-   
-            <form on:submit|preventDefault={handleSubmit} bind:this ={styleForm} class = style-form>
-               <!-- <div style= 'display:{$editorBody}'> -->
-        {#if IDField?.value.length>0 || $activeNode?.attributes?.id }
-        <div class='table-header'>
-            Styles
+        <div class = "editor-input">  
+            <input 
+              type="text" 
+              value={$activeNode?.attributes[attribute] || ''}
+              on:change={(e)=>$activeNode.attributes[attribute] = e.target.value}
+            />
         </div>
-        {#each Styles as style }   
-        <div class = "attribute-row">
-            <div class = "editor-title">  
-                <p >{style}: </p> 
+      </div>                            
+            
+      {/each}
+      {:else}
+      <div class="table-header">
+        Global Attributes   
+      </div>
+        
+      {#each attributes as attribute }
+        <div class="attribute-row">
+          <div class="editor-title">  
+                <p>{attribute}:</p> 
             </div>
-            <div class = "editor-input">  
-                <input type="text" value = '' on:change={(e)=> {
-                    $activeNode.styles[style] = e.target.value;
-                  }}
-                />
+            <div class="editor-input">  
+              <input 
+                type="text" 
+                value='' 
+                on:change={(e)=>$activeNode.attributes[attribute] = e.target.value}
+              />
             </div>
-        </div> 
- 
-    {/each}
+        </div>   
+      {/each}
     {/if}
+    
+          </form >
+  
+          <form on:submit|preventDefault={handleSubmit} bind:this ={styleForm} class = style-form>
+              <!-- <div style= 'display:{$editorBody}'> -->
+      {#if IDField?.value.length>0 || $activeNode?.attributes?.id }
+      <div class='table-header'>
+          Styles
+      </div>
+      {#each Styles as style }   
+      <div class = "attribute-row">
+          <div class = "editor-title">  
+              <p >{style}: </p> 
+          </div>
+          <div class = "editor-input">  
+              <input type="text" value = '' on:change={(e)=> {
+                  $activeNode.styles[style] = e.target.value;
+                }}
+              />
+          </div>
+      </div> 
+
+  {/each}
+  {/if}
 
 <div>
     <button class = 'submit-btn' type='submit'>Apply</button>
@@ -163,70 +170,73 @@ import { bind, each } from 'svelte/internal'
 <div style= 'height: 150px'>
 
 </div>
-<style>
 
+<style>
   .editor-input {
-      display:grid;
-      align-items: center;
-      font-size:.6em;
-      height:100%;
-      width:100%;
-      padding-left: 5px;
-      margin:-5px;
-  }
-  .editor-title {
-      display:grid;
-      align-items: center;
-      font-size:.6em;
-      padding:-5px;
-      margin:-5px;
-      justify-items: start;
-  }
-.attribute-row {
     display:grid;
-    grid-template-columns: 1fr 3fr;
+    align-items: center;
+    font-size:.6em;
+    height:100%;
+    width:100%;
+    padding-left: 5px;
+    margin:-5px;
+  }
+
+  .editor-title {
+    display:grid;
+    align-items: center;
+    font-size:.6em;
+    padding:-5px;
+    margin:-5px;
+    justify-items: start;
+  }
+
+  .attribute-row {
+    display: grid;
+    grid-template-columns: 1fr 3fr; 
     align-items: center;
     border: 1px darkgray solid;
-    padding:-2px;
-    
+    padding: -2px;
     padding-top: 0;
     padding-bottom:0;
-}
+  }
+
   .table-header {
-      display:flex;
-      padding: 10px;
-      justify-content: center;
-      outline:1px solid darkgray;
-      width: auto;
-      background-color: #7D3780;
-      color: whitesmoke;
+    display:flex;
+    padding: 10px;
+    justify-content: center;
+    outline:1px solid darkgray;
+    width: auto;
+    background-color: #7D3780;
+    color: whitesmoke;
   }
 
   .attribute-form {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
+
   .submit-btn {
-      margin: 10px;
+    margin: 10px;
   }
+
   .main-container {
-      width: 100%;
-      height:100%;
-      margin: 0;
-      padding: 0;
+    width: 100%;
+    height:100%;
+    margin: 0;
+    padding: 0;
   }
-  p{
-      padding-left: 10px;
+
+  p {
+    padding-left: 10px;
   }
+
   input {
-      border-radius: 0;
-      outline:2px darkgray solid;
+    border-radius: 0;
+    outline:2px darkgray solid;
   }
-
   .editor-input input {
-      width: auto;
+    width: auto;
   }
-
-  
 </style>
