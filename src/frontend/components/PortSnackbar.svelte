@@ -7,7 +7,7 @@
   let snackbar;
 
   //variable for which port is being used
-  let port = '3000';
+  let port = '5000';
 
   //load snackbar on mount
   onMount(async () => {
@@ -17,5 +17,5 @@
 </script>
 
 <Snackbar bind:this={snackbar}>
-  <Label>Sylph is currently using Port {port} for its child process.</Label>
+  <Label>Sylph is currently using port {port} for its child process.</Label>
 </Snackbar>

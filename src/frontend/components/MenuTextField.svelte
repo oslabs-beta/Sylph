@@ -256,9 +256,8 @@
 <div style= 'height: 150px'>
 
 </div>
+
 <style>
-
-
 .attribute-row {
     display:grid;
     grid-template-columns: 1fr ;
@@ -283,21 +282,24 @@
   }
 
   .attribute-form {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
+
   .submit-btn {
-      margin: 10px;
+    margin: 10px;
   }
+
   .main-container {
-      width: 100%;
-      height:100%;
-      margin: 0;
-      padding: 0;
+    width: 100%;
+    height:100%;
+    margin: 0;
+    padding: 0;
   }
-  p{
-      padding-left: 10px;
+
+  p {
+    padding-left: 10px;
   }
 
 </style>

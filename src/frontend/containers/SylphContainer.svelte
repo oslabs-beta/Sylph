@@ -2,22 +2,25 @@
   localStorage.setItem("src/filename.html", "<h1>Hello World!</h1>")
 
   import { HSplitPane, VSplitPane } from 'svelte-split-pane';
-  import   Drawer,
-{
+  import Drawer, {
     Content,
     Header,
     Title,
+    Scrim
   } from '@smui/drawer';
+  import Paper from '@smui/paper';
   import Button, { Label } from '@smui/button';
 
   import Sandbox from '../components/Sandbox.svelte';
   import ComponentMenu from '../components/ComponentMenu.svelte';
-  import Preview from '../components/Preview.svelte';
   import PortSnackbar from '../components/PortSnackbar.svelte';
   import ComponentCustomizer from '../components/ComponentCustomizer.svelte'
   
   import {nodeStore as nodes}  from '../stores/store'
   import { activeNode }  from '../stores/store'
+
+  import Directory from '../components/Directory.svelte';
+  import PreviewEditorContainer from './PreviewEditorContainer.svelte';
 
   //drawer functionality
   let open = false;
@@ -61,7 +64,7 @@
   <!-- <button on:click={killDev}>kill dev</button> -->
   <div class="wrapper">
     <div class="drawer-container">
-      <Drawer variant="dismissible" bind:open>
+      <Drawer variant="modal" bind:open>
         <Header>
           <Title>Components</Title>
         </Header>
@@ -75,7 +78,8 @@
           <Label>Close</Label>
         </Button>
       </Drawer>
-      <HSplitPane leftPaneSize="80%" rightPaneSize="20%" minLeftPaneSize="50px" minRightPaneSize="50px">
+      <Scrim />
+      <HSplitPane leftPaneSize="80%" rightPaneSize="20%" minLeftPaneSize="50px" minRightPaneSize="400px">
           <left slot="left">
             <VSplitPane topPanelSize="50%" downPanelSize="50%" minTopPaneSize="50px" minDownPaneSize="50px">
               <top slot='top'>
@@ -84,7 +88,6 @@
                   node={$nodes.node1}
                   bind:nodes={$nodes} 
                   bind:depth={depth}
-                  
                 />
                 <div id="toggle-drawer">
                   <Button
@@ -104,7 +107,7 @@
                 />
               </top>
               <down slot="down">
-                <Preview />
+                <PreviewEditorContainer />
               </down>
             </VSplitPane>
           </left>
@@ -112,11 +115,20 @@
           <VSplitPane topPanelSize="40%" downPanelSize="60%" minTopPaneSize="50px" minDownPaneSize="50px">
             <top slot='top'>
               <h3>Placeholder</h3>
+              <Directory/>
             </top>
             <down slot="down">
-              <div class = 'active-element'>
-          <h4>{$activeNode?.name  || 'Edit global attributes'+'\n'+'or select element to edit'}</h4>
-          <h6>{$activeNode?.id || ''}</h6>
+          <div class="active-element">
+            <Paper color="primary">
+              <Title>
+                Element Editor
+              </Title>
+              <br />
+              <Content>
+                <p>{$activeNode ? `Element Name: ${$activeNode?.name}` : 'Edit global attributes'+'\n'+'or select element to edit.'}</p>
+                <p>{$activeNode ? `Element ID: ${$activeNode?.id}` : ''}</p>
+              </Content>
+            </Paper>
           </div>
               <ComponentCustomizer />
             </down>
@@ -153,7 +165,7 @@
     width: 100%;
     height: 100%;
     display: block;
-    text-align: center;
+    /* text-align: center; */
     background-color: white;
   }
   
@@ -162,7 +174,7 @@
   }
 
   .active-element {
-    background-color: #7D3780;
+    /* margin: 0 auto; */
     padding: 10px;
     color: snow;
   }
@@ -182,6 +194,5 @@
     position: relative;
     display: flex;
     overflow: hidden;
-    z-index: 0;
   }
 </style>
