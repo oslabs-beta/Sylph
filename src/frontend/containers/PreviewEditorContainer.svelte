@@ -1,5 +1,11 @@
 <script lang="ts">
-  import Editor from "./Editor.svelte";
+  import Editor from "../components/Editor.svelte";
+
+  import Tab, { Label } from '@smui/tab';
+  import TabBar from '@smui/tab-bar';
+ 
+  let active = 'Code Editor';
+
   globalThis.api.project.send('read', {path: 'src/App.svelte'});
     console.log('hitting read')
   let renderedCode = `<!DOCTYPE html>
@@ -52,20 +58,39 @@
 <style>
   section {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100%;
     width: 100%;
     background-color: white;
   }
+
+  .preview-editor-content {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
 </style>
 
 <section>
   <!-- <button on:click={showCode}>get file string</button>
   <button on:click={editCode}>update file</button> -->
-  <Editor lang='html' text={displayedCode} filename='index.svelte'/>
+  <div>
+    <TabBar tabs={['Code Editor', 'Preview', 'Code Editor + Preview']} let:tab bind:active>
+      <Tab {tab}>
+        <Label>{tab}</Label>
+      </Tab>
+    </TabBar>
+  </div>
+  <div class="preview-editor-content">
+  {#if active === "Code Editor"}
+    <Editor lang='html' text={displayedCode} filename='index.svelte'/>
+  {:else if active === 'Preview'}
     <iframe
-    bind:this={iframeElement}
+      bind:this={iframeElement}
       id="iframe"
       title="codePreview" 
       src={entryPoint} 
@@ -73,4 +98,17 @@
       width="100%"
       height="100%"
     />
+  {:else}
+    <Editor lang='html' text={displayedCode} filename='index.svelte'/>
+    <iframe
+      bind:this={iframeElement}
+      id="iframe"
+      title="codePreview" 
+      src={entryPoint} 
+      frameborder="0"
+      width="100%"
+      height="100%"
+    />
+  {/if}
+  </div>
 </section>
