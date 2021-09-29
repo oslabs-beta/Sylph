@@ -31,7 +31,6 @@
 		{:else}
 			<span >
 				<span class="no-arrow">
-					<!-- <span onclick={console.log(label)} >{label.slice(label.lastIndexOf('\\')+ 1)}</span> -->
 				{@html `<span onclick={console.log(\`${label.split('').map(char=>char==='\\'? char.repeat(2):char).join('')}\`)} >${label.slice(label.lastIndexOf('\\')+ 1)}</span>`}
 				</span>
 			</span>

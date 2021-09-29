@@ -14,24 +14,24 @@ svelte bind value to input, set to come state/store obj? -->
 ${'<'}/script>
 
 <main>
-  ${toString(node)}
+${toString(node)}
 </main>
 
 <style>
-  ${styleToString(node)}
+${styleToString(node)}
 </style>`;
 
     globalThis.api.project.send('writeOver', {path: 'src/App.svelte', data: newData});
     globalThis.api.project.send('read', {path: 'src/App.svelte'});
     }
 
-    const toString = (node, lvl=0)=> {
-		return `${'    '.repeat(lvl)}<${node.name} ${node.attributes ? Object.entries(node?.attributes)
-			.map(([key, value]) => `${key}=${key==='style'?`'${value}'`: `"${value}"`}`)
-      .join(' '): ''}>
+    const toString = (node, lvl=1)=> {
+		return `${'    '.repeat(lvl)}<${node.name}${node.attributes ? Object.entries(node?.attributes)
+			.map(([key, value]) => ` ${key}=${`"${value}"`}`)
+      .join(' '):''}>
 			${
 				node.hasOwnProperty('items') // check if the node element is self closing tag
-					? `${node.innerText? node.innerText : ' '}\n${'    '.repeat(lvl+1)}` +
+					? `${node.innerText? node.innerText : ' '}\n${'    '.repeat(lvl)}` +
 					  node.items.map((child) => toString(child, lvl+1)).join('') +
 					  `</${node.name}>`
 					: `/>`
@@ -40,17 +40,7 @@ ${'<'}/script>
   }//end of toString
   
   const styleToString = (node) => {
-	return '';`
-			# ${
-				node.items.map(child=>child.attributes.id + ':{'+Object.entries(child.styles).map(([key,value])=> key + '=' + value)  +'}')
-			}, 
-			${
-				node.hasOwnProperty('items') // check if the node element is self closing tag
-				? 
-				  node.items.map((child) => styleToString(child)) 
-				: ''
-			}
-	`; //end of return
+	return `${node.items.filter(child=>child.attributes.id).map(child=>`#${child.attributes.id} {\n\t${Object.entries(child.styles).map(([key,value])=> `${key}: ${value}`).join(';\n\t')}\n  }`).join('\n\n')}`; //end of return
 }; //end of styleToString
 
 
