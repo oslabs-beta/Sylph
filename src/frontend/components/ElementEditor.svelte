@@ -32,7 +32,7 @@ ${'<'}/script>
 
     const toString = (node, lvl=0)=> {
 		return `${'    '.repeat(lvl)}<${node.name} ${node.attributes ? Object.entries(node?.attributes)
-			.map(([key, value]) => `${key}=${key==='style'?`{${value}}`: `"${value}"`}`)
+			.map(([key, value]) => `${key}=${key==='style'?`'${value}'`: `"${value}"`}`)
       .join(' '): ''}>
 			${
 				node.hasOwnProperty('items') // check if the node element is self closing tag
@@ -69,20 +69,19 @@ ${'<'}/script>
     justify-content: center;
   }
 </style>
-    <div class = 'content'>
-      <div style={{display:'grid', contain:'content', width:'100%',}}>
-        <h3>active node</h3>
-      {JSON.stringify($activeNode)}
-        <!-- <h3>node 1 HTML</h3>
-        { JSON.stringify($nodes.node1)} -->
-        <h3>node tree</h3>
-        { JSON.stringify($nodes)}
-<br>
-        <h3>toString </h3>
-        {updateCode($nodes.node1)}
-      
 
-</div>   
+<div class = 'content'>
+  <div style={{display:'grid', contain:'content', width:'100%',}}>
+    <h3>active node</h3>
+    {JSON.stringify($activeNode)}
+    <!-- <h3>node 1 HTML</h3>
+    { JSON.stringify($nodes.node1)} -->
+    <h3>node tree</h3>
+    { JSON.stringify($nodes)}
+    <br>
+    <h3>toString </h3>
+    {updateCode($nodes.node1)}
+  </div>   
     <MenuTextField /> 
 </div>
       

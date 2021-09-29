@@ -31,8 +31,8 @@ import Directory from '../components/Directory.svelte';
 
   //all nodes in the component menu to drag into sandbox
   let components = [
-    { id: 'node_a', name: 'a', attributes:{}, styles:{},  selected: false},
-    { id: 'node_button', name: 'button', attributes:{}, styles:{},  selected: false},
+    { id: 'node_a', name: 'a', items: [], attributes:{}, styles:{},  selected: false},
+    { id: 'node_button', name: 'button', items: [], attributes:{}, styles:{},  selected: false},
     { id: 'node_div', name: 'div', items: [], attributes:{}, styles:{}, selected: false },
     { id: 'node_footer', name: 'footer', items: [], attributes:{}, styles:{}, selected: false },
     { id: 'node_form', name: 'form', items: [], attributes:{}, styles:{}, selected: false },
