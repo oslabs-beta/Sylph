@@ -114,11 +114,11 @@
         <right slot="right">
           <VSplitPane topPanelSize="40%" downPanelSize="60%" minTopPaneSize="50px" minDownPaneSize="50px">
             <top slot='top'>
-              <h3>Placeholder</h3>
+              <h3>Directory</h3>
               <Directory/>
             </top>
             <down slot="down">
-          <div class="active-element">
+          <!-- <div class="active-element">
             <Paper color="primary">
               <Title>
                 Element Editor
@@ -129,7 +129,7 @@
                 <p>{$activeNode ? `Element ID: ${$activeNode?.id}` : ''}</p>
               </Content>
             </Paper>
-          </div>
+          </div> -->
               <ComponentCustomizer />
             </down>
           </VSplitPane>

@@ -208,10 +208,12 @@ function writeOver(
         console.log(err);
         mainWindow.webContents.send('overwritten', false);
       } else {
+        console.log('OverWritten!!!');
         mainWindow.webContents.send('overwritten', true);
       }
     }
   );
+  mainWindow.webContents.send('overwritten', true);
 }
 
 // function dirCrawl(dir: string) {
@@ -245,7 +247,7 @@ function getDirectory(
   event: Electron.IpcMainEvent,
   message: any
 ) {
-  const dirObj: {} = dirCrawl(path.join(dirpath, 'Projects'));
+  const dirObj: {} = dirCrawl(path.join(dirpath, 'Projects', folder));
   console.log(dirObj);
   mainWindow.webContents.send('directorySent', dirObj);
 }
