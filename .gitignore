@@ -1,5 +1,4 @@
-/node_modules/*
-!/node_modules/@smui
+/node_modules/
 /public/build/
 /dist
 /Projects/*
