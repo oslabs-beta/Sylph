@@ -161,33 +161,26 @@ class Main {
 			this.onEvent.emit('window-created');
 
 			// ↓↓↓↓ context menu
+			const contents = this.window.webContents;
 			const ctxMenu = new Menu();
-			// testing
-			ctxMenu.append(
-				new MenuItem({
-					label: 'HelloSylph',
-					click: function () {
-						console.log('HelloSylph is clicked');
-					},
-				})
-			);
+
 			ctxMenu.append(new MenuItem({ role: 'cut' }));
 			ctxMenu.append(new MenuItem({ role: 'copy' }));
 			ctxMenu.append(new MenuItem({ role: 'paste' }));
 			ctxMenu.append(new MenuItem({ role: 'selectAll' }));
-			ctxMenu.append(new MenuItem({ role: 'reload' }));
+			ctxMenu.append(
+				new MenuItem({
+					label: 'delete',
+					click: function () {
+						//simulating delete button is clicked
+						contents.sendInputEvent({ type: 'keyDown', keyCode: 'Delete' });
+					},
+				})
+			);
 			ctxMenu.append(new MenuItem({ role: 'toggleDevTools' }));
 
-			/* 	
-      this.window.webContents.on('context-menu', function (e, params) {
-				ctxMenu.popup({
-          x: params.x,
-          y: params.y,}); 
-			}); 
-      */
-
 			// new version of electron doesn't require params.x and y anymore. Default is the focused window and mouse cursor location
-			this.window.webContents.on('context-menu', () => {
+			contents.on('context-menu', () => {
 				ctxMenu.popup();
 			});
 
