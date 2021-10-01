@@ -170,7 +170,7 @@ class Main {
 			ctxMenu.append(new MenuItem({ role: 'selectAll' }));
 			ctxMenu.append(
 				new MenuItem({
-					label: 'delete',
+					label: 'Delete',
 					click: function () {
 						//simulating delete button is clicked
 						contents.sendInputEvent({ type: 'keyDown', keyCode: 'Delete' });
