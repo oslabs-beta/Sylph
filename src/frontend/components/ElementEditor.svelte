@@ -34,8 +34,8 @@ ${styleToString(node)}
     }
 
     const toString = (node, lvl=1)=> {
-		return `${'\t'.repeat(lvl)}<${node.name}${node.attributes ? Object.entries(node?.attributes)
-			.map(([key, value]) => key==='innerText?'? '':` ${key}=${`"${value}"`}`)
+		return `<${node.name}${node.attributes ? Object.entries(node?.attributes)
+			.map(([key, value]) => key==='innerText'? '':` ${key}=${`"${value}"`}`)
       .join(' '):''}>
 			${
 				node.hasOwnProperty('items') // check if the node element is self closing tag

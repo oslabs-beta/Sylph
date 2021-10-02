@@ -8,12 +8,26 @@
   import Button, { Label } from '@smui/button';
 
   let loading = false;
+  let projects: [string] = JSON.parse(localStorage.getItem('Projects'));
 
   const handleClick = ()=> {
-    loading = true;
-    globalThis.api.project.send('makeNewProject', 'test');
-    console.log('hitting');
+    
+    globalThis.api.project.send('getParentDir');
   }
+
+  globalThis.api.project.receive('parentDir', (dir)=>{
+    console.log('dir: ', dir);
+    if(dir === undefined) return;
+    console.log(projects);
+    if(projects){
+      projects.push(dir);
+    }else{
+      projects= [dir];
+    }
+    localStorage.setItem('Projects', JSON.stringify(projects))
+    loading = true;
+    globalThis.api.project.send('makeNewProject', dir)
+  })
 
   globalThis.api.project.receive('madeNewProject', (data) => {
     if (data === 'project installed') {
@@ -22,9 +36,18 @@
     }
   });
 
+
 </script>
 
 {#if !loading}
+  <button on:click={()=>{localStorage.clear(); projects = JSON.parse(localStorage.getItem('Projects'))} }>clear localStorage</button>
+  {#if projects}
+    <ul>
+      {#each projects as project}
+        <li>{project}</li>
+      {/each}
+    </ul>  
+  {/if}
   <section id="landing-container">
     <div id="landing-header">
       <h1>Sylph</h1>

@@ -1,14 +1,16 @@
 import { SendChannels } from './General/channelsInterface';
 import IPC from './General/IPC';
-import { BrowserWindow } from 'electron';
+import { BrowserWindow, dialog } from 'electron';
 import cp from 'child_process';
 import fs from 'fs';
 import path from 'path';
+const prettier = require('prettier');
 
 const nameAPI = 'project';
 
 // to Main
 const validSendChannel: SendChannels = {
+  getParentDir,
   makeNewProject,
   closeProject,
   updateProject,
@@ -21,6 +23,7 @@ const validSendChannel: SendChannels = {
 
 // from Main
 const validReceiveChannel: string[] = [
+  'parentDir',
   'madeNewProject',
   'projectUpdated',
   'readProject',
@@ -48,6 +51,18 @@ const mkdr = 'mkdir';
 let dirpath: string;
 let folder: string;
 
+async function getParentDir(
+  mainWindow: BrowserWindow,
+  event: Electron.IpcMainEvent,
+  message: any
+) {
+  const { filePaths } = await dialog.showOpenDialog({
+    properties: ['openDirectory'],
+  });
+  dirpath = filePaths[0];
+  mainWindow.webContents.send('parentDir', filePaths[0]);
+}
+
 async function makeNewProject(
   mainWindow: BrowserWindow,
   event: Electron.IpcMainEvent,
@@ -57,38 +72,36 @@ async function makeNewProject(
   console.log(history);
   folder = message;
 
-  cp.exec('cd', (err, stdout, stderr) => {
-    dirpath = path.join(__dirname, '../..');
-  });
+  // cp.exec('cd', (err, stdout, stderr) => {
+  //   dirpath = path.join(message);
+  // });
 
+  console.log('dirpath:', dirpath);
   cp.exec(
-    `npx degit sveltejs/template ${message}`,
+    `npx degit sveltejs/template ${'frontend'}`,
     {
-      cwd: './Projects',
+      cwd: dirpath,
     },
     (error, stdout, stderr) => {
       if (error) {
-        console.log(error);
+        console.log('build error');
       } else {
+        console.log('project build');
       }
     }
   ).on('close', () => {
-    console.log('New Project init');
-    console.log('npm i path: ', `./Projects/${message}`);
-    cp.exec(
-      'npm i',
-      { cwd: `./Projects/${message}` },
-      (err, stdout, stderr) => {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log(stdout);
-        }
+    // console.log('New Project init');
+    // console.log('npm i path: ', `./Projects/${message}`);
+    cp.exec('npm i', { cwd: `${dirpath}/frontend` }, (err, stdout, stderr) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(stdout);
       }
-    ).on('exit', () => {
+    }).on('exit', () => {
       console.log('Dependencies installed');
       fs.writeFile(
-        path.join(dirpath, 'Projects', folder, 'public', 'index.html'),
+        path.join(dirpath, 'frontend', 'public', 'index.html'),
         `<!DOCTYPE html>
         <html lang="en">
         <head>
@@ -157,7 +170,7 @@ async function updateProject(
   const dev = cp
     .exec(
       'npm run dev',
-      { cwd: `./Projects/${folder}` },
+      { cwd: `${dirpath}/frontend` },
       (err, stdout, stderr) => {
         if (err) {
           console.log('was Error: ');
@@ -199,11 +212,12 @@ function writeOver(
   event: Electron.IpcMainEvent,
   message: any
 ) {
+  const formattedCode = prettier.format(message.data, { parser: 'html' });
   fs.writeFile(
-    path.join(dirpath, 'Projects', folder, message.path),
-    message.data,
+    path.join(dirpath, 'frontend', message.path),
+    formattedCode,
     (err) => {
-      console.log('message.path', message.path);
+      // console.log('message.path', message.path);
       if (err) {
         console.log(err);
         mainWindow.webContents.send('overwritten', false);
@@ -247,7 +261,7 @@ function getDirectory(
   event: Electron.IpcMainEvent,
   message: any
 ) {
-  const dirObj: {} = dirCrawl(path.join(dirpath, 'Projects', folder));
+  const dirObj: {} = dirCrawl(path.join(dirpath, 'frontend'));
   console.log(dirObj);
   mainWindow.webContents.send('directorySent', dirObj);
 }
@@ -259,7 +273,7 @@ function read(
 ) {
   // console.log('dirpath: ', dirpath);
   let data = fs.readFile(
-    path.join(dirpath, 'Projects', folder, message.path),
+    path.join(dirpath, 'frontend', message.path),
     (err, data) => {
       if (err) console.log(err);
       else mainWindow.webContents.send('readProject', data.toString());

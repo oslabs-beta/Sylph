@@ -41,7 +41,7 @@
 
   }
 
-console.log(localStorage);
+console.log('localStorage:', localStorage);
 </script>
 
 <div class="editor-container">
