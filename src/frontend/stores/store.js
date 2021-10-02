@@ -38,7 +38,7 @@ export const activeGlobalElement = writable(null, () =>
 );
 //global state of global element and classes
 export const globalClasses = writable(classes, () =>
-  console.log('GLOBALSTYLES', globalClasses)
+  console.log('GLOBALCLASSES', globalClasses)
 );
 //global state of global element and classes
 export const globalStyles = writable(globalStyle, () =>
