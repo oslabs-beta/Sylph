@@ -6,16 +6,16 @@
  
   let tabs = [
     {
-      icon: 'access_time',
-      label: '',
+      icon: 'edit',
+      label: 'Code Editor'
     },
     {
-      icon: 'near_me',
-      label: '',
+      icon: 'remove_red_eye',
+      label: 'Preview'
     },
     {
-      icon: 'favorite',
-      label: '',
+      icon: 'vertical_split',
+      label: 'Code Editor + Preview'
     },
   ];
 
