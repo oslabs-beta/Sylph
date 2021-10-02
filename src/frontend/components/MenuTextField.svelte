@@ -160,7 +160,7 @@
         <div class='table-header'>
             Global 
          </div>
-        <div>
+        <div class="element-editor-tabs">
             <TabBar tabs={['ELEMENTS', 'CLASSES']} let:tab bind:active>
               <!-- Note: the `tab` property is required! -->
               <Tab {tab}>
@@ -179,9 +179,8 @@
                 <Option value={element}>{element}</Option>
               {/each}
             </Select>
-         
-            <pre class="status">Selected: {value}</pre>
           </div>
+
          {#each attributes as attribute }
    
          <div class="attribute-row">
@@ -300,6 +299,10 @@
 
   p {
     padding-left: 10px;
+  }
+
+  .element-editor-tabs {
+    --mdc-theme-primary: darkmagenta;
   }
 
 </style>
