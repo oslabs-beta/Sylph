@@ -110,29 +110,29 @@
     </TabBar>
   </div>
   <div class="preview-editor-content">
-  {#if active === tabs[0]}
-    <Editor lang='html' text={displayedCode} filename='index.svelte'/>
-  {:else if active === tabs[1]}
-    <iframe
-      bind:this={iframeElement}
-      id="iframe"
-      title="codePreview" 
-      src={entryPoint} 
-      frameborder="0"
-      width="100%"
-      height="100%"
-    />
-  {:else}
-    <Editor lang='html' text={displayedCode} filename='index.svelte'/>
-    <iframe
-      bind:this={iframeElement}
-      id="iframe"
-      title="codePreview" 
-      src={entryPoint} 
-      frameborder="0"
-      width="100%"
-      height="100%"
-    />
-  {/if}
+    {#if active === tabs[0]}
+      <Editor lang='html' text={displayedCode} filename='index.svelte'/>
+    {:else if active === tabs[1]}
+      <iframe
+        bind:this={iframeElement}
+        id="iframe"
+        title="codePreview" 
+        src={entryPoint} 
+        frameborder="0"
+        width="100%"
+        height="100%"
+      />
+    {:else}
+      <Editor lang='html' text={displayedCode} filename='index.svelte'/>
+      <iframe
+        bind:this={iframeElement}
+        id="iframe"
+        title="codePreview" 
+        src={entryPoint} 
+        frameborder="0"
+        width="100%"
+        height="100%"
+      />
+    {/if}
   </div>
 </section>
