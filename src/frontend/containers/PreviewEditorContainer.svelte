@@ -66,6 +66,10 @@
     background-color: white;
   }
 
+  #preview-editor-tabs {
+    --mdc-theme-primary: darkmagenta;
+  }
+
   .preview-editor-content {
     height: 100%;
     width: 100%;
@@ -78,7 +82,7 @@
 <section>
   <!-- <button on:click={showCode}>get file string</button>
   <button on:click={editCode}>update file</button> -->
-  <div>
+  <div id="preview-editor-tabs">
     <TabBar tabs={['Code Editor', 'Preview', 'Code Editor + Preview']} let:tab bind:active>
       <Tab {tab}>
         <Label>{tab}</Label>
