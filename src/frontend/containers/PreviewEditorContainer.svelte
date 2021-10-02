@@ -1,10 +1,25 @@
 <script lang="ts">
   import Editor from "../components/Editor.svelte";
 
-  import Tab, { Label } from '@smui/tab';
+  import Tab, { Icon, Label } from '@smui/tab';
   import TabBar from '@smui/tab-bar';
  
-  let active = 'Code Editor';
+  let tabs = [
+    {
+      icon: 'access_time',
+      label: '',
+    },
+    {
+      icon: 'near_me',
+      label: '',
+    },
+    {
+      icon: 'favorite',
+      label: '',
+    },
+  ];
+
+  let active = tabs[0];
 
   globalThis.api.project.send('read', {path: 'src/App.svelte'});
     console.log('hitting read')
@@ -83,16 +98,21 @@
   <!-- <button on:click={showCode}>get file string</button>
   <button on:click={editCode}>update file</button> -->
   <div id="preview-editor-tabs">
-    <TabBar tabs={['Code Editor', 'Preview', 'Code Editor + Preview']} let:tab bind:active>
+    <TabBar 
+      {tabs} 
+      let:tab 
+      bind:active
+    >
       <Tab {tab}>
-        <Label>{tab}</Label>
+        <Icon class="material-icons">{tab.icon}</Icon>
+        <Label>{tab.label}</Label>
       </Tab>
     </TabBar>
   </div>
   <div class="preview-editor-content">
-  {#if active === "Code Editor"}
+  {#if active === tabs[0]}
     <Editor lang='html' text={displayedCode} filename='index.svelte'/>
-  {:else if active === 'Preview'}
+  {:else if active === tabs[1]}
     <iframe
       bind:this={iframeElement}
       id="iframe"
