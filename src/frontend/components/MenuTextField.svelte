@@ -105,10 +105,6 @@
     {#if $activeNode?.name}
       <div class="table-header">
         <p>ELEMENT ATTRIUBUTES</p>
-      </div>
-
-      <div class="current-edit">
-        <p />
         <p>
           {`Currently Editing: ${$activeNode?.name}`}
           <br />
