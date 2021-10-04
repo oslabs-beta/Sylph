@@ -1,5 +1,3 @@
-<svelte:options immutable={true} />
-
 <script>
   import {
     activeNode,
@@ -13,11 +11,12 @@
   import Button from '@smui/button';
   import { Row, Col, Select, MaterialApp } from 'svelte-materialify';
 
-  import { Attributes } from './Attributes';
-  import { Styles } from './Styles';
-  import { elements } from './elements';
+  import { Attributes } from './utilities/Attributes';
+  import { Styles } from './utilities/Styles';
+  import { elements } from './utilities/elements';
 
   let active = 'ELEMENTS';
+  let activeID = '';
   let attributeForm;
   let styleForm;
   let IDField;
@@ -71,6 +70,9 @@
   $: $activeNode?.attributes.id
     ? (fieldDisabled = false)
     : (fieldDisabled = true);
+  $: $activeNode?.attributes?.id
+    ? (activeID = `Element ID: ${$activeNode?.attributes?.id}`)
+    : (activeID = `Assign ID to Edit Styles`);
   $: elementValue
     ? (globalElFieldDisabled = false)
     : (globalElFieldDisabled = true);
@@ -101,7 +103,20 @@
   >
     <!-- static always on top of the list attributes -->
     {#if $activeNode?.name}
-      <div class="table-header">Element Attributes</div>
+      <div class="table-header">
+        <p>ELEMENT ATTRIUBUTES</p>
+      </div>
+
+      <div class="current-edit">
+        <p />
+        <p>
+          {`Currently Editing: ${$activeNode?.name}`}
+          <br />
+          {$activeNode?.attributes.id
+            ? `Element ID: ${$activeNode?.attributes.id}`
+            : 'Assign ID to Edit Styles'}
+        </p>
+      </div>
 
       <div class="attribute-row">
         <Textfield
@@ -152,8 +167,10 @@
             type="text"
             label={attribute}
             value={$activeNode?.attributes[attribute] || ''}
-            on:change={(e) =>
-              ($activeNode.attributes[attribute] = e.target.value)}
+            on:input={(e) => {
+              $activeNode.attributes[attribute] = e.target.value;
+              handleSubmit();
+            }}
           />
         </div>
       {/each}
@@ -172,14 +189,17 @@
               type="text"
               label={style}
               value={$activeNode?.styles[style] || ''}
-              on:input={(e) => ($activeNode.styles[style] = e.target.value)}
+              on:input={(e) => {
+                $activeNode.styles[style] = e.target.value;
+                handleSubmit();
+              }}
             />
           </div>
         {/each}
       </form>
     {:else}
       <div class="table-header">{`GLOBAL ${active}`}</div>
-      <div>
+      <div class="element-editor-tabs">
         <TabBar tabs={['ELEMENTS', 'CLASSES']} let:tab bind:active>
           <!-- Note: the `tab` property is required! -->
           <Tab {tab}>
@@ -230,7 +250,6 @@
           on:submit={(e) => {
             $globalClasses.push(addedClass);
             $globalStyles.classStyles[addedClass] = {};
-            classForm.reset();
             classValue = addedClass;
             addedClass = null;
           }}
@@ -305,13 +324,16 @@
   .attribute-row {
     display: grid;
     grid-template-columns: 1fr;
-    /* align-items: center; */
     width: '100%';
     margin: 2px;
   }
   .class-form {
     display: grid;
     width: 100%;
+    margin: 0 -5px 0 -5px;
+  }
+  .current-edit {
+    margin: 0;
   }
   .main-container {
     width: 100%;
@@ -321,12 +343,20 @@
   }
   .table-header {
     display: flex;
+    flex-direction: column;
     padding: 10px;
     margin-bottom: 10px;
     justify-content: center;
+    align-content: center;
     outline: 1px solid darkgray;
-    width: auto;
+    font-weight: 800;
+    width: 100%;
+    /* background-color: darkmagenta; */
     background-color: #7d3780;
     color: whitesmoke;
+  }
+
+  .element-editor-tabs {
+    --mdc-theme-primary: darkmagenta;
   }
 </style>

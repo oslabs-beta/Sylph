@@ -5,7 +5,7 @@
 // export const store = persistStore('store', initialState);
 
 import { writable } from 'svelte/store';
-import { elements } from '../components/elements';
+import { elements } from '../components/utilities/elements';
 
 let nodes = {
   //container for all nodes displayed in sandbox

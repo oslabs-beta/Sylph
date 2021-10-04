@@ -9,7 +9,9 @@
     "start": "npm run compile && electron .",
     "compile": "tsc",
     "out:win": "rollup -c && tsc && electron-builder build --win --publish never",
-    "publish:win": "rollup -c && tsc && electron-builder build --win --publish always"
+    "publish:win": "rollup -c && tsc && electron-builder build --win --publish always",
+    "prepare": "npm run smui-theme",
+    "smui-theme": "smui-theme compile dist/www/build/smui.css -i src/frontend/theme"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
@@ -18,7 +20,6 @@
     "@smui/button": "^4.2.0",
     "@smui/circular-progress": "^4.2.0",
     "@smui/drawer": "^5.0.0-beta.5",
-    "@smui/icon-button": "^4.2.0",
     "@smui/list": "^5.0.0-beta.5",
     "@smui/menu": "^5.0.0-beta.7",
     "@smui/paper": "^5.0.0-beta.5",
@@ -26,6 +27,7 @@
     "@smui/tab": "^5.0.0-beta.7",
     "@smui/tab-bar": "^5.0.0-beta.7",
     "@smui/textfield": "^5.0.0-beta.6",
+    "@smui/tooltip": "^5.0.0-beta.7",
     "@tsconfig/svelte": "^2.0.1",
     "cross-env": "^7.0.3",
     "electron": "^13.1.8",
@@ -35,6 +37,7 @@
     "rollup-plugin-livereload": "^2.0.0",
     "rollup-plugin-svelte": "^7.0.0",
     "rollup-plugin-terser": "^7.0.0",
+    "smui-theme": "^5.0.0-beta.7",
     "svelte": "^3.0.0",
     "svelte-ace-editor": "0.0.2",
     "svelte-check": "^2.0.0",
@@ -55,6 +58,7 @@
     "codemirror": "^5.62.2",
     "D": "^1.0.0",
     "electron-builder": "^22.11.7",
+    "electron-mocha": "^10.1.0",
     "electron-reload": "^2.0.0-alpha.1",
     "electron-updater": "^4.3.9",
     "postcss": "^8.3.8",
