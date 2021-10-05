@@ -1,18 +1,21 @@
+<!-- //loop through element.attributes to populate the editor input fields and 
+svelte bind value to input, set to come state/store obj? -->
 <!-- tabs for different types of attributes -->
+
 <script>
-  import { DivElement, ImageElement } from '../classes/HTMLElements.ts';
-  import MenuTextField from './MenuTextField.svelte';
-  import { nodeStore as nodes, activeNode } from '../stores/store';
+  import { DivElement, ImageElement } from "../classes/HTMLElements.ts";
+  import MenuTextField from "./MenuTextField.svelte";
+  import {nodeStore as nodes, activeNode}  from '../stores/store'
 
-  let nodeActive = $activeNode;
-  console.log('OBJECT ENTRIES NODES ', Object.entries($nodes));
+  let nodeActive = $activeNode
+  console.log('OBJECT ENTRIES NODES ', Object.entries($nodes))
 
-  const testDiv = new DivElement();
-  const testImage = new ImageElement();
-  console.log('TESTDIV', testDiv);
+  const testDiv = new DivElement
+  const testImage = new ImageElement
+  console.log('TESTDIV', testDiv)
 
   const updateCode = (node) => {
-    const newData = `<script>
+        const newData = `<script>
     export let name;
     ${'<'}/script>
 
@@ -61,70 +64,65 @@
     }
   </style>`;
 
-    globalThis.api.project.send('writeOver', {
-      path: 'src/App.svelte',
-      data: newData,
-    });
-    globalThis.api.project.send('read', { path: 'src/App.svelte' });
-    console.log('hitting read');
-  };
+    globalThis.api.project.send('writeOver', {path: 'src/App.svelte', data: newData});
+    globalThis.api.project.send('read', {path: 'src/App.svelte'});
+    console.log('hitting read')
+  }
 
-  const toString = (node) => {
-    return `<${node.name} ${
-      node.attributes
-        ? Object.entries(node?.attributes)
-            .map(([key, value]) => `${key}=${`"${value}"`}`)
-            .join(' ')
-        : ''
-    }
+  const toString = (node)=> {
+		return `<${node.name} ${node.attributes ? Object.entries(node?.attributes)
+			.map(([key, value]) => `${key}=${`"${value}"`}`)
+			.join(' '): ''}
 			${
-        node.hasOwnProperty('items') // check if the node element is self closing tag
-          ? `>${node.innerText ? node.innerText : ' '}\n\t` +
-            node.items.map((child) => toString(child)).join('\n') +
-            `</${node.name}>`
-          : '/>'
-      }
+				node.hasOwnProperty('items') // check if the node element is self closing tag
+					? `>${node.innerText? node.innerText : ' '}\n\t` +
+					  node.items.map((child) => toString(child)).join('\n') +
+					  `</${node.name}>`
+					: '/>'
+			}
 		`;
-  }; //end of toString
-
+  }//end of toString
+  
   const styleToString = (node) => {
     return `
-        # ${node.items.map(
-          (child) =>
-            child.attributes.id +
-            ':{' +
-            Object.entries(child.styles).map(
-              ([key, value]) => key + '=' + value
-            ) +
-            '}'
-        )}, 
+        # ${
+          node.items.map(child=>child.attributes.id + ':{'+Object.entries(child.styles).map(([key,value])=> key + '=' + value)  +'}')
+        }, 
         ${
           node.hasOwnProperty('items') // check if the node element is self closing tag
-            ? node.items.map((child) => styleToString(child))
-            : ''
+          ? 
+            node.items.map((child) => styleToString(child)) 
+          : ''
         }
     `; //end of return
   }; //end of styleToString
 </script>
 
-<!-- //loop through element.attributes to populate the editor input fields and 
-svelte bind value to input, set to come state/store obj? -->
+<style>
+  .content {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+  }
+
+  .update-code {
+    display: none;
+  }
+</style>
 
 <!-- <div class="content"> -->
-<div class="update-code">
-  <!-- <h3>active node</h3>
+  <div class="update-code">
+    <!-- <h3>active node</h3>
     {JSON.stringify($activeNode)}
     <h3>node tree</h3>
     {JSON.stringify($nodes)}
     <br />
     <h3>toString </h3> -->
-  {updateCode($nodes.node1)}
-</div>
-<MenuTextField />
-
+    {updateCode($nodes.node1)} 
+  </div>   
+  <MenuTextField /> 
 <!-- </div> -->
-<style>
-  .update-code {
-    display: none;
-  }
-</style>
+      
+     
+   
