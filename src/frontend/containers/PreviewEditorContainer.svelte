@@ -1,6 +1,5 @@
 <script lang="ts">
-  import Editor from "../components/Editor.svelte";
-
+  // import Editor from "../components/Editor.svelte";
   import Tab, { Icon, Label } from '@smui/tab';
   import TabBar from '@smui/tab-bar';
  
@@ -111,7 +110,7 @@
   </div>
   <div class="preview-editor-content">
     {#if active === tabs[0]}
-      <Editor lang='html' text={displayedCode} filename='index.svelte'/>
+      <!-- <Editor lang='html' text={displayedCode} filename='index.svelte'/> -->
     {:else if active === tabs[1]}
       <iframe
         bind:this={iframeElement}
@@ -123,7 +122,7 @@
         height="100%"
       />
     {:else}
-      <Editor lang='html' text={displayedCode} filename='index.svelte'/>
+      <!-- <Editor lang='html' text={displayedCode} filename='index.svelte'/> -->
       <iframe
         bind:this={iframeElement}
         id="iframe"
