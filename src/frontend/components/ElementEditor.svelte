@@ -1,7 +1,3 @@
-<!-- //loop through element.attributes to populate the editor input fields and 
-svelte bind value to input, set to come state/store obj? -->
-<!-- tabs for different types of attributes -->
-
 <script lang="ts">
   import { DivElement, ImageElement } from "../classes/HTMLElements";
   import MenuTextField from "./MenuTextField.svelte";
@@ -23,9 +19,9 @@ ${'<'}/script>
 ${toString(node)}
 </main>
 
-<style>
+${'<'}style>
 ${styleToString(node)}
-</style>`;
+${'<'}/style>`;
   if(readyToUpdate){
     globalThis.api.project.send('writeOver', {path: 'src/App.svelte', data: newData});
     globalThis.api.project.send('read', {path: 'src/App.svelte'});
@@ -45,8 +41,8 @@ ${styleToString(node)}
 					: `/>`
 			}
 		`;
-  }//end of toString
-  
+  }; //end of toString
+
   const styleToString = (node) => {
 	return `${node.items.filter(child=>child.attributes.id && Object.entries(child.styles).length).map(child=>`#${child.attributes.id} {\n\t${Object.entries(child.styles).map(([key,value])=> `${key}: ${value}`).join(';\n\t')}\n  }`).join('\n\n')}\n\n${node.items.map(child=>styleToString(child)).join('')}`; //end of return
 }; //end of styleToString
@@ -54,31 +50,24 @@ ${styleToString(node)}
 
 </script>
 
-<style>
-  .content {
-    display: grid;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-  }
-
-  .update-code {
-    display: none;
-  }
-</style>
+<!-- //loop through element.attributes to populate the editor input fields and 
+svelte bind value to input, set to come state/store obj? -->
 
 <!-- <div class="content"> -->
-  <div class="update-code">
-    <!-- <h3>active node</h3>
+<div class="update-code">
+  <!-- <h3>active node</h3>
     {JSON.stringify($activeNode)}
     <h3>node tree</h3>
     {JSON.stringify($nodes)}
     <br />
     <h3>toString </h3> -->
-    {updateCode($nodes.node1)} 
-  </div>   
-  <MenuTextField /> 
+  <!-- {updateCode($nodes.node1)} -->
+</div>
+<MenuTextField />
+
 <!-- </div> -->
-      
-     
-   
+<style>
+  /* .update-code {
+    display: none;
+  } */
+</style>

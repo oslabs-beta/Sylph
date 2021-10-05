@@ -1,10 +1,25 @@
 <script lang="ts">
-  import Editor from "../components/Editor.svelte";
+  // import Editor from "../components/Editor.svelte";
 
-  import Tab, { Label } from '@smui/tab';
+  import Tab, { Icon, Label } from '@smui/tab';
   import TabBar from '@smui/tab-bar';
  
-  let active = 'Code Editor';
+  let tabs = [
+    {
+      icon: 'edit',
+      label: 'Code Editor'
+    },
+    {
+      icon: 'remove_red_eye',
+      label: 'Preview'
+    },
+    {
+      icon: 'vertical_split',
+      label: 'Code Editor + Preview'
+    },
+  ];
+
+  let active = tabs[0];
 
   globalThis.api.project.send('read', {path: 'src/App.svelte'});
     console.log('hitting read')
@@ -66,6 +81,10 @@
     background-color: white;
   }
 
+  #preview-editor-tabs {
+    --mdc-theme-primary: darkmagenta;
+  }
+
   .preview-editor-content {
     height: 100%;
     width: 100%;
@@ -78,37 +97,42 @@
 <section>
   <!-- <button on:click={showCode}>get file string</button>
   <button on:click={editCode}>update file</button> -->
-  <div>
-    <TabBar tabs={['Code Editor', 'Preview', 'Code Editor + Preview']} let:tab bind:active>
+  <div id="preview-editor-tabs">
+    <TabBar 
+      {tabs} 
+      let:tab 
+      bind:active
+    >
       <Tab {tab}>
-        <Label>{tab}</Label>
+        <Icon class="material-icons">{tab.icon}</Icon>
+        <Label>{tab.label}</Label>
       </Tab>
     </TabBar>
   </div>
   <div class="preview-editor-content">
-  {#if active === "Code Editor"}
-    <Editor lang='html' text={displayedCode} filename='index.svelte'/>
-  {:else if active === 'Preview'}
-    <iframe
-      bind:this={iframeElement}
-      id="iframe"
-      title="codePreview" 
-      src={entryPoint} 
-      frameborder="0"
-      width="100%"
-      height="100%"
-    />
-  {:else}
-    <Editor lang='html' text={displayedCode} filename='index.svelte'/>
-    <iframe
-      bind:this={iframeElement}
-      id="iframe"
-      title="codePreview" 
-      src={entryPoint} 
-      frameborder="0"
-      width="100%"
-      height="100%"
-    />
-  {/if}
+    {#if active === tabs[0]}
+      <!-- <Editor lang='html' text={displayedCode} filename='index.svelte'/> -->
+    {:else if active === tabs[1]}
+      <iframe
+        bind:this={iframeElement}
+        id="iframe"
+        title="codePreview" 
+        src={entryPoint} 
+        frameborder="0"
+        width="100%"
+        height="100%"
+      />
+    {:else}
+      <!-- <Editor lang='html' text={displayedCode} filename='index.svelte'/> -->
+      <iframe
+        bind:this={iframeElement}
+        id="iframe"
+        title="codePreview" 
+        src={entryPoint} 
+        frameborder="0"
+        width="100%"
+        height="100%"
+      />
+    {/if}
   </div>
 </section>

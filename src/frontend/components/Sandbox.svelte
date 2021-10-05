@@ -56,7 +56,7 @@
     box-sizing: border-box;
   }
   .active {
-    background:#8860d0;
+    background: darkmagenta;
     color:white;
     border:darkmagenta solid 2px;
   }

@@ -74,7 +74,9 @@
             items={components}
           />
         </Content>
-        <Button on:click={() => (open = !open)}>
+        <Button
+          on:click={() => (open = !open)}
+        >
           <Label>Close</Label>
         </Button>
       </Drawer>
@@ -187,6 +189,7 @@
     border-bottom-left-radius: 5px;
     background-color: white;
     transform: rotate(90deg);
+    --mdc-theme-primary: darkmagenta;
   }
 
   .drawer-container {
