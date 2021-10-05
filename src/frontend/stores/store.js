@@ -5,7 +5,6 @@
 // export const store = persistStore('store', initialState);
 
 import { writable } from 'svelte/store';
-import { elements } from '../components/utilities/elements';
 
 let nodes = {
   //container for all nodes displayed in sandbox
@@ -15,14 +14,6 @@ let nodes = {
     items: [],
   },
 };
-let globalStyle = {
-  elementStyles: {},
-  classStyles: {},
-};
-elements.forEach((element) => (globalStyle.elementStyles[element] = {}));
-
-let classes = [];
-
 //global state node tree built in the sandbox with DnD
 export const nodeStore = writable(nodes, () =>
   console.log('NODESTORE ', nodeStore)
@@ -32,15 +23,7 @@ export const activeNode = writable(null, () =>
   console.log('ACTIVENODE ', activeNode)
 );
 
-//global state of element selected in global element editor
-export const activeGlobalElement = writable(null, () =>
-  console.log('activeGlobalElement', activeGlobalElement)
-);
-//global state of global element and classes
-export const globalClasses = writable(classes, () =>
-  console.log('GLOBALCLASSES', globalClasses)
-);
-//global state of global element and classes
-export const globalStyles = writable(globalStyle, () =>
-  console.log('GLOBALSTYLES', globalStyles)
+//global state of attribute search field value
+export const searchFieldValue = writable('', () =>
+  console.log('searchFieldValue ', searchFieldValue)
 );
