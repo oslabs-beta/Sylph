@@ -1,10 +1,10 @@
 <script lang="ts">
-  // import AceEditor from "svelte-ace-editor";
-  // import "brace/mode/html";
-  // import "brace/mode/css";
-  // import "brace/mode/javascript";
-  // import "brace/theme/chrome";
-  // import "brace/theme/monokai";
+  import {AceEditor} from "svelte-ace";
+  import "brace/mode/html";
+  import "brace/mode/css";
+  import "brace/mode/javascript";
+  import "brace/theme/chrome";
+  import "brace/theme/monokai";
 
   //props
   export let lang: string;
