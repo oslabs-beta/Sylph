@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { AceEditor } from "svelte-ace";
-  import "brace/mode/html";
-  import "brace/mode/css";
-  import "brace/mode/javascript";
-  import "brace/theme/chrome";
-  import "brace/theme/monokai";
+  // import AceEditor from "svelte-ace-editor";
+  // import "brace/mode/html";
+  // import "brace/mode/css";
+  // import "brace/mode/javascript";
+  // import "brace/theme/chrome";
+  // import "brace/theme/monokai";
 
   //props
   export let lang: string;
@@ -46,7 +46,7 @@ console.log(localStorage);
 
 <div class="editor-container">
   <div class="editor-lable">{filename}</div>
-  <AceEditor
+  <!-- <AceEditor
     
     width='100%'
     height='100%'
@@ -56,7 +56,7 @@ console.log(localStorage);
     options={{useWorker: false}}
     
     tooltip={false}
-    />
+    /> -->
 
     
 </div>
