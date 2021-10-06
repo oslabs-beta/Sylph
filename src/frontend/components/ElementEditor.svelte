@@ -8,7 +8,6 @@
     
   })
     const updateCode=(node, globalStyles)=>{
-
       
       const newData = 
         `<script>
@@ -62,25 +61,14 @@
 }; 
 
 
-
 </script>
 
-<style>
-  .content {
-    display: grid;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-  }
-
-  .update-code {
-    display: none;
-  }
-</style>
+<!-- //loop through element.attributes to populate the editor input fields and 
+svelte bind value to input, set to come state/store obj? -->
 
 <!-- <div class="content"> -->
-  <div class="update-code">
-    <!-- <h3>active node</h3>
+<div class="update-code">
+  <!-- <h3>active node</h3>
     {JSON.stringify($activeNode)}
     <h3>node tree</h3>
     {JSON.stringify($nodes)}
@@ -90,8 +78,9 @@
 </div>
 <MenuTextField />
 
-
 <!-- </div> -->
-      
-     
-   
+<style>
+  .update-code {
+    display: none;
+  }
+</style>

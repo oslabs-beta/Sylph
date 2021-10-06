@@ -50,7 +50,7 @@
   {/if}
   <section id="landing-container">
     <div id="landing-header">
-      <h1>Sylph</h1>
+      <h1 >Sylph</h1>
     </div>
     <div id="landing-cards-container">
       <div class="landing-card">
@@ -98,6 +98,10 @@
 {/if}
 
 <style>
+
+  h1{
+    font-size: 44px;
+  }
   #landing-container {
     display: flex;
     flex-direction: column;
