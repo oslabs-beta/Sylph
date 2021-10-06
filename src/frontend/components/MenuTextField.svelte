@@ -1,15 +1,16 @@
-<svelte:options immutable={true}/>
-<script>
-    import {activeNode,  nodeStore as nodes} from '../stores/store'
-    import {searchFieldValue} from '../stores/store'
-    import Textfield from '@smui/textfield';
-    import App from '../App.svelte';
-    import { tick } from 'svelte';
-    import Tab, { Label } from '@smui/tab';
-    import TabBar from '@smui/tab-bar';
-    import Button from '@smui/button';
-    import Select, {Option } from '@smui/select';
-  import Icon from '@smui/select/icon';
+<script >
+  import {
+    activeNode,
+    nodeStore as nodes,
+    globalStyles,
+    globalClasses,
+  } from '../stores/store';
+  import Textfield from '@smui/textfield';
+  import Tab, { Label } from '@smui/tab';
+  import TabBar from '@smui/tab-bar';
+  import Button from '@smui/button';
+  import { Row, Col, Select, MaterialApp } from 'svelte-materialify';
+
 
     import {Attributes} from './Attributes';
     import {Styles} from './Styles'
@@ -67,6 +68,63 @@
        $activeNode?.attributes.id ? fieldDisabled = false : fieldDisabled = true
        $nodes = {...$nodes};
     }
+    return;
+  };
+  //array iterated to build editor list
+  let attributes = [];
+  //works like useEffect passing activenode.name into the dependency array
+  $: $activeNode?.name
+    ? (attributes = attributeList())
+    : (attributes = Attributes.general);
+  $: $activeNode?.attributes.id
+    ? (fieldDisabled = false)
+    : (fieldDisabled = true);
+  $: $activeNode?.attributes?.id
+    ? (activeID = `Element ID: ${$activeNode?.attributes?.id}`)
+    : (activeID = `Assign ID to Edit Styles`);
+  $: elementValue
+    ? (globalElFieldDisabled = false)
+    : (globalElFieldDisabled = true);
+  $: classValue
+    ? (globalClassFieldDisabled = false)
+    : (globalClassFieldDisabled = true);
+
+  const handleSubmit = () => {
+    $activeNode?.attributes.id
+      ? (fieldDisabled = false)
+      : (fieldDisabled = true);
+    $nodes = { ...$nodes };
+  };
+  const handleElementSubmit = () => {
+    console.log('GLOBAL STYLES', $globalStyles.elementStyles);
+    console.log('class styles:', $globalStyles.classStyles)
+    $globalStyles = { ...$globalStyles };
+    // $globalClasses = { ...$globalClasses };
+  };
+</script>
+
+<container class="main-container">
+  <form
+    on:submit|preventDefault={handleSubmit}
+    on:keydown={(e) => {
+      if (e.key === 'Enter') handleSubmit();
+    }}
+    bind:this={attributeForm}
+    class="attribute-form"
+  >
+    <!-- static always on top of the list attributes -->
+    {#if $activeNode?.name}
+      <div class="table-header">
+        <p>ELEMENT ATTRIUBUTES</p>
+        <p>
+          {`Currently Editing: ${$activeNode?.name}`}
+          <br />
+          {$activeNode?.attributes.id
+            ? `Element ID: ${$activeNode?.attributes.id}`
+            : 'Assign ID to Edit Styles'}
+        </p>
+      </div>
+
 
   </script>
 

@@ -8,7 +8,7 @@
     await globalThis.api.project.receive('directorySent', dir=>tree = dir);
     console.log('tree', tree)
     }
-
+    handleClick()
     const displayDirectory = (directory: object | string[]):string=>{
       const dir = Object.entries(directory);
       return `      
@@ -19,7 +19,7 @@
                 return displayDirectory(value);
               }else{
                 return `<li>
-                  ${value}
+                  ${value.slice(value.lastIndexOf('/'))}
                  </li>`
               }
             }).join('')}
@@ -30,7 +30,7 @@
 </script>
 
 <div>
-  <button on:click={handleClick}>log dir</button>
+  <!-- <button on:click={handleClick}>log dir</button> -->
   <!-- <ul>
     {@html tree?  displayDirectory(tree) : ''}
   </ul> -->
