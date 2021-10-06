@@ -19,7 +19,6 @@
     "@smui/circular-progress": "^4.2.0",
     "@smui/drawer": "^5.0.0-beta.5",
     "@smui/list": "^5.0.0-beta.5",
-    "@smui/menu": "^5.0.0-beta.7",
     "@smui/paper": "^5.0.0-beta.5",
     "@smui/snackbar": "^5.0.0-beta.5",
     "@smui/tab": "^5.0.0-beta.7",
@@ -60,10 +59,10 @@
     "electron-updater": "^4.3.9",
     "postcss": "^8.3.8",
     "prettier": "^2.4.1",
+
     "rollup-plugin-copy": "^3.4.0",
     "sirv-cli": "^1.0.12",
     "svelte-ace": "^1.0.21",
-    "svelte-materialify": "^0.3.11",
     "svelte-select": "^4.3.1",
     "svelte-spa-router": "^3.2.0",
     "svelte-split-pane": "^0.1.2"
