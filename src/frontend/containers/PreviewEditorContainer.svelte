@@ -1,6 +1,6 @@
 <script lang="ts">
-  // import Editor from "../components/Editor.svelte";
-
+  import Editor from "../components/Editor.svelte";
+  import {onMount} from 'svelte'
   import Tab, { Icon, Label } from '@smui/tab';
   import TabBar from '@smui/tab-bar';
  
@@ -21,19 +21,12 @@
 
   let active = tabs[0];
 
-  globalThis.api.project.send('read', {path: 'src/App.svelte'});
-    console.log('hitting read')
-  let renderedCode = `<!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width,initial-scale=1" />
+    onMount(()=>{
+      globalThis.api.project.send('read', {path: 'src/App.svelte'});
+        console.log('hitting read')
+
+    })
   
-      <title>Sylph</title>
-    </head>
-  
-    <body>Hello World!</body>
-  </html>`
   let displayedCode:string = ' ';
 
   let buildFinished=false;
@@ -51,7 +44,7 @@
         globalThis.api.project.send('updateProject')
         buildFinished = false;
       }
-      globalThis.api.project.send('getEntry')
+      // globalThis.api.project.send('getEntry')
       iframeElement.src+='';
     }else{
       console.log('failed to update project');
@@ -60,11 +53,11 @@
   })
   
 
-  let entryPoint: string = '';
-  globalThis.api.project.receive('entryPoint', data=>{
-    console.log("EntryPoint: ", data)        
-    entryPoint = data;
-  })
+  let entryPoint: string = 'http://localhost:5000';
+  // globalThis.api.project.receive('entryPoint', data=>{
+  //   console.log("EntryPoint: ", data)        
+  //   entryPoint = data;
+  // })
 
   let iframeElement;
   
@@ -111,8 +104,8 @@
   </div>
   <div class="preview-editor-content">
     {#if active === tabs[0]}
-    {displayedCode}
-      <!-- <Editor lang='html' text={displayedCode} filename='index.svelte'/> -->
+    <!-- {displayedCode} -->
+      <Editor text={displayedCode} filename='index.svelte'/>
     {:else if active === tabs[1]}
       <iframe
         bind:this={iframeElement}
@@ -124,7 +117,7 @@
         height="100%"
       />
     {:else}
-      <!-- <Editor lang='html' text={displayedCode} filename='index.svelte'/> -->
+      <Editor text={displayedCode} filename='index.svelte'/>
       <iframe
         bind:this={iframeElement}
         id="iframe"
