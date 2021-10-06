@@ -1,25 +1,36 @@
 <script lang='ts'>
-  import { createEventDispatcher, onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import ace from "brace";
   import "brace/mode/html";
   import "brace/theme/monokai";
 
 
-  const dispatch = createEventDispatcher<{
-    init: ace.Editor;
-    
-  }>();
-
   //props
   export let text :string;
   export let filename :string;
 
+  let contentBackup: string = "";
   let editor: ace.Editor
+
+  $: watchValue(text);
+  function watchValue(val: string) {
+    if (contentBackup !== val && editor && typeof val === "string" && val!=='') {
+      editor.session.setValue(val);
+      contentBackup = val;
+    }
+  }
   
+  onDestroy(() => {
+    // console.log('onDestroy')
+    if (editor) {
+      editor.destroy();
+      editor.container.remove();
+    }
+  });
+
   onMount(()=>{
+    // console.log('onMount')
     editor = ace.edit('html-editor')
-    
-    // dispatch("init", editor);
     editor.$blockScrolling = Infinity;
     editor.getSession().setMode('ace/mode/html')
     editor.setTheme('ace/theme/monokai');
@@ -28,7 +39,6 @@
     editor.setOptions({useWorker: false})
   })
 
-console.log('text:', text);
 </script>
 
 <div class="editor-container">

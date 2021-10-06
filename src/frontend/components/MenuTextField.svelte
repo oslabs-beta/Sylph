@@ -1,4 +1,4 @@
-<script>
+<script >
   import {
     activeNode,
     nodeStore as nodes,
@@ -88,7 +88,9 @@
   };
   const handleElementSubmit = () => {
     console.log('GLOBAL STYLES', $globalStyles.elementStyles);
+    console.log('class styles:', $globalStyles.classStyles)
     $globalStyles = { ...$globalStyles };
+    // $globalClasses = { ...$globalClasses };
   };
 </script>
 

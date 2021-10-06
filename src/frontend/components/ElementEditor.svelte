@@ -1,32 +1,29 @@
 <script lang="ts">
   import { DivElement, ImageElement } from "../classes/HTMLElements";
   import MenuTextField from "./MenuTextField.svelte";
-  import {nodeStore as nodes, activeNode}  from '../stores/store'
-  let readyToUpdate :Boolean =true;
+  import {nodeStore as nodes, globalStyles}  from '../stores/store'
+ 
 
   globalThis.api.project.receive('overwritten', (state)=>{
-    console.log('overwritten')
-    readyToUpdate=true;
+    
   })
-    const updateCode=(node)=>{
+    const updateCode=(node, globalStyles)=>{
       
       const newData = 
-`<script>
-  export let name;
-${'<'}/script>
+        `<script>
+          export let name;
+        ${'<'}/script>
 
-<main>
-${toString(node)}
-</main>
+        <main>
+        ${toString(node)}
+        </main>
 
-${'<'}style>
-${styleToString(node)}
-${'<'}/style>`;
-  if(readyToUpdate){
-    globalThis.api.project.send('writeOver', {path: 'src/App.svelte', data: newData});
-    globalThis.api.project.send('read', {path: 'src/App.svelte'});
-    // readyToUpdate = false;
-  }
+        ${'<'}style>
+        ${styleToString(node, globalStyles)}
+        ${'<'}/style>`;
+      globalThis.api.project.send('writeOver', {path: 'src/App.svelte', data: newData});
+      globalThis.api.project.send('read', {path: 'src/App.svelte'});
+  
     }
 
     const toString = (node, lvl=1)=> {
@@ -43,9 +40,25 @@ ${'<'}/style>`;
 		`;
   }; //end of toString
 
-  const styleToString = (node) => {
-	return `${node.items.filter(child=>child.attributes.id && Object.entries(child.styles).length).map(child=>`#${child.attributes.id} {\n\t${Object.entries(child.styles).map(([key,value])=> `${key}: ${value}`).join(';\n\t')}\n  }`).join('\n\n')}\n\n${node.items.map(child=>styleToString(child)).join('')}`; //end of return
-}; //end of styleToString
+  const idStylesToString = (node)=>{
+    return `${node.items.filter(child=>child.attributes.id && Object.entries(child.styles).length).map(child=>`#${child.attributes.id} {\n\t${Object.entries(child.styles).map(([key,value])=> `${key}: ${value}`).join(';\n\t')}\n  }`).join('\n\n')}\n\n${node.items.map(child=>idStylesToString(child)).join('')}`;
+  }
+
+  const styleToString = (node, globalStyles) => {
+	return `
+    ${Object.entries(globalStyles.elementStyles)
+    .filter(child=>Object.keys(child[1]).length)
+    .map(([element, styles])=>`${element} { 
+      ${Object.entries(styles)
+        .map(([styleAttribute, attributeValue])=>`${styleAttribute}: ${attributeValue};`)
+        .join('')}
+    }`)
+    .join('')}
+    ${Object.entries(globalStyles.classStyles).map(([className, styles])=> `.${className} {${Object.entries(styles).map(([styleAttribute, attributeValue])=>`${styleAttribute}: ${attributeValue};`).join('')}}`).join('')}
+    ${idStylesToString(node)}
+   `
+  
+}; 
 
 
 </script>
@@ -61,13 +74,13 @@ svelte bind value to input, set to come state/store obj? -->
     {JSON.stringify($nodes)}
     <br />
     <h3>toString </h3> -->
-  <!-- {updateCode($nodes.node1)} -->
+  {updateCode($nodes.node1, $globalStyles)}
 </div>
 <MenuTextField />
 
 <!-- </div> -->
 <style>
-  /* .update-code {
+  .update-code {
     display: none;
-  } */
+  }
 </style>

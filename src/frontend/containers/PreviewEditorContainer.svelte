@@ -21,11 +21,8 @@
 
   let active = tabs[0];
 
-    onMount(()=>{
-      globalThis.api.project.send('read', {path: 'src/App.svelte'});
-        console.log('hitting read')
-
-    })
+    
+  globalThis.api.project.send('read', {path: 'src/App.svelte'});
   
   let displayedCode:string = ' ';
 
@@ -45,7 +42,7 @@
         buildFinished = false;
       }
       // globalThis.api.project.send('getEntry')
-      iframeElement.src+='';
+      // iframeElement.src+='';
     }else{
       console.log('failed to update project');
     }
