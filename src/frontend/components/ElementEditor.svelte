@@ -8,6 +8,10 @@
     
   })
     const updateCode=(node, globalStyles)=>{
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8da631f0df2b67385031feb23260da60e345bc18
       
       const newData = 
         `<script>
@@ -61,6 +65,10 @@
 }; 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8da631f0df2b67385031feb23260da60e345bc18
 </script>
 
 <!-- //loop through element.attributes to populate the editor input fields and 
@@ -78,6 +86,10 @@ svelte bind value to input, set to come state/store obj? -->
 </div>
 <MenuTextField />
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8da631f0df2b67385031feb23260da60e345bc18
 <!-- </div> -->
 <style>
   .update-code {

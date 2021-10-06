@@ -60,6 +60,10 @@
     "electron-updater": "^4.3.9",
     "postcss": "^8.3.8",
     "prettier": "^2.4.1",
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8da631f0df2b67385031feb23260da60e345bc18
     "rollup-plugin-copy": "^3.4.0",
     "sirv-cli": "^1.0.12",
     "svelte-ace": "^1.0.21",

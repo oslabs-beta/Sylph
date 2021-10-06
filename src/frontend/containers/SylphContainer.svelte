@@ -1,5 +1,9 @@
 <script>
   // localStorage.setItem("src/filename.html", "<h1>Hello World!</h1>")
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8da631f0df2b67385031feb23260da60e345bc18
 
   import { HSplitPane, VSplitPane } from 'svelte-split-pane';
   import Drawer, {
@@ -41,6 +45,10 @@
     { id: 'node_h3', name: 'h3', items: [],attributes:{}, styles:{}, selected: false },
     { id: 'node_h4', name: 'h4', items: [],attributes:{}, styles:{}, selected: false },
     { id: 'node_h5', name: 'h5', items: [],attributes:{}, styles:{}, selected: false },
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8da631f0df2b67385031feb23260da60e345bc18
     { id: 'node_header', name: 'header', items: [], attributes:{}, styles:{}, selected: false },
     { id: 'node_hr', name: 'hr', attributes:{}, styles:{},  selected: false},
     { id: 'node_img', name: 'img', attributes:{}, styles:{},  selected: false},
@@ -50,6 +58,10 @@
     { id: 'node_nav', name: 'nav', items: [], attributes:{}, styles:{}, selected: false },
     { id: 'node_ol', name: 'ol', items: [], attributes:{}, styles:{}, selected: false },
     { id: 'node_p', name: 'p', items: [],attributes:{}, styles:{},  selected: false},
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8da631f0df2b67385031feb23260da60e345bc18
     { id: 'node_section', name: 'section', items: [], attributes:{}, styles:{}, selected: false },
     { id: 'node_span', name: 'span', attributes:{}, styles:{},  selected: false,},
     { id: 'node_ul', name: 'ul', items: [], attributes:{}, styles:{}, selected: false },
@@ -121,6 +133,10 @@
             </top>
             <down slot="down">
           <!-- <div class="active-element">
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8da631f0df2b67385031feb23260da60e345bc18
             <Paper color="primary">
               <Title>
                 Element Editor

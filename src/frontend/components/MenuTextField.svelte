@@ -10,6 +10,10 @@
   import TabBar from '@smui/tab-bar';
   import Button from '@smui/button';
   import { Row, Col, Select, MaterialApp } from 'svelte-materialify';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8da631f0df2b67385031feb23260da60e345bc18
 
   import { Attributes } from './utilities/Attributes';
   import { Styles } from './utilities/Styles';
@@ -115,6 +119,10 @@
             : 'Assign ID to Edit Styles'}
         </p>
       </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8da631f0df2b67385031feb23260da60e345bc18
 
       <div class="attribute-row">
         <Textfield
