@@ -111,6 +111,7 @@
   </div>
   <div class="preview-editor-content">
     {#if active === tabs[0]}
+    {displayedCode}
       <!-- <Editor lang='html' text={displayedCode} filename='index.svelte'/> -->
     {:else if active === tabs[1]}
       <iframe

@@ -9,9 +9,7 @@
     "start": "npm run compile && electron .",
     "compile": "tsc",
     "out:win": "rollup -c && tsc && electron-builder build --win --publish never",
-    "publish:win": "rollup -c && tsc && electron-builder build --win --publish always",
-    "prepare": "npm run smui-theme",
-    "smui-theme": "smui-theme compile dist/www/build/smui.css -i src/frontend/theme"
+    "publish:win": "rollup -c && tsc && electron-builder build --win --publish always"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
