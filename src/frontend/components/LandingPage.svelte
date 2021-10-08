@@ -6,8 +6,16 @@
   } from '@smui/card';
   import CircularProgress from '@smui/circular-progress';
   import Button, { Label } from '@smui/button';
+  import Select, { Option } from '@smui/select';
 
+  //state to trigger loading screen
   let loading = false;
+
+  //array of saved projects the user can open
+  let savedProjectArr = ['example1', 'example2', 'example3'];
+  //currently selected saved project
+  let selectedSavedProject = '';
+
   let projects: [string] = JSON.parse(localStorage.getItem('Projects'));
 
   const handleClick = ()=> {
@@ -35,8 +43,6 @@
       push('/new-project');
     }
   });
-
-
 </script>
 
 {#if !loading}
@@ -68,23 +74,19 @@
       <div class="landing-card">
         <Card>
           <Content>
-            [NOT FUNCTIONAL]
+            <p>
+              Open a previous Svelte prototyping project.
+            </p>
+            <Select bind:selectedSavedProject label="Saved Project">
+              <Option selectedSavedProject="" />
+              {#each savedProjectArr as savedProject}
+                <Option value={savedProject}>{savedProject}</Option>
+              {/each}
+            </Select>
           </Content>
           <Actions>
             <Button>
-              <Label>Example</Label>
-            </Button>
-          </Actions>
-        </Card>
-      </div>
-      <div class="landing-card">
-        <Card>
-          <Content>
-            [NOT FUNCTIONAL]
-          </Content>
-          <Actions>
-            <Button>
-              <Label>Example</Label>
+              <Label>Open</Label>
             </Button>
           </Actions>
         </Card>
@@ -120,6 +122,7 @@
 
   .landing-card {
     margin: 1rem;
+    height: 500px;
   }
 
   #landing-loading {
