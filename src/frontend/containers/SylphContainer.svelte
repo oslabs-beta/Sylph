@@ -1,14 +1,12 @@
 <script>
-  localStorage.setItem("src/filename.html", "<h1>Hello World!</h1>")
-
   import { HSplitPane, VSplitPane } from 'svelte-split-pane';
+  import { push } from 'svelte-spa-router';
   import Drawer, {
     Content,
     Header,
     Title,
     Scrim
   } from '@smui/drawer';
-  import Paper from '@smui/paper';
   import Button, { Label } from '@smui/button';
 
   import Sandbox from '../components/Sandbox.svelte';
@@ -17,7 +15,6 @@
   import ComponentCustomizer from '../components/ComponentCustomizer.svelte'
   
   import {nodeStore as nodes}  from '../stores/store'
-  import { activeNode }  from '../stores/store'
 
   import Directory from '../components/Directory.svelte';
   import PreviewEditorContainer from './PreviewEditorContainer.svelte';
@@ -25,43 +22,45 @@
   //drawer functionality
   let open = false;
 
+  //redirect to landing page logic (for @Randy)
+  let redirect = false;
+  if (redirect === true) {
+    push('/');
+  }
+
   //code based on https://svelte.dev/repl/fe8c9eca04f9417a94a8b6041df77139?version=3.42.1
   //nesting depth
   let depth = 100;
 
   //all nodes in the component menu to drag into sandbox
   let components = [
-    { id: 'node_a', name: 'a', attributes:{}, styles:{},  selected: false},
-    { id: 'node_button', name: 'button', attributes:{}, styles:{},  selected: false},
+    { id: 'node_a', name: 'a', items: [], attributes:{}, styles:{},  selected: false},
+    { id: 'node_button', name: 'button', items: [], attributes:{}, styles:{},  selected: false},
     { id: 'node_div', name: 'div', items: [], attributes:{}, styles:{}, selected: false },
     { id: 'node_footer', name: 'footer', items: [], attributes:{}, styles:{}, selected: false },
     { id: 'node_form', name: 'form', items: [], attributes:{}, styles:{}, selected: false },
-    { id: 'node_h1', name: 'h1', attributes:{}, styles:{}, selected: false },
-    { id: 'node_h2', name: 'h2', attributes:{}, styles:{}, selected: false },
-    { id: 'node_h3', name: 'h3', attributes:{}, styles:{}, selected: false },
-    { id: 'node_h4', name: 'h4', attributes:{}, styles:{}, selected: false },
-    { id: 'node_h5', name: 'h5', attributes:{}, styles:{}, selected: false },
+    { id: 'node_h1', name: 'h1', items: [], attributes:{}, styles:{}, selected: false },
+    { id: 'node_h2', name: 'h2', items: [],attributes:{}, styles:{}, selected: false },
+    { id: 'node_h3', name: 'h3', items: [],attributes:{}, styles:{}, selected: false },
+    { id: 'node_h4', name: 'h4', items: [],attributes:{}, styles:{}, selected: false },
+    { id: 'node_h5', name: 'h5', items: [],attributes:{}, styles:{}, selected: false },
     { id: 'node_header', name: 'header', items: [], attributes:{}, styles:{}, selected: false },
     { id: 'node_hr', name: 'hr', attributes:{}, styles:{},  selected: false},
     { id: 'node_img', name: 'img', attributes:{}, styles:{},  selected: false},
     { id: 'node_input', name: 'input', attributes:{}, styles:{},  selected: false},
-    { id: 'node_li', name: 'li', attributes:{}, styles:{},  selected: false},
+    { id: 'node_li', name: 'li', items: [],attributes:{}, styles:{},  selected: false},
     { id: 'node_main', name: 'main', items: [], attributes:{}, styles:{}, selected: false },
     { id: 'node_nav', name: 'nav', items: [], attributes:{}, styles:{}, selected: false },
     { id: 'node_ol', name: 'ol', items: [], attributes:{}, styles:{}, selected: false },
-    { id: 'node_p', name: 'p', attributes:{}, styles:{},  selected: false},
+    { id: 'node_p', name: 'p', items: [],attributes:{}, styles:{},  selected: false},
     { id: 'node_section', name: 'section', items: [], attributes:{}, styles:{}, selected: false },
     { id: 'node_span', name: 'span', attributes:{}, styles:{},  selected: false,},
     { id: 'node_ul', name: 'ul', items: [], attributes:{}, styles:{}, selected: false },
   ];
 
-  // const killDev = ()=>{
-  //   globalThis.api.project.send('killDev');
-  // }
 </script>
 
 <main>
-  <!-- <button on:click={killDev}>kill dev</button> -->
   <div class="wrapper">
     <div class="drawer-container">
       <Drawer variant="modal" bind:open>
@@ -85,7 +84,9 @@
           <left slot="left">
             <VSplitPane topPanelSize="50%" downPanelSize="50%" minTopPaneSize="50px" minDownPaneSize="50px">
               <top slot='top'>
-                <h3>Sandbox</h3>
+                <div id="sandbox-title">
+                  <h3>Sandbox</h3>
+                </div>
                 <Sandbox 
                   node={$nodes.node1}
                   bind:nodes={$nodes} 
@@ -116,22 +117,10 @@
         <right slot="right">
           <VSplitPane topPanelSize="40%" downPanelSize="60%" minTopPaneSize="50px" minDownPaneSize="50px">
             <top slot='top'>
-              <h3>Placeholder</h3>
+              <h3>Directory</h3>
               <Directory/>
             </top>
             <down slot="down">
-          <div class="active-element">
-            <Paper color="primary">
-              <Title>
-                Element Editor
-              </Title>
-              <br />
-              <Content>
-                <p>{$activeNode ? `Element Name: ${$activeNode?.name}` : 'Edit global attributes'+'\n'+'or select element to edit.'}</p>
-                <p>{$activeNode ? `Element ID: ${$activeNode?.id}` : ''}</p>
-              </Content>
-            </Paper>
-          </div>
               <ComponentCustomizer />
             </down>
           </VSplitPane>
@@ -167,18 +156,11 @@
     width: 100%;
     height: 100%;
     display: block;
-    /* text-align: center; */
     background-color: white;
   }
   
   down {
     overflow-y: hidden;
-  }
-
-  .active-element {
-    /* margin: 0 auto; */
-    padding: 10px;
-    color: snow;
   }
 
   #toggle-drawer {
@@ -197,5 +179,9 @@
     position: relative;
     display: flex;
     overflow: hidden;
+  }
+  #sandbox-title > h3 {
+    font-size: 30px;
+    font-weight: bold;
   }
 </style>

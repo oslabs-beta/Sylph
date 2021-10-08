@@ -1,80 +1,50 @@
-<script lang="ts">
-  import { AceEditor } from "svelte-ace";
+<script lang='ts'>
+  import { onDestroy, onMount } from "svelte";
+  import ace from "brace";
   import "brace/mode/html";
-  import "brace/mode/css";
-  import "brace/mode/javascript";
-  import "brace/theme/chrome";
   import "brace/theme/monokai";
 
+
   //props
-  export let lang: string;
-  export let text: string;
-  export let filename: string;
-  if(!text){
-    switch (lang) {
-      case 'javascript':
-      text = `function test() {\n  return 42\n}`;
-        break;
-        case 'html':
-          text= `<!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width,initial-scale=1" />
-  
-      <title>Sylph</title>
-    </head>
-  
-    <body>Hello World!</body>
-  </html>`
-  break;
-  case 'css':
-    text = `h1{
-      color: blue;
-    }`;
-    break;
-  
-    
-      default:
-        break;
+  export let text :string;
+  export let filename :string;
+
+  let contentBackup: string = "";
+  let editor: ace.Editor
+
+  $: watchValue(text);
+  function watchValue(val: string) {
+    if (contentBackup !== val && editor && typeof val === "string" && val!=='') {
+      editor.session.setValue(val);
+      contentBackup = val;
     }
-
   }
+  
+  onDestroy(() => {
+    // console.log('onDestroy')
+    if (editor) {
+      editor.destroy();
+      editor.container.remove();
+    }
+  });
 
-console.log(localStorage);
+  onMount(()=>{
+    // console.log('onMount')
+    editor = ace.edit('html-editor')
+    editor.$blockScrolling = Infinity;
+    editor.getSession().setMode('ace/mode/html')
+    editor.setTheme('ace/theme/monokai');
+    editor.setValue(text, 1);
+    editor.setReadOnly(true)
+    editor.setOptions({useWorker: false})
+  })
+
 </script>
 
 <div class="editor-container">
   <div class="editor-lable">{filename}</div>
-  <AceEditor
-    
-    width='100%'
-    height='100%'
-    lang={lang}
-    theme="monokai"
-    value={text} 
-    options={{useWorker: false}}
-    
-    tooltip={false}
-    />
-
-    
+  <div id="html-editor" style="height: 100%; width:100%"></div>
 </div>
-
-<!-- AceEditor events
-  on:selectionChange={(obj) => console.log(obj.detail)}
-    on:paste={(obj) => console.log(obj.detail)}
-    on:input={(obj) => console.log(obj.detail)}
-    on:focus={() => console.log('focus')}
-    on:documentChange={(obj) => console.log(`document change : ${obj.detail}`)}
-    on:cut={() => console.log('cut')}
-    on:cursorChange={() => console.log('cursor change')}
-    on:copy={() => console.log('copy')}
-    on:init={(editor) => console.log(editor.detail)}
-    on:commandKey={(obj) => console.log(obj.detail)}
-    on:changeMode={(obj) => console.log(`change mode : ${obj.detail}`)}
-    on:blur={() => console.log('blur')}
- -->
 
 <style>
   * {
