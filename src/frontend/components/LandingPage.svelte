@@ -78,6 +78,7 @@
               Open a previous Svelte prototyping project.
             </p>
             <!-- renders dropdown of saved projects from array -->
+            <div id="saved-projects">
             {#if savedProjectArr.length > 0 }
               <Select bind:selectedSavedProject label="Saved Project">
                 <Option selectedSavedProject="" />
@@ -90,6 +91,7 @@
                 No saved projects found.
               </em>
             {/if}
+            </div>
           </Content>
           <Actions>
             <Button>
@@ -138,5 +140,9 @@
     align-items: center;
     height: 100vh;
     width: 100vw;
+  }
+
+  #saved-projects {
+    text-align: left;
   }
 </style>
