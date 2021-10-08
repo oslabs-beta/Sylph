@@ -10,11 +10,23 @@
   let loading = false;
   let projects: [string] = JSON.parse(localStorage.getItem('Projects'));
 
-  const handleClick = ()=> {
-    
+  const newProject = ()=> {    
     globalThis.api.project.send('getParentDir');
   }
+  
+  const reopenProject = (dirpath)=>{
+    console.log('reopenProject')
+    loading = true;
+    globalThis.api.project.send('reopenProject', dirpath);
+  }
 
+
+  globalThis.api.project.receive('reopen', (dir)=>{
+    console.log(dir)
+    globalThis.api.project.send('updateProject')
+      push('/new-project');
+  })
+  
   globalThis.api.project.receive('parentDir', (dir)=>{
     console.log('dir: ', dir);
     if(dir === undefined) return;
@@ -44,7 +56,7 @@
   {#if projects}
     <ul>
       {#each projects as project}
-        <li>{project}</li>
+        <li><button on:click={()=>reopenProject(project)}>{project}</button></li>
       {/each}
     </ul>  
   {/if}
@@ -59,7 +71,7 @@
             Create a new Svelte prototyping project.
           </Content>
           <Actions>
-            <Button on:click={handleClick}>
+            <Button on:click={newProject}>
               <Label>Create New</Label>
             </Button>
           </Actions>
