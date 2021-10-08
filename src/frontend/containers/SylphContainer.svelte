@@ -1,5 +1,6 @@
 <script>
   import { HSplitPane, VSplitPane } from 'svelte-split-pane';
+  import { push } from 'svelte-spa-router';
   import Drawer, {
     Content,
     Header,
@@ -20,6 +21,12 @@
 
   //drawer functionality
   let open = false;
+
+  //redirect to landing page logic (for @Randy)
+  let redirect = false;
+  if (redirect === true) {
+    push('/');
+  }
 
   //code based on https://svelte.dev/repl/fe8c9eca04f9417a94a8b6041df77139?version=3.42.1
   //nesting depth
