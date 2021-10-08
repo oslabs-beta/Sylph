@@ -12,7 +12,7 @@
   let loading = false;
 
   //array of saved projects the user can open
-  let savedProjectArr = ['example1', 'example2', 'example3'];
+  let savedProjectArr = ['example1'];
   //currently selected saved project
   let selectedSavedProject = '';
 
@@ -93,11 +93,13 @@
             {/if}
             </div>
           </Content>
-          <Actions>
-            <Button>
-              <Label>Open</Label>
-            </Button>
-          </Actions>
+          {#if savedProjectArr.length > 0}
+            <Actions>
+              <Button>
+                <Label>Open</Label>
+              </Button>
+            </Actions>
+          {/if}
         </Card>
       </div>
     </div>
