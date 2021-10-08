@@ -77,12 +77,19 @@
             <p>
               Open a previous Svelte prototyping project.
             </p>
-            <Select bind:selectedSavedProject label="Saved Project">
-              <Option selectedSavedProject="" />
-              {#each savedProjectArr as savedProject}
-                <Option value={savedProject}>{savedProject}</Option>
-              {/each}
-            </Select>
+            <!-- renders dropdown of saved projects from array -->
+            {#if savedProjectArr.length > 0 }
+              <Select bind:selectedSavedProject label="Saved Project">
+                <Option selectedSavedProject="" />
+                {#each savedProjectArr as savedProject}
+                  <Option value={savedProject}>{savedProject}</Option>
+                {/each}
+              </Select>
+            {:else}
+              <em>
+                No saved projects found.
+              </em>
+            {/if}
           </Content>
           <Actions>
             <Button>
