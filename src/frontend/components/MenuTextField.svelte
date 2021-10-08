@@ -244,10 +244,12 @@
           class="class-form"
           bind:this={classForm}
           on:submit|preventDefault={(e) => {
-            $globalClasses.push(addedClass);
-            $globalStyles.classStyles[addedClass] = {};
-            classValue = addedClass;
-            addedClass = null;
+            if (addedClass) {
+              $globalClasses.push(addedClass);
+              $globalStyles.classStyles[addedClass] = {};
+              classValue = addedClass;
+              addedClass = null;
+            }
           }}
         >
           <div class="attribute-row">

@@ -1,6 +1,5 @@
-/node_modules/
+/node_modules/*
+!/node_modules/@smui
 /public/build/
 /dist
-/Projects/*
-!/Projects/.gitkeep
 .DS_Store

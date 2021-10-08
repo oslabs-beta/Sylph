@@ -1,7 +1,6 @@
 <script>
-  // localStorage.setItem("src/filename.html", "<h1>Hello World!</h1>")
-
   import { HSplitPane, VSplitPane } from 'svelte-split-pane';
+  import { push } from 'svelte-spa-router';
   import Drawer, { Content, Header, Title, Scrim } from '@smui/drawer';
   import Button, { Label } from '@smui/button';
 
@@ -11,13 +10,18 @@
   import ComponentCustomizer from '../components/ComponentCustomizer.svelte';
 
   import { nodeStore as nodes } from '../stores/store';
-  import { activeNode } from '../stores/store';
 
   import Directory from '../components/Directory.svelte';
   import PreviewEditorContainer from './PreviewEditorContainer.svelte';
 
   //drawer functionality
   let open = false;
+
+  //redirect to landing page logic (for @Randy)
+  let redirect = false;
+  if (redirect === true) {
+    push('/');
+  }
 
   //code based on https://svelte.dev/repl/fe8c9eca04f9417a94a8b6041df77139?version=3.42.1
   //nesting depth
@@ -192,14 +196,9 @@
       selected: false,
     },
   ];
-
-  // const killDev = ()=>{
-  //   globalThis.api.project.send('killDev');
-  // }
 </script>
 
 <main>
-  <!-- <button on:click={killDev}>kill dev</button> -->
   <div class="wrapper">
     <div class="drawer-container">
       <Drawer variant="modal" bind:open>
