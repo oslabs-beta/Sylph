@@ -11,7 +11,6 @@ const nameAPI = 'project';
 // to Main
 const validSendChannel: SendChannels = {
   getParentDir,
-  reopenProject,
   makeNewProject,
   closeProject,
   updateProject,
@@ -25,7 +24,6 @@ const validSendChannel: SendChannels = {
 // from Main
 const validReceiveChannel: string[] = [
   'parentDir',
-  'reopen',
   'madeNewProject',
   'projectUpdated',
   'readProject',
@@ -63,15 +61,6 @@ async function getParentDir(
   });
   dirpath = filePaths[0];
   mainWindow.webContents.send('parentDir', filePaths[0]);
-}
-
-async function reopenProject(
-  mainWindow: BrowserWindow,
-  event: Electron.IpcMainEvent,
-  message: any
-) {
-  dirpath = message;
-  mainWindow.webContents.send('reopen', dirpath);
 }
 
 async function makeNewProject(
@@ -177,7 +166,7 @@ async function updateProject(
 
   // devProcess = dev;
   // console.log('devPID: ', typeof devPID, devPID);
-  console.log(dirpath);
+
   const dev = cp
     .exec(
       'npm run dev',
