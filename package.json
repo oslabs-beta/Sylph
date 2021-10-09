@@ -79,13 +79,13 @@
 		"svelte-split-pane": "^0.1.2"
 	},
 	"build": {
-		"appId": "com.Slyph.app",
-		"productName": "Slyph",
+		"appId": "com.Sylph.app",
+		"productName": "Sylph",
 		"directories": {
 			"buildResources": "resource",
 			"output": "release"
 		},
-		"copyright": "Copyright © 2021 Slyph",
+		"copyright": "Copyright © 2021 Sylph",
 		"dmg": {
 			"window": {
 				"width": 540,
