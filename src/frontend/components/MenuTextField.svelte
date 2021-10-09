@@ -1,4 +1,4 @@
-<script>
+<script >
   import {
     activeNode,
     nodeStore as nodes,
@@ -88,8 +88,9 @@
   };
   const handleElementSubmit = () => {
     console.log('GLOBAL STYLES', $globalStyles.elementStyles);
-    console.log('class styles:', $globalStyles.classStyles);
+    console.log('class styles:', $globalStyles.classStyles)
     $globalStyles = { ...$globalStyles };
+    // $globalClasses = { ...$globalClasses };
   };
 </script>
 
@@ -105,7 +106,7 @@
     <!-- static always on top of the list attributes -->
     {#if $activeNode?.name}
       <div class="table-header">
-        <p>ELEMENT ATTRIBUTES</p>
+        <p>ELEMENT ATTRIUBUTES</p>
         <p>
           {`Currently Editing: ${$activeNode?.name}`}
           <br />
@@ -140,6 +141,7 @@
             $activeNode.attributes.class = e.target.value;
             handleSubmit();
           }}
+          placeholder="***assign id to edit styles***"
         />
       </div>
 
@@ -230,7 +232,7 @@
                 label={style}
                 value={$globalStyles.elementStyles?.[elementValue]?.[style] ||
                   ''}
-                on:input={(e) => {
+                on:change={(e) => {
                   $globalStyles.elementStyles[elementValue][style] =
                     e.target.value;
                   handleElementSubmit();
@@ -243,13 +245,11 @@
         <form
           class="class-form"
           bind:this={classForm}
-          on:submit|preventDefault={(e) => {
-            if (addedClass) {
-              $globalClasses.push(addedClass);
-              $globalStyles.classStyles[addedClass] = {};
-              classValue = addedClass;
-              addedClass = null;
-            }
+          on:submit={(e) => {
+            $globalClasses.push(addedClass);
+            $globalStyles.classStyles[addedClass] = {};
+            classValue = addedClass;
+            addedClass = null;
           }}
         >
           <div class="attribute-row">
@@ -265,7 +265,6 @@
             <Label>Add Class</Label>
           </Button>
         </form>
-
         <MaterialApp>
           <Row>
             <Col>
@@ -281,7 +280,6 @@
           </Row>
         </MaterialApp>
         <Button
-          id="class-delete-btn"
           variant="raised"
           color="error"
           on:click={() => {
@@ -302,7 +300,7 @@
               type="text"
               label={style}
               value={$globalStyles.classStyles?.[classValue]?.[style] || ''}
-              on:input={(e) => {
+              on:change={(e) => {
                 $globalStyles.classStyles[classValue][style] = e.target.value;
                 handleElementSubmit();
               }}
@@ -327,21 +325,20 @@
     width: '100%';
     margin: 2px;
   }
-
   .class-form {
     display: grid;
     width: 100%;
     margin: 0 -5px 0 -5px;
   }
-
+  .current-edit {
+    margin: 0;
+  }
   .main-container {
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
   }
-
   .table-header {
     display: flex;
     flex-direction: column;
