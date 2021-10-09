@@ -83,11 +83,11 @@ import HelperText from '@smui/select/helper-text/HelperText.svelte';
           </Content>
           <div>
             <Textfield variant='filled' bind:value={newProjectName} label="Project Name">
-              <HelperText slot='helper'>Give your new project a name</HelperText>
+              <!-- <HelperText slot='helper'>Give your new project a name</HelperText> -->
             </Textfield>
           </div>
           <Actions>
-            <Button on:click={newProject}>
+            <Button disabled={newProjectName===''} on:click={newProject}>
               <Label>Create New</Label>
             </Button>
           </Actions>
@@ -118,7 +118,7 @@ import HelperText from '@smui/select/helper-text/HelperText.svelte';
           </Content>
           {#if savedProjectArr?.length > 0}
             <Actions>
-              <Button on:click={()=>reopenProject(selectedSavedProject)}>
+              <Button disabled={selectedSavedProject===''} on:click={()=>reopenProject(selectedSavedProject)}>
                 <Label>Open</Label>
               </Button>
             </Actions>
