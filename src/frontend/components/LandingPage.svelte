@@ -6,8 +6,16 @@
   } from '@smui/card';
   import CircularProgress from '@smui/circular-progress';
   import Button, { Label } from '@smui/button';
+  import Select, { Option } from '@smui/select';
 
+  //state to trigger loading screen
   let loading = false;
+
+  //array of saved projects the user can open
+  let savedProjectArr = ['example1'];
+  //currently selected saved project
+  let selectedSavedProject = '';
+
   let projects: [string] = JSON.parse(localStorage.getItem('Projects'));
 
   const newProject = ()=> {    
@@ -47,8 +55,6 @@
       push('/new-project');
     }
   });
-
-
 </script>
 
 {#if !loading}
@@ -80,25 +86,32 @@
       <div class="landing-card">
         <Card>
           <Content>
-            [NOT FUNCTIONAL]
+            <p>
+              Open a previous Svelte prototyping project.
+            </p>
+            <!-- renders dropdown of saved projects from array -->
+            <div id="saved-projects">
+            {#if savedProjectArr.length > 0 }
+              <Select bind:selectedSavedProject label="Saved Project">
+                <Option selectedSavedProject="" />
+                {#each savedProjectArr as savedProject}
+                  <Option value={savedProject}>{savedProject}</Option>
+                {/each}
+              </Select>
+            {:else}
+              <em>
+                No saved projects found.
+              </em>
+            {/if}
+            </div>
           </Content>
-          <Actions>
-            <Button>
-              <Label>Example</Label>
-            </Button>
-          </Actions>
-        </Card>
-      </div>
-      <div class="landing-card">
-        <Card>
-          <Content>
-            [NOT FUNCTIONAL]
-          </Content>
-          <Actions>
-            <Button>
-              <Label>Example</Label>
-            </Button>
-          </Actions>
+          {#if savedProjectArr.length > 0}
+            <Actions>
+              <Button>
+                <Label>Open</Label>
+              </Button>
+            </Actions>
+          {/if}
         </Card>
       </div>
     </div>
@@ -132,6 +145,7 @@
 
   .landing-card {
     margin: 1rem;
+    height: 500px;
   }
 
   #landing-loading {
@@ -140,5 +154,9 @@
     align-items: center;
     height: 100vh;
     width: 100vw;
+  }
+
+  #saved-projects {
+    text-align: left;
   }
 </style>
