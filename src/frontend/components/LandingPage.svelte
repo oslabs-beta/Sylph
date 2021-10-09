@@ -19,7 +19,7 @@
   let savedProjectArr = ['example1'];
   //currently selected saved project
   let selectedSavedProject = '';
-
+ 
   let projects: [string] = JSON.parse(localStorage.getItem('Projects'));
   // let projects: [string] = JSON.parse(localStorage.getItem('Projects'));
   savedProjectArr = projects;
@@ -32,12 +32,14 @@
     loading = true;
     globalThis.api.project.send('reopenProject', dirpath);
   }
+
+
   globalThis.api.project.receive('reopen', (dir)=>{
     console.log(dir)
     globalThis.api.project.send('updateProject')
       push('/new-project');
   })
-
+  
   globalThis.api.project.receive('parentDir', (dir)=>{
     console.log('dir: ', dir);
     if(dir === undefined) return;
@@ -62,13 +64,13 @@
 
 {#if !loading}
   <button on:click={()=>{localStorage.clear(); projects = JSON.parse(localStorage.getItem('Projects'))} }>clear localStorage</button>
-  {#if projects}
+  <!-- {#if projects}
     <ul>
       {#each projects as project}
-        <li>{project}</li>
+        <li><button on:click={()=>reopenProject(project)}>{project}</button></li>
       {/each}
     </ul>  
-  {/if}
+  {/if} -->
   <section id="landing-container">
     <div id="landing-header">
       <h1 >Sylph</h1>
@@ -99,7 +101,7 @@
             </p>
             <!-- renders dropdown of saved projects from array -->
             <div id="saved-projects">
-            {#if savedProjectArr.length > 0 }
+            {#if savedProjectArr?.length > 0 }
               <Select bind:selectedSavedProject label="Saved Project">
                 <Option selectedSavedProject="" />
                 {#each savedProjectArr as savedProject}
@@ -113,7 +115,7 @@
             {/if}
             </div>
           </Content>
-          {#if savedProjectArr.length > 0}
+          {#if savedProjectArr?.length > 0}
             <Actions>
               <Button disabled={selectedSavedProject===''} on:click={()=>reopenProject(selectedSavedProject)}>
                 <Label>Open</Label>

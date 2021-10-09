@@ -1,4 +1,4 @@
-export let components = [
+let components = [
   { id: 'node_a', name: 'a', attributes: {}, styles: {}, selected: false },
   {
     id: 'node_button',
@@ -109,3 +109,5 @@ export let components = [
     selected: false,
   },
 ];
+
+export default components;
