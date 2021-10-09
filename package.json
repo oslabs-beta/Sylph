@@ -1,8 +1,8 @@
 {
-	"name": "sylph",
+	"name": "Sylph",
 	"version": "1.0.0",
 	"description": "Svelte prototyping tool",
-	"author": "OS Lab",
+	"author": "OS Labs",
 	"contributor": [
 		"Kailee Pedersen",
 		"Randy Diebold",
