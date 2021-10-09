@@ -7,23 +7,28 @@
   import CircularProgress from '@smui/circular-progress';
   import Button, { Label } from '@smui/button';
   import Select, { Option } from '@smui/select';
+import Textfield from '@smui/textfield';
+import HelperText from '@smui/select/helper-text/HelperText.svelte';
+
 
   //state to trigger loading screen
   let loading = false;
+  let newProjectName=''
 
   //array of saved projects the user can open
   let savedProjectArr = ['example1'];
   //currently selected saved project
   let selectedSavedProject = '';
-
+ 
   let projects: [string] = JSON.parse(localStorage.getItem('Projects'));
-
+  // let projects: [string] = JSON.parse(localStorage.getItem('Projects'));
+  savedProjectArr = projects;
   const newProject = ()=> {    
     globalThis.api.project.send('getParentDir');
   }
   
   const reopenProject = (dirpath)=>{
-    console.log('reopenProject')
+    console.log('reopenProject:', dirpath)
     loading = true;
     globalThis.api.project.send('reopenProject', dirpath);
   }
@@ -59,13 +64,13 @@
 
 {#if !loading}
   <button on:click={()=>{localStorage.clear(); projects = JSON.parse(localStorage.getItem('Projects'))} }>clear localStorage</button>
-  {#if projects}
+  <!-- {#if projects}
     <ul>
       {#each projects as project}
         <li><button on:click={()=>reopenProject(project)}>{project}</button></li>
       {/each}
     </ul>  
-  {/if}
+  {/if} -->
   <section id="landing-container">
     <div id="landing-header">
       <h1 >Sylph</h1>
@@ -76,6 +81,11 @@
           <Content>
             Create a new Svelte prototyping project.
           </Content>
+          <div>
+            <Textfield variant='filled' bind:value={newProjectName} label="Project Name">
+              <HelperText slot='helper'>Give your new project a name</HelperText>
+            </Textfield>
+          </div>
           <Actions>
             <Button on:click={newProject}>
               <Label>Create New</Label>
@@ -91,11 +101,12 @@
             </p>
             <!-- renders dropdown of saved projects from array -->
             <div id="saved-projects">
-            {#if savedProjectArr.length > 0 }
+            {#if savedProjectArr?.length > 0 }
               <Select bind:selectedSavedProject label="Saved Project">
                 <Option selectedSavedProject="" />
                 {#each savedProjectArr as savedProject}
-                  <Option value={savedProject}>{savedProject}</Option>
+                  <Option  value={savedProject} on:click={()=>selectedSavedProject = savedProject}>{savedProject}</Option>
+                  
                 {/each}
               </Select>
             {:else}
@@ -105,9 +116,9 @@
             {/if}
             </div>
           </Content>
-          {#if savedProjectArr.length > 0}
+          {#if savedProjectArr?.length > 0}
             <Actions>
-              <Button>
+              <Button on:click={()=>reopenProject(selectedSavedProject)}>
                 <Label>Open</Label>
               </Button>
             </Actions>
