@@ -16,13 +16,13 @@ import HelperText from '@smui/select/helper-text/HelperText.svelte';
   let newProjectName=''
 
   //array of saved projects the user can open
-  let savedProjectArr = ['example1'];
+  // let savedProjectArr = ['example1'];
   //currently selected saved project
   let selectedSavedProject = '';
  
   let projects: [string] = JSON.parse(localStorage.getItem('Projects'));
   // let projects: [string] = JSON.parse(localStorage.getItem('Projects'));
-  savedProjectArr = projects;
+  $: savedProjectArr = projects;
   const newProject = ()=> {    
     globalThis.api.project.send('getParentDir');
   }
@@ -64,13 +64,7 @@ import HelperText from '@smui/select/helper-text/HelperText.svelte';
 
 {#if !loading}
   <button on:click={()=>{localStorage.clear(); projects = JSON.parse(localStorage.getItem('Projects'))} }>clear localStorage</button>
-  <!-- {#if projects}
-    <ul>
-      {#each projects as project}
-        <li><button on:click={()=>reopenProject(project)}>{project}</button></li>
-      {/each}
-    </ul>  
-  {/if} -->
+  
   <section id="landing-container">
     <div id="landing-header">
       <h1 >Sylph</h1>
