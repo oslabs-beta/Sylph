@@ -9,6 +9,7 @@
   import Select, { Option } from '@smui/select';
 import Textfield from '@smui/textfield';
 import HelperText from '@smui/select/helper-text/HelperText.svelte';
+import { nodeStore as nodes, globalClasses, globalStyles } from '../stores/store';
 
 
   //state to trigger loading screen
@@ -35,8 +36,11 @@ import HelperText from '@smui/select/helper-text/HelperText.svelte';
   }
 
 
-  globalThis.api.project.receive('reopen', (dir)=>{
-    console.log(dir)
+  globalThis.api.project.receive('reopen', (project)=>{
+    console.log(project.dir)
+    $nodes = project.state.nodes;
+    $globalClasses = project.state.globalClasses;
+    $globalStyles = project.state.globalStyles
     globalThis.api.project.send('updateProject')
     // get and update state then go to sylphContainer
       push('/new-project');

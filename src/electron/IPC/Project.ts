@@ -94,8 +94,9 @@ async function reopenProject(
   message: any
 ) {
   dirpath = message;
+  const state = readStoreFile();
 
-  mainWindow.webContents.send('reopen', dirpath);
+  mainWindow.webContents.send('reopen', { dirpath, state });
 }
 
 async function makeNewProject(
