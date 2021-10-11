@@ -46,7 +46,8 @@ import { nodeStore as nodes, globalClasses, globalStyles } from '../stores/store
     $globalStyles = project.state.globalStyles
     globalThis.api.project.send('updateProject')
     // get and update state then go to sylphContainer
-      push('/new-project');
+    globalThis.api.app.send('toSlyph')
+      // push('/new-project');
   })
   
   globalThis.api.project.receive('parentDir', (dir)=>{
@@ -66,7 +67,8 @@ import { nodeStore as nodes, globalClasses, globalStyles } from '../stores/store
   globalThis.api.project.receive('madeNewProject', (data) => {
     if (data === 'project installed') {
       globalThis.api.project.send('updateProject')
-      push('/new-project');
+      // push('/new-project');
+      globalThis.api.app.send('toSlyph')
     }
   });
 </script>

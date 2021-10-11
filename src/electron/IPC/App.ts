@@ -10,16 +10,24 @@ const nameAPI = 'app';
 // to Main
 const validSendChannel: SendChannels = {
   openDialog,
+  toSlyph,
+  toMain,
 };
 
 // from Main
-const validReceiveChannel: string[] = ['openDialogConfirmed'];
+const validReceiveChannel: string[] = [
+  'openDialogConfirmed',
+  'goToMain',
+  'goToSlyph',
+];
 
 const app = new IPC({
   nameAPI,
   validSendChannel,
   validReceiveChannel,
 });
+
+let sylphWindow: BrowserWindow;
 
 async function openDialog(
   mainWindow: BrowserWindow,
@@ -41,6 +49,19 @@ async function openDialog(
 
   /* # Front End Sender */
   // globalThis.api.app.send('openDialog')
+}
+
+export function toMain() {
+  sylphWindow.webContents.send('goToMain');
+}
+
+function toSlyph(
+  mainWindow: BrowserWindow,
+  event: Electron.IpcMainEvent,
+  message: any
+) {
+  sylphWindow = mainWindow;
+  mainWindow.webContents.send('goToSlyph');
 }
 
 export default app;
