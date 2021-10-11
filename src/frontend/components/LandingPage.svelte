@@ -7,15 +7,18 @@
   import CircularProgress from '@smui/circular-progress';
   import Button, { Label } from '@smui/button';
   import Select, { Option } from '@smui/select';
-import Textfield from '@smui/textfield';
-import HelperText from '@smui/select/helper-text/HelperText.svelte';
+
+// import HelperText from '@smui/select/helper-text/HelperText.svelte';
 import { nodeStore as nodes, globalClasses, globalStyles } from '../stores/store';
 
+  import Textfield from '@smui/textfield';
+  import HelperText from '@smui/textfield/helper-text/index';
 
   //state to trigger loading screen
   let loading = false;
-  let newProjectName=''
 
+  //state for new project name
+  let newProjectName=''
   //array of saved projects the user can open
   // let savedProjectArr = ['example1'];
   //currently selected saved project
@@ -80,12 +83,12 @@ import { nodeStore as nodes, globalClasses, globalStyles } from '../stores/store
         <Card>
           <Content>
             Create a new Svelte prototyping project.
+            <div id="new-project">
+              <Textfield variant='filled' bind:value={newProjectName} label="Project Name">
+                <HelperText slot="helper">Give your project a name.</HelperText>
+              </Textfield>
+            </div>
           </Content>
-          <div>
-            <Textfield variant='filled' bind:value={newProjectName} label="Project Name">
-              <!-- <HelperText slot='helper'>Give your new project a name</HelperText> -->
-            </Textfield>
-          </div>
           <Actions>
             <Button disabled={newProjectName===''} on:click={newProject}>
               <Label>Create New</Label>
@@ -106,7 +109,6 @@ import { nodeStore as nodes, globalClasses, globalStyles } from '../stores/store
                 <Option selectedSavedProject="" />
                 {#each savedProjectArr as savedProject}
                   <Option  value={savedProject} on:click={()=>selectedSavedProject = savedProject}>{savedProject}</Option>
-                  
                 {/each}
               </Select>
             {:else}
@@ -138,6 +140,7 @@ import { nodeStore as nodes, globalClasses, globalStyles } from '../stores/store
   h1{
     font-size: 44px;
   }
+  
   #landing-container {
     display: flex;
     flex-direction: column;
@@ -165,6 +168,12 @@ import { nodeStore as nodes, globalClasses, globalStyles } from '../stores/store
     align-items: center;
     height: 100vh;
     width: 100vw;
+  }
+
+  #new-project {
+    padding-top: 20px;
+    padding-bottom: 0px;
+    text-align: left;
   }
 
   #saved-projects {
