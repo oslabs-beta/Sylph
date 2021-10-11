@@ -52,7 +52,7 @@
   }
 
   .editor-container {
-    height: 80%;
-    width: 85%;
+    height: 100%;
+    width: 100%;
   }
 </style>
