@@ -30,6 +30,7 @@ import HelperText from '@smui/select/helper-text/HelperText.svelte';
   const reopenProject = (dirpath)=>{
     console.log('reopenProject:', dirpath)
     loading = true;
+    
     globalThis.api.project.send('reopenProject', dirpath);
   }
 
@@ -37,6 +38,7 @@ import HelperText from '@smui/select/helper-text/HelperText.svelte';
   globalThis.api.project.receive('reopen', (dir)=>{
     console.log(dir)
     globalThis.api.project.send('updateProject')
+    // get and update state then go to sylphContainer
       push('/new-project');
   })
   

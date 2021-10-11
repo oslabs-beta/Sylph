@@ -10,6 +10,7 @@ const nameAPI = 'project';
 
 // to Main
 const validSendChannel: SendChannels = {
+  updateStoreFile,
   getParentDir,
   reopenProject,
   makeNewProject,
@@ -65,12 +66,35 @@ async function getParentDir(
   mainWindow.webContents.send('parentDir', filePaths[0]);
 }
 
+function readStoreFile() {
+  return JSON.parse(fs.readFileSync(path.join(dirpath, 'Sylph.json'), 'utf8'));
+}
+
+function writeStoreFile(json: string = '') {
+  fs.writeFile(path.join(dirpath, 'Sylph.json'), json, (err) => {
+    if (err) {
+      console.log('Error with saving store, Error msg: ', err);
+    } else {
+      console.log('store updated');
+    }
+  });
+}
+
+function updateStoreFile(
+  mainWindow: BrowserWindow,
+  event: Electron.IpcMainEvent,
+  message: string
+) {
+  writeStoreFile(message);
+}
+
 async function reopenProject(
   mainWindow: BrowserWindow,
   event: Electron.IpcMainEvent,
   message: any
 ) {
   dirpath = message;
+
   mainWindow.webContents.send('reopen', dirpath);
 }
 
@@ -111,6 +135,7 @@ async function makeNewProject(
       }
     }).on('exit', () => {
       console.log('Dependencies installed');
+      writeStoreFile(); //makes a Sylph.json file in root folder
       fs.writeFile(
         path.join(dirpath, 'frontend', 'public', 'index.html'),
         `<!DOCTYPE html>

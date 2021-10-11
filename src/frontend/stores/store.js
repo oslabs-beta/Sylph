@@ -15,6 +15,14 @@ let nodes = {
     items: [],
   },
 };
+
+// send state
+// globalThis.api.projects.send('updateStoreFile', JSON.stringify())
+// get state
+// globalThis.api.projects.recieve('', ()=>{
+
+// })
+
 let globalStyle = {
   elementStyles: {},
   classStyles: {},

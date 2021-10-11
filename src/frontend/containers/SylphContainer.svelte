@@ -9,7 +9,7 @@
   import PortSnackbar from '../components/PortSnackbar.svelte';
   import ComponentCustomizer from '../components/ComponentCustomizer.svelte';
 
-  import { nodeStore as nodes } from '../stores/store';
+  import { nodeStore as nodes, globalClasses, globalStyles } from '../stores/store';
 
   import Directory from '../components/Directory.svelte';
   import PreviewEditorContainer from './PreviewEditorContainer.svelte';
@@ -19,6 +19,13 @@
   //drawer functionality
   let open = false;
 
+  $: {globalThis.api.project.send('updateStoreFile', JSON.stringify(
+    {
+      nodes: $nodes,
+      globalStyles: $globalStyles, 
+      globalClasses: $globalClasses 
+    }
+    ))}
   //redirect to landing page logic (for @Randy)
   let redirect = false;
   if (redirect === true) {
