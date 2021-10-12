@@ -6,7 +6,7 @@
     export let nodes
     export let node
     export let depth
-    export let activeItem
+    
 	
     // make a node Iterface
     // interface node<T> {

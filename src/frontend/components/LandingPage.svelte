@@ -7,6 +7,10 @@
   import CircularProgress from '@smui/circular-progress';
   import Button, { Label } from '@smui/button';
   import Select, { Option } from '@smui/select';
+
+// import HelperText from '@smui/select/helper-text/HelperText.svelte';
+import { nodeStore as nodes, globalClasses, globalStyles } from '../stores/store';
+
   import Textfield from '@smui/textfield';
   import HelperText from '@smui/textfield/helper-text/index';
 
@@ -16,13 +20,13 @@
   //state for new project name
   let newProjectName=''
   //array of saved projects the user can open
-  let savedProjectArr = ['example1'];
+  // let savedProjectArr = ['example1'];
   //currently selected saved project
   let selectedSavedProject = '';
  
   let projects: [string] = JSON.parse(localStorage.getItem('Projects'));
   // let projects: [string] = JSON.parse(localStorage.getItem('Projects'));
-  savedProjectArr = projects;
+  $: savedProjectArr = projects;
   const newProject = ()=> {    
     globalThis.api.project.send('getParentDir');
   }
@@ -30,13 +34,18 @@
   const reopenProject = (dirpath)=>{
     console.log('reopenProject:', dirpath)
     loading = true;
+    
     globalThis.api.project.send('reopenProject', dirpath);
   }
 
 
-  globalThis.api.project.receive('reopen', (dir)=>{
-    console.log(dir)
+  globalThis.api.project.receive('reopen', (project)=>{
+    console.log(project.dir)
+    $nodes = project.state.nodes;
+    $globalClasses = project.state.globalClasses;
+    $globalStyles = project.state.globalStyles
     globalThis.api.project.send('updateProject')
+    // get and update state then go to sylphContainer
       push('/new-project');
   })
   
@@ -64,13 +73,7 @@
 
 {#if !loading}
   <button on:click={()=>{localStorage.clear(); projects = JSON.parse(localStorage.getItem('Projects'))} }>clear localStorage</button>
-  <!-- {#if projects}
-    <ul>
-      {#each projects as project}
-        <li><button on:click={()=>reopenProject(project)}>{project}</button></li>
-      {/each}
-    </ul>  
-  {/if} -->
+  
   <section id="landing-container">
     <div id="landing-header">
       <h1 >Sylph</h1>

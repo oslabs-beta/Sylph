@@ -1,8 +1,16 @@
-let components = [
-  { id: 'node_a', name: 'a', attributes: {}, styles: {}, selected: false },
+export let components = [
+  {
+    id: 'node_a',
+    name: 'a',
+    items: [],
+    attributes: {},
+    styles: {},
+    selected: false,
+  },
   {
     id: 'node_button',
     name: 'button',
+    items: [],
     attributes: {},
     styles: {},
     selected: false,
@@ -31,11 +39,46 @@ let components = [
     styles: {},
     selected: false,
   },
-  { id: 'node_h1', name: 'h1', attributes: {}, styles: {}, selected: false },
-  { id: 'node_h2', name: 'h2', attributes: {}, styles: {}, selected: false },
-  { id: 'node_h3', name: 'h3', attributes: {}, styles: {}, selected: false },
-  { id: 'node_h4', name: 'h4', attributes: {}, styles: {}, selected: false },
-  { id: 'node_h5', name: 'h5', attributes: {}, styles: {}, selected: false },
+  {
+    id: 'node_h1',
+    name: 'h1',
+    items: [],
+    attributes: {},
+    styles: {},
+    selected: false,
+  },
+  {
+    id: 'node_h2',
+    name: 'h2',
+    items: [],
+    attributes: {},
+    styles: {},
+    selected: false,
+  },
+  {
+    id: 'node_h3',
+    name: 'h3',
+    items: [],
+    attributes: {},
+    styles: {},
+    selected: false,
+  },
+  {
+    id: 'node_h4',
+    name: 'h4',
+    items: [],
+    attributes: {},
+    styles: {},
+    selected: false,
+  },
+  {
+    id: 'node_h5',
+    name: 'h5',
+    items: [],
+    attributes: {},
+    styles: {},
+    selected: false,
+  },
   {
     id: 'node_header',
     name: 'header',
@@ -59,7 +102,14 @@ let components = [
     styles: {},
     selected: false,
   },
-  { id: 'node_li', name: 'li', attributes: {}, styles: {}, selected: false },
+  {
+    id: 'node_li',
+    name: 'li',
+    items: [],
+    attributes: {},
+    styles: {},
+    selected: false,
+  },
   {
     id: 'node_main',
     name: 'main',
@@ -84,7 +134,14 @@ let components = [
     styles: {},
     selected: false,
   },
-  { id: 'node_p', name: 'p', attributes: {}, styles: {}, selected: false },
+  {
+    id: 'node_p',
+    name: 'p',
+    items: [],
+    attributes: {},
+    styles: {},
+    selected: false,
+  },
   {
     id: 'node_section',
     name: 'section',
@@ -109,5 +166,3 @@ let components = [
     selected: false,
   },
 ];
-
-export default components;

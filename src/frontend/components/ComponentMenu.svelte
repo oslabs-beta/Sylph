@@ -43,6 +43,16 @@ import { flip } from 'svelte/animate';
     }
   }
 
+  let counter = 0;
+  let newComponent = ()=>{return{
+    id: `node_test${++counter}`,
+    name: 'test',
+    items: [],
+    attributes: {},
+    styles: {},
+    selected: false,}
+  }
+
 </script>
 
 <style>
@@ -52,7 +62,7 @@ import { flip } from 'svelte/animate';
     flex-direction: column;
     align-items: center;
 		width: 100%;
-    height: 100%;
+    /* height: 100%; */
 		padding: 0.3em;
     background-color: white;
 	}
@@ -77,3 +87,4 @@ import { flip } from 'svelte/animate';
 		</div>
 	{/each}
 </section>
+<!-- <button on:click={()=>items = [...items, newComponent()]}>Add Component</button> -->
