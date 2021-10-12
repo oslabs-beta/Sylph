@@ -52,6 +52,7 @@ let devProcess: any;
 const mkdr = 'mkdir';
 
 let dirpath: string;
+let parentDir: string;
 let folder: string;
 
 async function getParentDir(
@@ -62,8 +63,14 @@ async function getParentDir(
   const { filePaths } = await dialog.showOpenDialog({
     properties: ['openDirectory'],
   });
-  dirpath = filePaths[0];
-  mainWindow.webContents.send('parentDir', filePaths[0]);
+
+  parentDir = filePaths[0];
+  folder = message;
+  fs.mkdir(path.join(parentDir, folder), (err) => {
+    if (err) console.log('error with making containing folder');
+  });
+  dirpath = path.join(parentDir, folder);
+  mainWindow.webContents.send('parentDir', dirpath);
 }
 
 function readStoreFile() {
@@ -106,7 +113,7 @@ async function makeNewProject(
 ) {
   history.push(' makeNewProject ->');
   console.log(history);
-  folder = message;
+  // folder = message;
 
   // cp.exec('cd', (err, stdout, stderr) => {
   //   dirpath = path.join(message);
@@ -114,7 +121,7 @@ async function makeNewProject(
 
   console.log('dirpath:', dirpath);
   cp.exec(
-    `npx degit sveltejs/template ${'frontend'}`,
+    `npx degit sveltejs/template ${'app'}`,
     {
       cwd: dirpath,
     },
@@ -128,7 +135,7 @@ async function makeNewProject(
   ).on('close', () => {
     // console.log('New Project init');
     // console.log('npm i path: ', `./Projects/${message}`);
-    cp.exec('npm i', { cwd: `${dirpath}/frontend` }, (err, stdout, stderr) => {
+    cp.exec('npm i', { cwd: `${dirpath}/app` }, (err, stdout, stderr) => {
       if (err) {
         console.log(err);
       } else {
@@ -138,7 +145,7 @@ async function makeNewProject(
       console.log('Dependencies installed');
       writeStoreFile(); //makes a Sylph.json file in root folder
       fs.writeFile(
-        path.join(dirpath, 'frontend', 'public', 'index.html'),
+        path.join(dirpath, 'app', 'public', 'index.html'),
         `<!DOCTYPE html>
         <html lang="en">
         <head>
@@ -204,24 +211,18 @@ async function updateProject(
   // devProcess = dev;
   // console.log('devPID: ', typeof devPID, devPID);
   console.log(dirpath);
-  const dev = cp
-    .exec(
-      'npm run dev',
-      { cwd: `${dirpath}/frontend` },
-      (err, stdout, stderr) => {
-        if (err) {
-          console.log('was Error: ');
-          console.log(err);
-        } else {
-          console.log('no error: ');
-          console.log(stdout);
-        }
-      }
-    )
-    .on('close', () => {
-      console.log('updated build');
-      mainWindow.webContents.send('projectUpdated');
-    });
+  cp.exec('npm run dev', { cwd: `${dirpath}/app` }, (err, stdout, stderr) => {
+    if (err) {
+      console.log('was Error: ');
+      console.log(err);
+    } else {
+      console.log('no error: ');
+      console.log(stdout);
+    }
+  }).on('close', () => {
+    console.log('updated build');
+    mainWindow.webContents.send('projectUpdated');
+  });
 
   // devPID = dev.pid;
   // console.log('devPID: ', typeof devPID, devPID);
@@ -251,7 +252,7 @@ function writeOver(
 ) {
   const formattedCode = prettier.format(message.data, { parser: 'html' });
   fs.writeFile(
-    path.join(dirpath, 'frontend', message.path),
+    path.join(dirpath, 'app', message.path),
     formattedCode,
     (err) => {
       // console.log('message.path', message.path);
@@ -286,7 +287,7 @@ function getDirectory(
   event: Electron.IpcMainEvent,
   message: any
 ) {
-  const dirObj: {} = dirCrawl(path.join(dirpath, 'frontend'));
+  const dirObj: {} = dirCrawl(path.join(dirpath, 'app'));
   console.log(dirObj);
   mainWindow.webContents.send('directorySent', dirObj);
 }
@@ -298,7 +299,7 @@ function read(
 ) {
   // console.log('dirpath: ', dirpath);
   let data = fs.readFile(
-    path.join(dirpath, 'frontend', message.path),
+    path.join(dirpath, 'app', message.path),
     (err, data) => {
       if (err) console.log(err);
       else mainWindow.webContents.send('readProject', data.toString());
