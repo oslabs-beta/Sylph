@@ -28,7 +28,7 @@ import { nodeStore as nodes, globalClasses, globalStyles } from '../stores/store
   // let projects: [string] = JSON.parse(localStorage.getItem('Projects'));
   $: savedProjectArr = projects;
   const newProject = ()=> {    
-    globalThis.api.project.send('getParentDir');
+    globalThis.api.project.send('getParentDir', newProjectName);
   }
   
   const reopenProject = (dirpath)=>{
@@ -110,7 +110,7 @@ import { nodeStore as nodes, globalClasses, globalStyles } from '../stores/store
               <Select bind:selectedSavedProject label="Saved Project">
                 <Option selectedSavedProject="" />
                 {#each savedProjectArr as savedProject}
-                  <Option  value={savedProject} on:click={()=>selectedSavedProject = savedProject}>{savedProject}</Option>
+                  <Option  value={savedProject} on:click={()=>selectedSavedProject = savedProject}>{savedProject.slice(savedProject.lastIndexOf(`\\`)+1)}</Option>
                 {/each}
               </Select>
             {:else}

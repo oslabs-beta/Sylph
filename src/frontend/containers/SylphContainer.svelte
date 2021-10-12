@@ -15,6 +15,7 @@
   import PreviewEditorContainer from './PreviewEditorContainer.svelte';
 
   import {components} from '../components/utilities/components';
+import { onDestroy } from 'svelte';
 
   //drawer functionality
   let open = false;
@@ -25,7 +26,25 @@
       globalStyles: $globalStyles, 
       globalClasses: $globalClasses 
     }
-    ))}
+    ))
+  }
+
+  onDestroy(()=>{
+    $nodes = {
+      node1: {
+        id: 'node1',
+        name: 'body',
+        items: [],
+      }
+    };
+    
+    $globalStyles = {
+      elementStyles: {},
+      classStyles: {},
+    };
+
+    $globalClasses = [];
+  })
   //redirect to landing page logic (for @Randy)
   let redirect = false;
   if (redirect === true) {
