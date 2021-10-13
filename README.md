@@ -4,7 +4,7 @@
 <h1 align ="center">Sylph</h1>
 <p align="center">A drag and drop Svelte prototyping tool.</p>
 <p align="center">
-<a target="_blank" href="https://github.com/oslabs-beta/rediQLess//blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/oslabs-beta/sylph"></a> 
+<a target="_blank" href="https://github.com/oslabs-beta/Sylph/blob/dev/LICENSE.md"><img alt="GitHub license" src="https://img.shields.io/github/license/oslabs-beta/sylph"></a> 
 
 <a href="https://github.com/oslabs-beta/Sylph/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/oslabs-beta/sylph"></a>
 <a href="https://github.com/oslabs-beta/sylph/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/oslabs-beta/sylph"></a>
