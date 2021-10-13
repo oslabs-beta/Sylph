@@ -109,15 +109,15 @@
 		"mac": {
 			"target": "dmg",
 			"category": "public.app-category.utilities",
-			"icon": "resources/icon.icns"
+			"icon": "resource/icon.icns"
 		},
 		"win": {
-			"icon": "resources/icon.ico",
+			"icon": "resource/icon.ico",
 			"target": "nsis"
 		},
 		"nsis": {
-			"installerIcon": "resources/icon.ico",
-			"uninstallerIcon": "resources/icon.ico",
+			"installerIcon": "resource/icon.ico",
+			"uninstallerIcon": "resource/icon.ico",
 			"uninstallDisplayName": "Sylph",
 			"oneClick": false,
 			"allowToChangeInstallationDirectory": true

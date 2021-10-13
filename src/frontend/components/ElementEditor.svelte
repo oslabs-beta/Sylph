@@ -44,7 +44,7 @@
     return `${node.items.filter(child=>child.attributes.id && Object.entries(child.styles).length).map(child=>`#${child.attributes.id} {\n\t${Object.entries(child.styles).map(([key,value])=> `${key}: ${value}`).join(';\n\t')}\n  }`).join('\n\n')}\n\n${node.items.map(child=>idStylesToString(child)).join('')}`;
   }
 
-  const styleToString = (node, globalStyles) => {
+  $: styleToString = (node, globalStyles) => {
 	return `
     ${Object.entries(globalStyles.elementStyles)
     .filter(child=>Object.keys(child[1]).length)
