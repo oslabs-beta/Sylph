@@ -32,7 +32,7 @@ Harnessing the power of Electron, TypeScript, and Svelte, Sylph provides an open
 ## Getting Started
 
 
-### 1. Installing Sylph
+### Installing Sylph
 
 Sylph is available for Mac and Windows operating systems. You can download Sylph directly from www.sylph.cc.
 
