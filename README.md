@@ -1,105 +1,137 @@
-*Looking for a shareable component template? Go here --> [sveltejs/component-template](https://github.com/sveltejs/component-template)*
+<p align="center">
+<img src="./src/sylph-icon.png" />
+</p>
+<h1 align ="center">Sylph</h1>
+<p align="center">A drag and drop Svelte prototyping tool.</p>
+<p align="center">
+<a target="_blank" href="https://github.com/oslabs-beta/Sylph/blob/dev/LICENSE.md"><img alt="GitHub license" src="https://img.shields.io/github/license/oslabs-beta/sylph"></a> 
 
----
+<a href="https://github.com/oslabs-beta/Sylph/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/oslabs-beta/sylph"></a>
+<a href="https://github.com/oslabs-beta/sylph/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/oslabs-beta/sylph"></a>
+<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/oslabs-beta/sylph">
 
-# svelte app
+</p>
+<h2>Table of Contents</h2>
 
-This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
+- [About](https://github.com/oslabs-beta/sylph/#About)
+- [Features](https://github.com/oslabs-beta/sylph/#Features)
+- [Getting Started](https://github.com/oslabs-beta/sylph/#Getting-Started)
+- [Example](https://github.com/oslabs-beta/sylph/#Example)
+- [Contributors](https://github.com/oslabs-beta/sylph/#Contributors)
+- [License](https://github.com/oslabs-beta/sylph/#License)
 
-To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
+<h2 href="#About">About</h2>
 
-```bash
-npx degit sveltejs/template svelte-app
-cd svelte-app
+Sylph is a prototyping tool for Svelte web applications. With its convenient drag-and-drop interface, component customizer, real-time code preview, and real-time site preview, Sylph allows users to quickly prototype and develop the architecture of their Svelte applications.
+Harnessing the power of Electron, TypeScript, and Svelte, Sylph provides an open-source solution for the fast-growing Svelte community's prototyping needs. 
+
+## Features
+  - Drag and drop UI.
+  - Live code and Svelte application preview.
+  - Full svelte application saved on your local machine, not just code snippets.
+## Getting Started
+
+
+### Installing Sylph
+
+Sylph is available for Mac and Windows operating systems. You can download Sylph directly from www.sylph.cc.
+
+Navigate to [Sylph releases]('https://github.com/oslabs-beta/Sylph/releases') in the repository and download the package for your respective operating system. 
+
+<a href="https://github.com/oslabs-beta/Sylph/releases">
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-cloud-arrow-down" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M7.646 10.854a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 9.293V5.5a.5.5 0 0 0-1 0v3.793L6.354 8.146a.5.5 0 1 0-.708.708l2 2z"/>
+  <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383zm.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z"/>
+</svg>
+</a> 
+
+* MacOS:
+  * Run the Sylph.dmg file.
+  * Drag the Sylph app into your systems application folder.
+  * Double click to run the Sylph application file.
+
+* Windows:
+  * Run the Sylph.exe file.
+
+**NOTE**: Sylph will occupy port 5000 for its child process.
+
+## How to Use Sylph
+
+1. Open Sylph and choose "Create a new Svelte prototyping project". Type in the project name and click "Create New". **NOTE**: We do not advise creating two projects of the same name in the same directory.
+2. When the Sylph sandbox loads, click the "Components" tab on the right-hand side to open a drawer of components. Drag and drop into the sandbox.
+3. To customize an element, click on it in the sandbox. It should turn purple and you should see a menu on the right-hand side change to "Element Attributes". 
+    * Assign an ID to the selected element to edit styles.
+4. To edit global elements and classes, make sure all elements are de-selected and input your customization into the right-hand column. 
+5. You can see your project's directory in the upper right. Click on the arrow to view a dropdown of the directory structure. 
+6. Use the tabs in the bottom panel to switch between the code editor, preview, or code editor + preview views. 
+7. Drag the horizontal and vertical bars to resize the panels to your desire. 
+8. When finished, you can exit the application or select File -> Close Project. 
+9. If you would like to reload your saved project, navigate to the main menu and select "Open a previous Svelte prototyping project", selecting your project's filename from the dropdown list. Then click "Open". 
+
+## How to Contribute to Sylph
+
+To run Sylph locally, clone this repository to your local machine and open it. 
+
+Install the required npm packages and run the local version.
+
 ```
-
-*Note that you will need to have [Node.js](https://nodejs.org) installed.*
-
-
-## Get started
-
-Install the dependencies...
-
-```bash
-cd svelte-app
-npm install
-```
-
-...then start [Rollup](https://rollupjs.org):
-
-```bash
+npm i
 npm run dev
 ```
 
-Navigate to [localhost:5000](http://localhost:5000). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
+Feel free to create a branch and make a pull request if you would like to suggest any improvements! 
 
-By default, the server will only respond to requests from localhost. To allow connections from other computers, edit the `sirv` commands in package.json to include the option `--host 0.0.0.0`.
+<h2 href="#Contributors">Contributors</h2>
 
-If you're using [Visual Studio Code](https://code.visualstudio.com/) we recommend installing the official extension [Svelte for VS Code](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode). If you are using other editors you may need to install a plugin in order to get syntax highlighting and intellisense.
+Sylph is an open-source product developed through OSLabs. This project is maintained by the below group of dedicated engineers, but we openly welcome, encourage and appreciate any and all contributions.
 
-## Building and running in production mode
+<table align="center">
+  <tr>
+    <td valign="top"> <img src="https://media-exp1.licdn.com/dms/image/C4D03AQGA6GbnL7avug/profile-displayphoto-shrink_800_800/0/1631750855713?e=1639612800&v=beta&t=pbtoVQC0qc8Ap0n2dRDbj7qvyYN8fwVApYtQsZqu4Ks" width="250"/></td>
+    <td valign="top"> <img src="https://media-exp1.licdn.com/dms/image/C4D03AQFkBD1Q_j8AAw/profile-displayphoto-shrink_800_800/0/1563465185947?e=1639612800&v=beta&t=-8k7a0_FGR6M7eaQeMdNbfyLlD3DD0ETRNZSWAR5ipc" width="250"/></td>
+    <td valign="top"> <img src="https://media-exp1.licdn.com/dms/image/C4E03AQEKSfkLzET2Dw/profile-displayphoto-shrink_800_800/0/1629157163376?e=1639612800&v=beta&t=Dr92AuQHcyoSBWiZSq1LgPTqkqmCSGjnKrUfHcCIcmE" width="250"/></td>
+    <td valign="top"> <img src="https://media-exp1.licdn.com/dms/image/C4E03AQF499xOPl_xjQ/profile-displayphoto-shrink_800_800/0/1631916229559?e=1639612800&v=beta&t=lQ3b5BwuQETt64nYRZzq8SMzN3-c6wvPvIAFVDyD0wQ" width="250"/></td>
+  </tr>
+  <tr>
+      <td valign="top"><h2 align="center">Randy Diebold</h2></td>
+      <td valign="top"><h2 align="center">Kailee Pedersen</h2></td>
+      <td valign="top"><h2 align="center">Haobo Wang</h2></td>
+      <td valign="top"><h2 align="center">Nick Andreala</h2></td>
+  </tr>
+   <tr>
+      <td align="center"><a href="https://github.com/Randy-diebold" target="_blank" align="center"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+</svg></a></td>
+      <td align="center"><a href="https://github.com/kailee-p" target="_blank" align="center"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+</svg></a></td>
+      <td align="center"><a href="https://github.com/hwpanda" target="_blank" align="center"> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+</svg></a></td>
+      <td align="center"><a href="https://github.com/JovianDev" target="_blank" align="center"> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+</svg></a></td>
+  </tr>
+</table>
 
-To create an optimised version of the app:
+If you'd like to reach out with any feedback or just want to connect, feel free to contact us. 
 
-```bash
-npm run build
-```
+<h2 href="#License">License</h2>
 
-You can run the newly built app with `npm run start`. This uses [sirv](https://github.com/lukeed/sirv), which is included in your package.json's `dependencies` so that the app will work when you deploy to platforms like [Heroku](https://heroku.com).
+This product is licensed under the MIT License.
+
+This is an open source product.
+
+This product is accelerated by [OS Labs](https://opensourcelabs.io/).
+© 2021 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
 
 
-## Single-page app mode
 
-By default, sirv will only respond to requests that match files in `public`. This is to maximise compatibility with static fileservers, allowing you to deploy your app anywhere.
 
-If you're building a single-page app (SPA) with multiple routes, sirv needs to be able to respond to requests for *any* path. You can make it so by editing the `"start"` command in package.json:
 
-```js
-"start": "sirv public --single"
-```
 
-## Using TypeScript
-
-This template comes with a script to set up a TypeScript development environment, you can run it immediately after cloning the template with:
-
-```bash
-node scripts/setupTypeScript.js
-```
-
-Or remove the script via:
-
-```bash
-rm scripts/setupTypeScript.js
-```
-
-## Deploying to the web
-
-### With [Vercel](https://vercel.com)
-
-Install `vercel` if you haven't already:
-
-```bash
-npm install -g vercel
-```
-
-Then, from within your project folder:
-
-```bash
-cd public
-vercel deploy --name my-project
-```
-
-### With [surge](https://surge.sh/)
-
-Install `surge` if you haven't already:
-
-```bash
-npm install -g surge
-```
-
-Then, from within your project folder:
-
-```bash
-npm run build
-surge public my-project.surge.sh
-```
