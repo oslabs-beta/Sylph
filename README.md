@@ -82,6 +82,10 @@ npm run dev
 
 Feel free to create a branch and make a pull request if you would like to suggest any improvements! 
 
+## Known Issues
+
+- Reloading a project without restarting Sylph will *NOT* update the preview window. 
+
 <h2 href="#Contributors">Contributors</h2>
 
 Sylph is an open-source product developed through OSLabs. This project is maintained by the below group of dedicated engineers, but we openly welcome, encourage and appreciate any and all contributions.
