@@ -41,7 +41,7 @@
   }; //end of toString
 
   const idStylesToString = (node)=>{
-    return `${node.items.filter(child=>child.attributes.id && Object.entries(child.styles).length).map(child=>`#${child.attributes.id} {\n\t${Object.entries(child.styles).map(([key,value])=> `${key}: ${value}`).join(';\n\t')}\n  }`).join('\n\n')}\n\n${node.items.map(child=>idStylesToString(child)).join('')}`;
+    return`${!node.items ? '' : node.items.filter(child=>child.attributes.id && Object.entries(child.styles).length).map(child=>`#${child.attributes.id} {\n\t${Object.entries(child.styles).map(([key,value])=> `${key}: ${value}`).join(';\n\t')}\n  }`).join('\n\n')}\n\n${!node.items ? '' : node.items.map(child=>idStylesToString(child)).join('')}`;
   }
 
   $: styleToString = (node, globalStyles) => {

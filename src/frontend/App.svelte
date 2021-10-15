@@ -7,8 +7,8 @@
   // const pages = ["LandingPage", "SylphContainer"]
   let currentPage = 'LandingPage'
 
-  globalThis.api.app.receive('goToMain',()=> currentPage = 'LandingPage')
-  globalThis.api.app.receive('goToSlyph',()=> currentPage = 'SylphContainer')
+  globalThis.api.app.receive('goToMain', ()=> currentPage = 'LandingPage')
+  globalThis.api.app.receive('goToSylph', ()=> currentPage = 'SylphContainer')
 
 
   

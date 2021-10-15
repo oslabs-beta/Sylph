@@ -46,9 +46,10 @@ Navigate to [Sylph releases]('https://github.com/oslabs-beta/Sylph/releases') in
 </a> 
 
 * MacOS:
+  * **NOTE**: As of 10/14/21, Sylph is in beta and the Mac version can only be run from the command line. Please see below for more detailed instructions. 
   * Run the Sylph.dmg file.
   * Drag the Sylph app into your systems application folder.
-  * Double click to run the Sylph application file.
+  * Open your terminal and type `open -a Sylph`. Sylph should open soon after.
 
 * Windows:
   * Run the Sylph.exe file.
@@ -80,6 +81,10 @@ npm run dev
 ```
 
 Feel free to create a branch and make a pull request if you would like to suggest any improvements! 
+
+## Known Issues
+
+- Reloading a project without restarting Sylph will *NOT* update the preview window. 
 
 <h2 href="#Contributors">Contributors</h2>
 
