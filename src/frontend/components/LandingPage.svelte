@@ -46,7 +46,7 @@ import { nodeStore as nodes, globalClasses, globalStyles } from '../stores/store
     $globalStyles = project.state.globalStyles
     globalThis.api.project.send('updateProject')
     // get and update state then go to sylphContainer
-    globalThis.api.app.send('toSlyph')
+    globalThis.api.app.send('toSylph')
       // push('/new-project');
   })
   
@@ -68,13 +68,13 @@ import { nodeStore as nodes, globalClasses, globalStyles } from '../stores/store
     if (data === 'project installed') {
       globalThis.api.project.send('updateProject')
       // push('/new-project');
-      globalThis.api.app.send('toSlyph')
+      globalThis.api.app.send('toSylph')
     }
   });
 </script>
 
 {#if !loading}
-  <button on:click={()=>{localStorage.clear(); projects = JSON.parse(localStorage.getItem('Projects'))} }>clear localStorage</button>
+  <!-- <button on:click={()=>{localStorage.clear(); projects = JSON.parse(localStorage.getItem('Projects'))} }>clear localStorage</button> -->
   
   <section id="landing-container">
     <div id="landing-header">

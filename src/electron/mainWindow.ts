@@ -3,10 +3,10 @@ import path from 'path';
 import EventEmitter from 'events';
 import { toMain } from './IPC/App';
 
-const appName = 'Slyph';
+const appName = 'Sylph';
 
 const defaultSettings = {
-  title: 'Slyph',
+  title: 'Sylph',
   // width: 854,
   // height: 480,
   width: 1080,

@@ -10,7 +10,7 @@ const nameAPI = 'app';
 // to Main
 const validSendChannel: SendChannels = {
   openDialog,
-  toSlyph,
+  toSylph,
   toMain,
 };
 
@@ -18,7 +18,7 @@ const validSendChannel: SendChannels = {
 const validReceiveChannel: string[] = [
   'openDialogConfirmed',
   'goToMain',
-  'goToSlyph',
+  'goToSylph',
 ];
 
 const app = new IPC({
@@ -55,13 +55,13 @@ export function toMain() {
   sylphWindow.webContents.send('goToMain');
 }
 
-function toSlyph(
+function toSylph(
   mainWindow: BrowserWindow,
   event: Electron.IpcMainEvent,
   message: any
 ) {
   sylphWindow = mainWindow;
-  mainWindow.webContents.send('goToSlyph');
+  mainWindow.webContents.send('goToSylph');
 }
 
 export default app;
