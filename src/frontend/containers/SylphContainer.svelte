@@ -9,14 +9,42 @@
   import PortSnackbar from '../components/PortSnackbar.svelte';
   import ComponentCustomizer from '../components/ComponentCustomizer.svelte';
 
-  import { nodeStore as nodes } from '../stores/store';
+  import { nodeStore as nodes, globalClasses, globalStyles } from '../stores/store';
 
   import Directory from '../components/Directory.svelte';
   import PreviewEditorContainer from './PreviewEditorContainer.svelte';
 
+  import {components} from '../components/utilities/components';
+import { onDestroy } from 'svelte';
+
   //drawer functionality
   let open = false;
 
+  $: {globalThis.api.project.send('updateStoreFile', JSON.stringify(
+    {
+      nodes: $nodes,
+      globalStyles: $globalStyles, 
+      globalClasses: $globalClasses 
+    }
+    ))
+  }
+
+  onDestroy(()=>{
+    $nodes = {
+      node1: {
+        id: 'node1',
+        name: 'body',
+        items: [],
+      }
+    };
+    
+    $globalStyles = {
+      elementStyles: {},
+      classStyles: {},
+    };
+
+    $globalClasses = [];
+  })
   //redirect to landing page logic (for @Randy)
   let redirect = false;
   if (redirect === true) {
@@ -28,174 +56,7 @@
   let depth = 100;
 
   //all nodes in the component menu to drag into sandbox
-  let components = [
-    {
-      id: 'node_a',
-      name: 'a',
-      items: [],
-      attributes: {},
-      styles: {},
-      selected: false,
-    },
-    {
-      id: 'node_button',
-      name: 'button',
-      items: [],
-      attributes: {},
-      styles: {},
-      selected: false,
-    },
-    {
-      id: 'node_div',
-      name: 'div',
-      items: [],
-      attributes: {},
-      styles: {},
-      selected: false,
-    },
-    {
-      id: 'node_footer',
-      name: 'footer',
-      items: [],
-      attributes: {},
-      styles: {},
-      selected: false,
-    },
-    {
-      id: 'node_form',
-      name: 'form',
-      items: [],
-      attributes: {},
-      styles: {},
-      selected: false,
-    },
-    {
-      id: 'node_h1',
-      name: 'h1',
-      items: [],
-      attributes: {},
-      styles: {},
-      selected: false,
-    },
-    {
-      id: 'node_h2',
-      name: 'h2',
-      items: [],
-      attributes: {},
-      styles: {},
-      selected: false,
-    },
-    {
-      id: 'node_h3',
-      name: 'h3',
-      items: [],
-      attributes: {},
-      styles: {},
-      selected: false,
-    },
-    {
-      id: 'node_h4',
-      name: 'h4',
-      items: [],
-      attributes: {},
-      styles: {},
-      selected: false,
-    },
-    {
-      id: 'node_h5',
-      name: 'h5',
-      items: [],
-      attributes: {},
-      styles: {},
-      selected: false,
-    },
-    {
-      id: 'node_header',
-      name: 'header',
-      items: [],
-      attributes: {},
-      styles: {},
-      selected: false,
-    },
-    { id: 'node_hr', name: 'hr', attributes: {}, styles: {}, selected: false },
-    {
-      id: 'node_img',
-      name: 'img',
-      attributes: {},
-      styles: {},
-      selected: false,
-    },
-    {
-      id: 'node_input',
-      name: 'input',
-      attributes: {},
-      styles: {},
-      selected: false,
-    },
-    {
-      id: 'node_li',
-      name: 'li',
-      items: [],
-      attributes: {},
-      styles: {},
-      selected: false,
-    },
-    {
-      id: 'node_main',
-      name: 'main',
-      items: [],
-      attributes: {},
-      styles: {},
-      selected: false,
-    },
-    {
-      id: 'node_nav',
-      name: 'nav',
-      items: [],
-      attributes: {},
-      styles: {},
-      selected: false,
-    },
-    {
-      id: 'node_ol',
-      name: 'ol',
-      items: [],
-      attributes: {},
-      styles: {},
-      selected: false,
-    },
-    {
-      id: 'node_p',
-      name: 'p',
-      items: [],
-      attributes: {},
-      styles: {},
-      selected: false,
-    },
-    {
-      id: 'node_section',
-      name: 'section',
-      items: [],
-      attributes: {},
-      styles: {},
-      selected: false,
-    },
-    {
-      id: 'node_span',
-      name: 'span',
-      attributes: {},
-      styles: {},
-      selected: false,
-    },
-    {
-      id: 'node_ul',
-      name: 'ul',
-      items: [],
-      attributes: {},
-      styles: {},
-      selected: false,
-    },
-  ];
+  
 </script>
 
 <main>
@@ -226,8 +87,8 @@
             minTopPaneSize="50px"
             minDownPaneSize="50px"
           >
-            <top slot="top">
-              <div class="pane-header">
+            <top slot="top" style="display: flex; flex-direction:column;">
+              <div class="pane-header" >
                 <p>SANDBOX</p>
               </div>
               <Sandbox node={$nodes.node1} bind:nodes={$nodes} bind:depth />
@@ -236,8 +97,8 @@
                   <Label>Components</Label>
                 </Button>
               </div>
-              <h3>Sandbox</h3>
-              <Sandbox node={$nodes.node1} bind:nodes={$nodes} bind:depth />
+              <!-- <h3>Sandbox</h3>
+              <Sandbox node={$nodes.node1} bind:nodes={$nodes} bind:depth /> -->
             </top>
             <down slot="down">
               <PreviewEditorContainer />

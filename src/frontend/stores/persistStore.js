@@ -12,3 +12,5 @@ export const persistStore = (key, initial) => {
   });
   return store;
 };
+
+const projectStore = (initial) => {};
