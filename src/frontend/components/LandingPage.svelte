@@ -107,10 +107,18 @@ import { nodeStore as nodes, globalClasses, globalStyles } from '../stores/store
             <!-- renders dropdown of saved projects from array -->
             <div id="saved-projects">
             {#if savedProjectArr?.length > 0 }
-              <Select bind:selectedSavedProject label="Saved Project">
+              <Select 
+                bind:selectedSavedProject 
+                label="Saved Project"
+              >
                 <Option selectedSavedProject="" />
                 {#each savedProjectArr as savedProject}
-                  <Option  value={savedProject} on:click={()=>selectedSavedProject = savedProject}>{savedProject.slice(savedProject.lastIndexOf(`\\`)+1)}</Option>
+                  <Option 
+                    value={savedProject} 
+                    on:click={()=>selectedSavedProject = savedProject}
+                  >
+                    {savedProject.slice(savedProject.lastIndexOf(`/`) + 1)}
+                  </Option>
                 {/each}
               </Select>
             {:else}
