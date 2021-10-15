@@ -117,7 +117,7 @@ import { nodeStore as nodes, globalClasses, globalStyles } from '../stores/store
                     value={savedProject} 
                     on:click={()=>selectedSavedProject = savedProject}
                   >
-                  {savedProject.slice(savedProject.lastIndexOf(`/`) + 1).length > savedProject.slice(savedProject.lastIndexOf(`\\`) + 1).length ? savedProject.slice(savedProject.lastIndexOf(`/`) + 1) : savedProject.slice(savedProject.lastIndexOf(`\\`) + 1)}
+                  {savedProject.slice(savedProject.lastIndexOf(`/`) + 1).length < savedProject.slice(savedProject.lastIndexOf(`\\`) + 1).length ? savedProject.slice(savedProject.lastIndexOf(`/`) + 1) : savedProject.slice(savedProject.lastIndexOf(`\\`) + 1)}
                   </Option>
                 {/each}
               </Select>
